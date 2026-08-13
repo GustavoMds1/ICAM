@@ -13,6 +13,7 @@
 import { abrirBanco, aplicarMigracoes } from '../src/servidor/bd';
 import { RepositorioPostgres } from '../src/servidor/repositorioPostgres';
 import { ServicoAutenticacao } from '../src/servidor/autenticacao';
+import { PAPEIS_GLOBAIS, type PapelGlobal } from '../src/domain/enumeracoes';
 import { criarCasoAnonimizado, ORGANIZACAO_FIXTURE } from '../src/fixtures/casoAnonimizado';
 import { conferirCatalogo } from '../src/domain/taxonomia/catalogo';
 import { verificarQualidade } from '../src/domain/qualidade/verificar';
@@ -71,6 +72,67 @@ async function principal(): Promise<void> {
     console.log('  A troca de senha é obrigatória no primeiro acesso.');
   } else {
     console.log(`\nUsuário administrador não criado: ${criacao.problemas.join(' ')}`);
+  }
+
+  // --- Equipe ------------------------------------------------------------
+  // Hospedagem sem terminal (plano gratuito do Render, por exemplo) não
+  // permite rodar comando para abrir conta. A equipe vem de USUARIOS_INICIAIS,
+  // uma pessoa por linha:
+  //
+  //   maria@empresa.com | Maria Silva | investigador
+  //   joao@empresa.com  | João Souza  | aprovador | sensivel
+  //
+  // Papel é opcional (padrão investigador). `sensivel` só para quem precisa
+  // ver nome, matrícula e dados de saúde. Rodar de novo não duplica ninguém.
+  const listaEquipe = (process.env.USUARIOS_INICIAIS ?? '').trim();
+  if (listaEquipe) {
+    console.log('\n--- Equipe ---');
+    let criados = 0;
+
+    for (const linha of listaEquipe.split(/[\n;]+/)) {
+      const bruto = linha.trim();
+      if (!bruto || bruto.startsWith('#')) continue;
+
+      const [email, nome, papel, marcador] = bruto.split('|').map((p) => p.trim());
+      if (!email || !nome) {
+        console.log(`  ignorado (falta e-mail ou nome): ${bruto}`);
+        continue;
+      }
+
+      const papelEscolhido = (papel || 'investigador') as PapelGlobal;
+      if (!PAPEIS_GLOBAIS.includes(papelEscolhido)) {
+        console.log(
+          `  ignorado (papel "${papel}" não existe): ${email}` +
+            `\n      papéis válidos: ${PAPEIS_GLOBAIS.join(', ')}`,
+        );
+        continue;
+      }
+
+      const senha = gerarSenhaInicial();
+      const resultado = await auth.criarUsuario({
+        organizacaoId,
+        nome,
+        email,
+        senha,
+        papelGlobal: papelEscolhido,
+        podeVerCamposSensiveis: (marcador ?? '').toLowerCase() === 'sensivel',
+      });
+
+      if (resultado.ok) {
+        criados += 1;
+        console.log(`  criado: ${email} (${papelEscolhido}) — senha provisória: ${senha}`);
+      } else {
+        console.log(`  ${email}: ${resultado.problemas.join(' ')}`);
+      }
+    }
+
+    if (criados > 0) {
+      console.log(
+        '\n  Entregue cada senha por canal separado (pessoalmente ou por telefone),\n' +
+          '  nunca no mesmo e-mail que leva o endereço da plataforma.\n' +
+          '  A troca de senha é obrigatória no primeiro acesso.',
+      );
+    }
   }
 
   // --- Caso de demonstração ---------------------------------------------

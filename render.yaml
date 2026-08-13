@@ -1,40 +1,73 @@
 # ---------------------------------------------------------------------------
-# Infraestrutura como código para o Render.
+# Infraestrutura como código para o Render — instância GRATUITA.
 #
-# Cria o serviço web e o banco PostgreSQL gerenciado, com a URL de conexão
-# injetada automaticamente. Os segredos marcados como `sync: false` são
-# preenchidos por você no painel e NUNCA ficam no repositório.
+# O banco NÃO fica no Render: o PostgreSQL gratuito de lá expira 30 dias após
+# a criação. O banco fica no Neon (gratuito e permanente), e a URL de conexão
+# é colada em DATABASE_URL no painel.
+#
+# Limitações assumidas do plano gratuito, todas contornadas aqui:
+#   - preDeployCommand não existe no plano gratuito. As migrações e a criação
+#     dos usuários foram para o buildCommand, que roda antes do servidor subir.
+#   - Não há Shell nem tarefas avulsas. Tudo que precisaria de terminal é feito
+#     por variável de ambiente (ADMIN_* e USUARIOS_INICIAIS).
+#   - O serviço hiberna após 15 min sem acesso e leva ~1 min para acordar.
+#
+# Os segredos marcados `sync: false` são preenchidos por você no painel e
+# NUNCA ficam no repositório.
 # ---------------------------------------------------------------------------
-databases:
-  - name: icam-postgres
-    databaseName: icam
-    user: icam
-    plan: basic-256mb          # ajuste conforme o volume
-    postgresMajorVersion: "16"
-    ipAllowList: []            # acesso somente pela rede interna do Render
-
 services:
   - type: web
     name: icam
     runtime: node
-    plan: starter
-    region: oregon
+    plan: free
+    # Virgínia é a região do Render com menor latência para o Brasil.
+    # Crie o banco no Neon em AWS US East (N. Virginia) para casar as duas.
+    region: virginia
     branch: main
-    buildCommand: npm ci && npx tsx scripts/validar-taxonomia.ts && npm run build
-    # As migrações rodam a cada implantação, antes de o servidor subir.
-    preDeployCommand: npx tsx scripts/migrar.ts
+
+    # `--include=dev` é obrigatório: com NODE_ENV=production o npm omite as
+    # devDependencies, e sem tailwindcss e tsx o build falha.
+    #
+    # A ordem importa: valida o catálogo, compila e só então toca no banco.
+    # Se a migração falhar, a implantação é abortada e a versão anterior
+    # continua no ar.
+    buildCommand: >-
+      npm ci --include=dev &&
+      npx tsx scripts/validar-taxonomia.ts &&
+      npm run build &&
+      npx tsx scripts/semear.ts --sem-demonstracao
     startCommand: npm start
+
     healthCheckPath: /api/saude
     autoDeploy: true
+
     envVars:
       - key: NODE_ENV
         value: production
+
+      # URL de conexão do Neon. Use a opção "Pooled connection" do painel do
+      # Neon e mantenha o `?sslmode=require` no fim.
       - key: DATABASE_URL
-        fromDatabase:
-          name: icam-postgres
-          property: connectionString
+        sync: false
+
+      # Gerado pelo Render. Não defina à mão nem copie de outro ambiente.
       - key: SESSAO_SEGREDO
-        generateValue: true      # o Render gera um valor aleatório forte
+        generateValue: true
+
+      # Primeiro administrador, criado durante o build.
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_SENHA
+        sync: false
+
+      # Equipe, uma pessoa por linha:
+      #   email | Nome da Pessoa | papel | sensivel
+      # Papéis: administrador, gestor, investigador, revisor, aprovador, leitor.
+      # O papel é opcional (padrão investigador) e `sensivel` só para quem
+      # precisa ver nome, matrícula e dados de saúde.
+      - key: USUARIOS_INICIAIS
+        sync: false
+
       - key: PROVEDOR_IA
         value: deterministico
       - key: IA_ENVIO_EXTERNO_AUTORIZADO
@@ -42,8 +75,4 @@ services:
       - key: IA_RESIDENCIA_DADOS
         value: nao_definida
       - key: ANTHROPIC_API_KEY
-        sync: false              # preencha no painel, se for usar o modelo externo
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_SENHA
         sync: false

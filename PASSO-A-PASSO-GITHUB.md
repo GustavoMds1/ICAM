@@ -1,5 +1,12 @@
 # Passo a passo — publicar no GitHub
 
+> **Já está publicado:** <https://github.com/GustavoMds1/ICAM>
+>
+> Para enviar uma atualização, é só dar duplo clique em `PUBLICAR-NO-GITHUB.bat` de novo e informar
+> o mesmo usuário. Ele reconhece que o repositório já existe, pula a criação e manda só o que mudou.
+>
+> O restante deste documento vale para uma publicação nova, ou se algo der errado.
+
 Destino: repositório **privado** chamado **ICAM**, na sua conta.
 
 O que já está pronto na sua pasta:

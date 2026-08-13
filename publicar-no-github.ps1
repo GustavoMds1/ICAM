@@ -190,7 +190,15 @@ Passo 'Criando o repositorio no GitHub'
 # ---------------------------------------------------------------------------
 $url = "https://github.com/$Usuario/$Repositorio.git"
 
-if ($RepositorioJaExiste) {
+# Se um envio anterior ja funcionou, o repositorio existe e a origem esta
+# gravada nesta pasta. Nao ha nada a criar: seguimos direto para o envio, sem
+# abrir navegador nem incomodar quem so quer mandar uma atualizacao.
+$origemGravada = (git remote get-url origin 2>$null)
+$origemJaConfigurada = ($LASTEXITCODE -eq 0) -and ($origemGravada -ne $null) -and ($origemGravada.Trim() -eq $url)
+
+if ($origemJaConfigurada) {
+    Ok 'repositorio ja publicado antes; enviando apenas as novidades'
+} elseif ($RepositorioJaExiste) {
     Ok 'etapa pulada a pedido (-RepositorioJaExiste)'
 } elseif (Get-Command gh -ErrorAction SilentlyContinue) {
     gh repo view "$Usuario/$Repositorio" > $null 2>&1

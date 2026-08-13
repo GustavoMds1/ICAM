@@ -1,10 +1,28 @@
 # Publicar na Web — guia passo a passo
 
-Guia para colocar a plataforma no ar no **Render**, com PostgreSQL gerenciado, login por usuário e
-HTTPS. Tempo estimado: 30 a 45 minutos na primeira vez.
+Guia para colocar a plataforma no ar **sem custo mensal**, com login por usuário e HTTPS:
+
+- **Neon** guarda o banco de dados — PostgreSQL gratuito e permanente
+- **Render** roda a aplicação — plano Hobby, gratuito
+
+Tempo estimado: 30 a 40 minutos na primeira vez.
 
 **Leia antes a seção final, "O que ainda falta antes de dados sensíveis".** Ela não é formalidade:
 descreve o que a plataforma ainda não protege.
+
+---
+
+## Por que o banco fica fora do Render
+
+O Render tem PostgreSQL gratuito, mas ele **expira 30 dias depois de criado** e é apagado 14 dias
+depois disso. Serve para experimentar, não para guardar investigações. O banco pago mais barato
+custa US$ 6 por mês.
+
+O Neon dá PostgreSQL gratuito sem prazo: 0,5 GB de dados, que para investigações em texto é muito.
+Ele hiberna após 5 minutos parado e acorda em milissegundos — você não percebe.
+
+O plano **Pro do Render, de US$ 25/mês, não é necessário**. Ele só acrescenta relatórios de
+conformidade, registro de auditoria da conta e mais banda. O plano Hobby publica normalmente.
 
 ---
 
@@ -20,137 +38,116 @@ descreve o que a plataforma ainda não protege.
 | PostgreSQL com migrações versionadas | Implementado e verificado contra PostgreSQL real |
 | Isolamento por organização no banco | Implementado e verificado |
 | Auditoria append-only garantida pelo banco | Implementado — o PostgreSQL recusa UPDATE e DELETE |
-| Imagem Docker e configuração do Render | Prontas |
+| Configuração do Render para o plano gratuito | Pronta, com build e migração verificados |
 | HTTPS | Fornecido pelo Render, automático |
 
 ---
 
-## Passo 1 — Colocar o código em um repositório Git
+## Passo 1 — Colocar o código no GitHub
 
-O Render implanta a partir do Git. Se você ainda não usa Git:
-
-1. Crie uma conta em <https://github.com> (o plano gratuito basta).
-2. Crie um repositório **privado** chamado `icam`.
-
-   Privado não é detalhe: mesmo sem dados reais, o repositório contém a estrutura de segurança da
-   plataforma.
-
-3. No terminal, dentro da pasta do projeto:
-
-```powershell
-cd "C:\Users\gusta\OneDrive\Documentos\ICAM"
-git init
-git add .
-git commit -m "Plataforma de investigação ICAM"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/icam.git
-git push -u origin main
-```
-
-O `.gitignore` já exclui `node_modules`, `.env` e os dados locais. **Confirme que o `.env` não foi
-enviado** — ele contém segredos:
-
-```powershell
-git ls-files | Select-String "^\.env$"
-```
-
-Se não retornar nada, está correto.
+Se ainda não fez: abra **`PASSO-A-PASSO-GITHUB.md`** e siga até o fim. São dois cliques e o
+preenchimento do seu usuário. Volte aqui com o endereço do repositório na mão.
 
 ---
 
-## Passo 2 — Criar a conta e o serviço no Render
+## Passo 2 — Criar o banco no Neon
 
-1. Crie a conta em <https://render.com> e conecte-a ao GitHub.
+1. Abra <https://console.neon.tech/signup> e entre com a conta do GitHub (evita criar outra senha).
+2. Em **Create project**:
+   - **Project name:** `icam`
+   - **Postgres version:** 16 ou superior
+   - **Region:** **AWS US East (N. Virginia)** — é a mais próxima do Brasil e casa com a região que
+     vamos usar no Render
+3. Clique em **Create project**.
+4. A tela seguinte mostra a **connection string**. Marque a opção **Pooled connection** e copie o
+   texto inteiro. Ele se parece com:
+
+   ```
+   postgresql://icam_owner:SENHA@ep-nome-123-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+   ```
+
+   **Guarde em lugar seguro.** Essa linha é a chave do banco: quem a tem, lê tudo. Não a coloque em
+   e-mail, em documento compartilhado nem no repositório.
+
+> Se fechar a tela sem copiar: no painel do projeto, **Connect** → **Connection string** →
+> **Pooled connection**.
+
+---
+
+## Passo 3 — Criar o serviço no Render
+
+1. Crie a conta em <https://render.com> e conecte-a ao GitHub. Fique no plano **Hobby** (gratuito) —
+   não aceite oferta de upgrade.
 2. No painel: **New → Blueprint**.
-3. Selecione o repositório `icam`. O Render lê o `render.yaml` e propõe criar dois recursos:
-   - `icam-postgres` — banco PostgreSQL 16 gerenciado;
-   - `icam` — o serviço web.
-4. Antes de confirmar, preencha as variáveis marcadas para preenchimento manual:
+3. Selecione o repositório `ICAM`. O Render lê o `render.yaml` e propõe criar o serviço web `icam`.
+4. Ele vai pedir os valores marcados para preenchimento manual:
 
 | Variável | O que colocar |
 | --- | --- |
-| `ADMIN_EMAIL` | Seu e-mail, que será o primeiro administrador |
-| `ADMIN_SENHA` | Uma senha forte e provisória, com no mínimo 12 caracteres. Você a trocará no primeiro acesso |
-| `ANTHROPIC_API_KEY` | Deixe vazio por ora — o modo determinístico não precisa dela |
+| `DATABASE_URL` | A connection string do Neon, colada inteira, do Passo 2 |
+| `ADMIN_EMAIL` | Seu e-mail — será o primeiro administrador |
+| `ADMIN_SENHA` | Senha provisória forte, no mínimo 12 caracteres. Você troca no primeiro acesso |
+| `USUARIOS_INICIAIS` | A equipe, uma pessoa por linha (formato abaixo). Pode deixar vazio e preencher depois |
+| `ANTHROPIC_API_KEY` | Deixe vazio — o modo determinístico não usa |
 
-`SESSAO_SEGREDO` é gerado automaticamente pelo Render (`generateValue: true`). Não defina esse
-valor à mão nem o copie de outro ambiente.
+   `SESSAO_SEGREDO` é gerado pelo próprio Render. Não preencha à mão nem copie de outro ambiente.
 
 5. Confirme. A primeira implantação leva de 5 a 10 minutos.
 
-### Custos
+Durante o build, nesta ordem: instala as dependências, confere o catálogo ICAM, compila, aplica as
+migrações e cria os usuários. **Se a migração falhar, a implantação é abortada** — não sobe
+aplicação contra banco inconsistente.
 
-O plano `starter` do serviço web e o `basic-256mb` do banco ficam na faixa de poucos dólares
-mensais. O plano gratuito do Render hiberna após inatividade e **perde o banco depois de 90 dias** —
-não serve para uso real. Confira os valores atuais em <https://render.com/pricing>.
+### O formato de `USUARIOS_INICIAIS`
 
----
+Uma pessoa por linha:
 
-## Passo 3 — Preparar o banco no primeiro acesso
-
-As migrações rodam sozinhas a cada implantação (`preDeployCommand`). Falta criar a organização e o
-seu usuário administrador.
-
-No painel do Render, abra o serviço `icam` → aba **Shell**:
-
-```bash
-# Cria a organização e o usuário administrador. Sem o caso fictício.
-npx tsx scripts/semear.ts --sem-demonstracao
+```
+maria@empresa.com | Maria Silva | investigador
+joao@empresa.com | João Souza | aprovador
+carla@empresa.com | Carla Nunes | gestor | sensivel
 ```
 
-A saída mostra o e-mail e confirma a criação. Se você definiu `ADMIN_SENHA`, use essa senha; se
-deixou em branco, o comando gera uma e **a exibe uma única vez** — anote na hora.
+O papel é opcional — sem ele, a pessoa entra como `investigador`. A palavra `sensivel` no fim é o
+que libera ver nome, matrícula e dados de saúde; use com parcimônia.
 
-Para conhecer a ferramenta com o caso fictício antes de usar para valer, rode sem o parâmetro:
+As senhas provisórias são geradas e aparecem **uma única vez** no registro do build:
+painel → serviço `icam` → aba **Logs** → procure por `--- Equipe ---`. Anote e entregue cada uma
+pessoalmente ou por telefone, nunca no mesmo e-mail que leva o endereço da plataforma.
 
-```bash
-npx tsx scripts/semear.ts
-```
-
-Depois remova o caso de demonstração antes do uso real:
-
-```bash
-npx tsx -e "import('./src/servidor/bd.js').then(async m => { const b = await m.abrirBanco(); await b.consultar(\"DELETE FROM investigacoes WHERE id = 'inv-2026-0001'\"); await b.encerrar(); })"
-```
+Para acrescentar gente depois: painel → **Environment** → editar `USUARIOS_INICIAIS` → **Save**.
+Isso dispara nova implantação e cria só quem ainda não existe.
 
 ---
 
 ## Passo 4 — Primeiro acesso
 
 1. Abra a URL do serviço (algo como `https://icam.onrender.com`).
+
+   **A primeira abertura demora cerca de 1 minuto.** É a hibernação do plano gratuito, explicada
+   mais abaixo. O navegador mostra uma tela de carregamento do Render enquanto isso.
+
 2. Você cai direto na tela de **Entrar** — nenhuma página é acessível sem sessão.
-3. Entre com o e-mail e a senha do administrador.
-4. O sistema **obriga a trocar a senha** antes de qualquer outra ação. A troca encerra todas as
-   sessões abertas, inclusive a que você acabou de abrir: é esperado ter de entrar de novo.
+3. Entre com o e-mail e a senha de administrador que você definiu.
+4. O sistema **obriga a trocar a senha**. A troca encerra todas as sessões abertas, inclusive a que
+   você acabou de abrir: é esperado ter de entrar de novo.
 
 ---
 
-## Passo 5 — Criar os usuários da equipe
+## Passo 5 — Conferir que está tudo certo
 
-Ainda não existe tela de administração de usuários (está no backlog P1). Por ora, crie cada conta
-pelo Shell do Render:
+| Verificação | Como fazer | Esperado |
+| --- | --- | --- |
+| Saúde | Abra `https://sua-url/api/saude` | `{"estado":"ok"}` |
+| Proteção das rotas | Abra a URL raiz em uma janela anônima | Redireciona para `/entrar` |
+| Bloqueio por tentativa | Erre a senha 5 vezes | Mensagem de excesso de tentativas |
+| Auditoria | Menu **Auditoria** | "Cadeia íntegra" com os registros do seu acesso |
+| Catálogo | Menu **Catálogo ICAM** | 101 códigos, 99 com definição importada |
+| Equipe | Peça a uma pessoa que entre com a senha provisória | Cai na troca de senha obrigatória |
 
-```bash
-npx tsx -e "
-import('./src/servidor/bd.js').then(async (m) => {
-  const bd = await m.abrirBanco();
-  const { ServicoAutenticacao } = await import('./src/servidor/autenticacao.js');
-  const auth = new ServicoAutenticacao(bd);
-  const r = await auth.criarUsuario({
-    organizacaoId: 'org-demo',
-    nome: 'Nome da Pessoa',
-    email: 'pessoa@empresa.com',
-    senha: 'senha provisoria com quatro palavras',
-    papelGlobal: 'investigador',
-    podeVerCamposSensiveis: false,
-  });
-  console.log(r);
-  await bd.encerrar();
-});
-"
-```
+---
 
-### Papéis disponíveis
+## Papéis disponíveis
 
 | Papel | O que pode fazer |
 | --- | --- |
@@ -161,25 +158,28 @@ import('./src/servidor/bd.js').then(async (m) => {
 | `aprovador` | Ler tudo, aprovar recomendações e publicar relatório |
 | `leitor` | Somente leitura |
 
-`podeVerCamposSensiveis` controla o acesso a nome, matrícula e dados de saúde, fadiga e substâncias.
-Deixe `false` por padrão — o relatório executivo usa função e pseudônimo. Conceda apenas a quem
-precisa, e saiba que cada acesso fica registrado na trilha de auditoria.
-
-Ao criar a conta, entregue a senha provisória por um canal separado (pessoalmente ou por telefone,
-não por e-mail junto com o link). A troca no primeiro acesso é obrigatória.
+`sensivel` (o `podeVerCamposSensiveis`) controla o acesso a nome, matrícula e dados de saúde, fadiga
+e substâncias. Deixe de fora por padrão — o relatório executivo usa função e pseudônimo. Cada acesso
+a campo sensível fica registrado na trilha de auditoria.
 
 ---
 
-## Passo 6 — Conferir que está tudo certo
+## O que esperar do plano gratuito
 
-| Verificação | Como fazer | Esperado |
-| --- | --- | --- |
-| Saúde | Abra `https://sua-url/api/saude` | `{"estado":"ok"}` |
-| Proteção das rotas | Abra a URL raiz em uma janela anônima | Redireciona para `/entrar` |
-| Bloqueio por tentativa | Erre a senha 5 vezes | Mensagem de excesso de tentativas |
-| Isolamento | Peça a URL de uma investigação a um colega de outra organização | Página não encontrada |
-| Auditoria | Menu **Auditoria** | "Cadeia íntegra" com os registros do seu acesso |
-| Catálogo | Menu **Catálogo ICAM** | 101 códigos, 99 com definição importada |
+| Comportamento | O que significa na prática |
+| --- | --- |
+| **Hiberna após 15 min sem acesso** | O primeiro acesso depois de um tempo parado leva ~1 minuto. Os seguintes são normais |
+| **750 horas de máquina por mês** | Suficiente para um único serviço ligado o mês inteiro. Não crie um segundo serviço gratuito |
+| **5 GB de tráfego por mês** | Muito acima do uso de uma equipe pequena com texto |
+| **Sem terminal e sem disco** | Por isso migração e criação de usuários passaram para variáveis de ambiente |
+| **Pode reiniciar sozinho** | Sem aviso. Como o estado está todo no banco, nada se perde |
+| **Neon: 0,5 GB e 100 h de banco ativo/mês** | O banco só conta tempo quando consultado. Uso em horário comercial cabe com folga |
+
+Se a espera de 1 minuto incomodar na hora de mostrar para alguém, abra a URL cinco minutos antes —
+depois disso ela responde na hora.
+
+**Não use um serviço de "ping" 24 horas para evitar a hibernação.** Ele mantém o banco do Neon
+acordado o tempo todo e estoura as 100 horas mensais, o que derruba o banco até o mês seguinte.
 
 ---
 
@@ -187,31 +187,41 @@ não por e-mail junto com o link). A troca no primeiro acesso é obrigatória.
 
 ### Backup
 
-O Render faz backup automático do PostgreSQL nos planos pagos. **Teste a restauração antes de
-confiar nela** — backup não verificado não é backup. No painel: banco → *Backups* → *Restore*, para
-uma instância separada.
+O Neon guarda um histórico curto de restauração no plano gratuito. Para um backup de verdade, o
+caminho mais simples é criar um **branch** no painel do Neon: é uma cópia instantânea do banco
+naquele instante, e o plano gratuito permite 10.
 
-Backup manual:
+Painel do Neon → **Branches** → **Create branch** → nome `backup-2026-08-13`.
+
+Faça isso antes de qualquer mudança grande e no fim de cada investigação encerrada. Um branch não
+protege contra a conta do Neon ser perdida — para isso, exporte com `pg_dump` de um computador que
+tenha o cliente do PostgreSQL instalado:
 
 ```bash
-pg_dump "$DATABASE_URL" > icam-$(date +%Y%m%d).sql
+pg_dump "SUA_DATABASE_URL" > icam-2026-08-13.sql
 ```
 
 ### Rotação do segredo de sessão
 
 Trocar `SESSAO_SEGREDO` invalida todas as sessões — todos precisam entrar de novo. Faça isso se
-suspeitar de exposição do valor. No painel: serviço → *Environment* → editar → *Save*, o que dispara
-nova implantação.
+suspeitar de exposição. Painel do Render → serviço → **Environment** → editar → **Save**, o que
+dispara nova implantação.
 
 ### Ver os registros
 
-Painel → serviço `icam` → aba **Logs**. Tentativas de login ficam na tabela `tentativas_login`, e as
-ações na `auditoria` — ambas consultáveis pelo Shell.
+Painel do Render → serviço `icam` → aba **Logs**. É onde aparecem as senhas provisórias geradas no
+build e os erros de execução.
 
 ### Atualizar a aplicação
 
-`git push` na branch `main` dispara a implantação. As migrações rodam antes de o servidor subir; se
-uma falhar, a implantação é abortada e a versão anterior continua no ar.
+`git push` na `main` dispara a implantação. As migrações rodam no build, antes de o servidor subir;
+se uma falhar, a implantação é abortada e a versão anterior continua no ar.
+
+### Carregar o caso de demonstração
+
+Para conhecer a ferramenta com um caso fictício antes de usar para valer, tire o
+`--sem-demonstracao` do `buildCommand` no `render.yaml`, faça o push, e depois recoloque. O caso
+fica marcado como demonstração na trilha de auditoria — nunca o confunda com investigação real.
 
 ---
 
@@ -224,7 +234,7 @@ da Anthropic:
 npm install @anthropic-ai/sdk   # e faça commit da alteração
 ```
 
-E no painel do Render, em *Environment*:
+E no painel do Render, em **Environment**:
 
 ```
 PROVEDOR_IA=anthropic
@@ -248,11 +258,16 @@ Estes pontos continuam abertos. Estão em ordem de risco.
 | --- | --- | --- |
 | **Upload de arquivo com antivírus e validação de tipo** | Ainda não há upload: evidências são registradas por referência, sem o arquivo | Guarde os arquivos no repositório documental atual e registre o localizador na plataforma |
 | **MFA / SSO** | Uma senha comprometida dá acesso completo ao perfil | Senhas longas e únicas; papéis restritivos; revisar `tentativas_login` |
-| **Criptografia de campo para dado sensível** | O banco é criptografado em repouso pelo Render, mas os campos não têm cifra própria | Mantenha `podeVerCamposSensiveis` em `false` e use pseudônimos |
-| **Tela de administração de usuários** | Criar e desativar contas exige o Shell | Use os comandos do Passo 5 |
+| **Criptografia de campo para dado sensível** | O banco é criptografado em repouso pelo Neon, mas os campos não têm cifra própria | Mantenha `sensivel` desligado por padrão e use pseudônimos |
+| **Tela de administração de usuários** | Criar e desativar contas depende de variável de ambiente e nova implantação | Use `USUARIOS_INICIAIS` do Passo 3 |
 | **Retenção e descarte automáticos** | Nada expira sozinho | Defina o prazo em política escrita e execute manualmente |
 | **Avaliação de impacto (LGPD)** | Obrigação legal para tratamento de dado pessoal em escala | Envolva o encarregado de dados antes do uso amplo |
 | **Auditoria WCAG com leitor de tela** | Acessibilidade aplicada por construção, mas não auditada | Verificar antes de exigir uso por toda a equipe |
+
+Some-se a isto que **plano gratuito não tem compromisso de disponibilidade**: nem o Render nem o
+Neon garantem nada, e ambos podem mudar os limites. Para investigação que a empresa precise
+consultar daqui a cinco anos, planeje a saída desde já — o backup do Neon é o que garante que os
+dados não dependem de nenhum dos dois.
 
 **Recomendação honesta:** comece com uma investigação real de baixa sensibilidade, com 2 ou 3
 pessoas, e mantenha o registro paralelo atual por um ciclo. Isso valida o método e a ferramenta sem
@@ -260,14 +275,13 @@ apostar um caso crítico numa plataforma recém-publicada.
 
 ---
 
-## Alternativas de hospedagem
+## Se precisar sair do gratuito depois
 
-| Opção | Quando faz sentido | Ressalva |
+| Situação | O que fazer | Custo aproximado |
 | --- | --- | --- |
-| **Render** (este guia) | Time pequeno, sem infraestrutura própria | Dados fora da empresa; verifique a política interna |
-| **Railway / Fly.io** | Semelhante ao Render | O `Dockerfile` serve nos dois; o `render.yaml` é específico |
-| **Servidor da empresa** | Exigência de manter os dados internos | Precisa de PostgreSQL, HTTPS com certificado e backup próprios. Use o `Dockerfile` e defina `DATABASE_URL`, `SESSAO_SEGREDO` e `NODE_ENV=production` |
-| **Vercel** | Não recomendado aqui | Funciona com PostgreSQL externo, mas o `preDeployCommand` de migração exige montagem manual |
+| A espera de 1 minuto virou problema | Instância `starter` no Render, sem hibernação | US$ 7/mês |
+| O banco passou de 0,5 GB | Plano pago do Neon, ou Postgres do Render | a partir de US$ 5 a 6/mês |
+| A empresa exigiu dados internos | `Dockerfile` em servidor próprio, com PostgreSQL da casa | Sem mensalidade, exige quem administre |
 
 Para servidor próprio com Docker:
 
@@ -282,5 +296,5 @@ docker exec icam npx tsx scripts/migrar.ts
 docker exec icam npx tsx scripts/semear.ts --sem-demonstracao
 ```
 
-Coloque um proxy reverso com HTTPS na frente (nginx, Caddy ou Traefik). **Não exponha a porta 3000
-diretamente**: o cookie de sessão só é marcado como `secure` sob HTTPS.
+O `Dockerfile` também serve em Railway, Fly.io e Koyeb sem alteração. Só o `render.yaml` é
+específico do Render.
