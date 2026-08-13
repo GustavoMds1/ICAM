@@ -1,0 +1,1089 @@
+// ---------------------------------------------------------------------------
+// Modelo de dados — plataforma de investigação ICAM
+//
+// Portabilidade: o mesmo schema atende SQLite (desenvolvimento, sem
+// dependências externas) e PostgreSQL (produção). Por isso não são usados
+// enums nativos, arrays nem colunas Json: os conjuntos fechados vivem em
+// `src/domain/enumeracoes.ts` e são validados por Zod na fronteira de escrita,
+// e as estruturas livres são serializadas como texto JSON. A troca de banco é
+// feita apenas por variável de ambiente, sem reescrita de modelos.
+//
+// Convenções obrigatórias:
+//   - `excluidoEm`  -> exclusão lógica (nenhum registro crítico é apagado);
+//   - `versao`      -> versionamento otimista e histórico;
+//   - `organizacaoId` -> chave de isolamento multi-organização (RLS na app);
+//   - registros críticos (evidência, custódia, auditoria, execução de IA)
+//     são append-only: correções entram como novo registro, nunca sobrescrita.
+// ---------------------------------------------------------------------------
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DATABASE_PROVIDER")
+  url      = env("DATABASE_URL")
+}
+
+// ===========================================================================
+// 1. Organização, identidade e autorização
+// ===========================================================================
+
+model Organizacao {
+  id        String    @id @default(uuid())
+  nome      String
+  cnpj      String?
+  ativo     Boolean   @default(true)
+  criadoEm  DateTime  @default(now())
+  excluidoEm DateTime?
+
+  unidades       Unidade[]
+  usuarios       Usuario[]
+  investigacoes  Investigacao[]
+  codigosIcam    CodigoIcam[]
+  auditoria      RegistroAuditoria[]
+
+  @@index([excluidoEm])
+}
+
+model Unidade {
+  id             String   @id @default(uuid())
+  organizacaoId  String
+  nome           String
+  tipo           String // mina | planta | oficina | escritorio | outro
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  organizacao   Organizacao    @relation(fields: [organizacaoId], references: [id])
+  investigacoes Investigacao[]
+
+  @@index([organizacaoId])
+}
+
+model Usuario {
+  id            String   @id @default(uuid())
+  organizacaoId String
+  nome          String
+  email         String
+  senhaHash     String
+  papelGlobal   String // administrador | gestor | investigador | revisor | aprovador | leitor
+  mfaHabilitado Boolean  @default(false)
+  ativo         Boolean  @default(true)
+  criadoEm      DateTime @default(now())
+  excluidoEm    DateTime?
+
+  organizacao       Organizacao         @relation(fields: [organizacaoId], references: [id])
+  membroEquipe      MembroEquipe[]
+  comentarios       Comentario[]
+  revisoes          Revisao[]
+  aprovacoes        Aprovacao[]
+  acessosEvidencia  AcessoEvidencia[]
+  auditoria         RegistroAuditoria[]
+
+  @@unique([organizacaoId, email])
+  @@index([organizacaoId])
+}
+
+// ===========================================================================
+// 2. Investigação, notificação inicial e governança
+// ===========================================================================
+
+model Investigacao {
+  id            String  @id @default(uuid())
+  organizacaoId String
+  unidadeId     String?
+  codigo        String // identificador legível, ex.: INV-2026-0001
+  titulo        String
+
+  // Notificação e triagem inicial (seção 4.1)
+  descricaoInicial     String
+  ocorridoEm           DateTime?
+  ocorridoEmPrecisao   String   @default("exato") // exato | aproximado | intervalo | desconhecido
+  ocorridoEmFimIntervalo DateTime?
+  fusoHorario          String   @default("America/Sao_Paulo")
+  local                String?
+  atividade            String?
+  severidadeReal       String   @default("nao_classificada") // ver enumeracoes.NIVEIS_SEVERIDADE
+  severidadePotencial  String   @default("nao_classificada")
+  justificativaSeveridade String?
+  nivelInvestigacao    String   @default("nao_definido") // basico | intermediario | completo | nao_definido
+  acoesImediatas       String?
+  condicaoLocal        String?
+  localPreservado      Boolean  @default(false)
+  escopoPreliminar     String?
+
+  // Governança (seção 4.2)
+  fase        String   @default("notificacao") // ver enumeracoes.FASES_INVESTIGACAO
+  status      String   @default("aberta") // aberta | suspensa | encerrada | reaberta
+  prazoLimite DateTime?
+  confidencialidade String @default("interna") // publica | interna | restrita | confidencial
+
+  versao     Int      @default(1)
+  criadoEm   DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm DateTime?
+
+  organizacao Organizacao @relation(fields: [organizacaoId], references: [id])
+  unidade     Unidade?    @relation(fields: [unidadeId], references: [id])
+
+  consequencias    Consequencia[]
+  equipe           MembroEquipe[]
+  envolvidos       Envolvido[]
+  itensPeepo       ItemPeepo[]
+  evidencias       Evidencia[]
+  fontesTemporais  FonteTemporal[]
+  eventos          EventoCronologia[]
+  entrevistas      Entrevista[]
+  fatos            Fato[]
+  conflitos        Conflito[]
+  lacunas          Lacuna[]
+  hipoteses        Hipotese[]
+  diligencias      Diligencia[]
+  classificacoes   Classificacao[]
+  relacoesCausais  RelacaoCausal[]
+  recomendacoes    Recomendacao[]
+  relatorios       Relatorio[]
+  comentarios      Comentario[]
+  revisoes         Revisao[]
+  aprovacoes       Aprovacao[]
+  execucoesIa      ExecucaoIa[]
+  verificacoes     ResultadoVerificacao[]
+
+  @@unique([organizacaoId, codigo])
+  @@index([organizacaoId, status])
+  @@index([organizacaoId, fase])
+}
+
+model Consequencia {
+  id             String @id @default(uuid())
+  investigacaoId String
+  dimensao       String // seguranca | meio_ambiente | financeiro | operacional | social | direitos_humanos | reputacional
+  tipo           String // real | potencial
+  descricao      String
+  nivel          String // ver enumeracoes.NIVEIS_SEVERIDADE
+  justificativa  String?
+  criadoEm       DateTime @default(now())
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+
+  @@index([investigacaoId])
+}
+
+model MembroEquipe {
+  id             String @id @default(uuid())
+  investigacaoId String
+  usuarioId      String
+  papel          String // lider | dono_evento | facilitador_icam | tecnico | seguranca | engenharia | operacao | manutencao | contratada | revisor | aprovador | observador
+  conflitoInteresseDeclarado Boolean @default(false)
+  conflitoInteresseDescricao String?
+  declaradoEm    DateTime?
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  usuario      Usuario      @relation(fields: [usuarioId], references: [id])
+
+  @@unique([investigacaoId, usuarioId, papel])
+  @@index([investigacaoId])
+}
+
+/// Pessoa, equipamento ou instalação envolvida. Por padrão o relatório
+/// executivo usa `pseudonimo`/`funcao`; `nome` e `matricula` são campos
+/// sensíveis com acesso restrito (seção 9).
+model Envolvido {
+  id             String @id @default(uuid())
+  investigacaoId String
+  tipo           String // pessoa | equipamento | instalacao | organizacao_terceira
+  pseudonimo     String // ex.: "Operador A", "Caminhão CM-01"
+  funcao         String?
+  nome           String? // SENSÍVEL
+  matricula      String? // SENSÍVEL
+  vinculo        String? // proprio | contratada | visitante | nao_informado
+  identificacaoTecnica String? // frota, tag, TAG de equipamento
+  descricao      String?
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  declaracoes  Declaracao[]
+  entrevistas  Entrevista[]
+
+  @@index([investigacaoId])
+}
+
+// ===========================================================================
+// 3. Plano PEEPO de coleta (seção 4.3)
+// ===========================================================================
+
+model ItemPeepo {
+  id             String @id @default(uuid())
+  investigacaoId String
+  dimensao       String // pessoas | ambiente | equipamentos | procedimentos | organizacao
+  perguntaInvestigativa String
+  evidenciaEsperada     String
+  responsavel    String?
+  prazo          DateTime?
+  prioridade     String   @default("media") // baixa | media | alta | critica
+  status         String   @default("pendente") // pendente | em_andamento | coletado | indisponivel | cancelado
+  dependencias   String? // JSON: string[] de ids
+  fonte          String?
+  restricaoAcesso String? // publico | interno | restrito | confidencial
+  hipoteseId     String?
+  lacunaId       String?
+  observacao     String?
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  hipotese     Hipotese?    @relation(fields: [hipoteseId], references: [id])
+  lacuna       Lacuna?      @relation(fields: [lacunaId], references: [id])
+  evidencias   Evidencia[]
+
+  @@index([investigacaoId, dimensao])
+  @@index([investigacaoId, status])
+}
+
+// ===========================================================================
+// 4. Evidências e cadeia de custódia (seção 4.4)
+// ===========================================================================
+
+model Evidencia {
+  id             String @id @default(uuid())
+  investigacaoId String
+  itemPeepoId    String?
+  identificador  String // EV-001
+  titulo         String
+  descricao      String?
+  categoria      String // documento | pdf | apresentacao | planilha | foto | diagrama | email | mensagem | audio | video | telemetria | log | ordem_manutencao | procedimento | treinamento | registro_turno | sensor | outro
+  origem         String // de onde veio
+  responsavelColeta String
+  obtidoEm       DateTime
+  conteudoDataReferencia DateTime? // data do conteúdo, distinta da data de obtenção
+  confidencialidade String @default("interna") // publica | interna | restrita | confidencial
+  integridadeVerificada Boolean @default(false)
+  autenticidadeAvaliada String  @default("nao_avaliada") // nao_avaliada | confirmada | duvidosa | refutada
+  limitacoes     String?
+  contemDadoSensivel Boolean @default(false)
+  /// Conteúdo importado é DADO, nunca instrução. Ver src/seguranca/injecao.ts
+  sanitizadoEm   DateTime?
+  sinalizacoesInjecao String? // JSON: string[]
+
+  versao       Int      @default(1)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm   DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  itemPeepo    ItemPeepo?   @relation(fields: [itemPeepoId], references: [id])
+
+  arquivos    ArquivoEvidencia[]
+  custodia    CadeiaCustodia[]
+  acessos     AcessoEvidencia[]
+  citacoes    Citacao[]
+  vinculosFato VinculoFatoEvidencia[]
+  declaracoes Declaracao[]
+  eventos     EventoCronologia[]
+  itensConflito ItemConflito[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, categoria])
+}
+
+/// Arquivo original ou derivado (OCR, transcrição, tradução, resumo, extração).
+/// O original nunca é substituído; derivados são versionados e rastreáveis.
+model ArquivoEvidencia {
+  id          String @id @default(uuid())
+  evidenciaId String
+  papel       String // original | ocr | transcricao | traducao | resumo | extracao | miniatura | redigido
+  derivadoDeId String?
+  nomeArquivo String
+  mimeType    String
+  tamanhoBytes Int
+  hashSha256  String
+  caminhoArmazenamento String
+  paginaOuSlide String? // localizador dentro do arquivo
+  metodoGeracao String? // upload | tesseract | whisper | provedor_ia | manual
+  ferramentaVersao String?
+  revisadoPor String?
+  revisadoEm  DateTime?
+  confianca   String  @default("nao_avaliada") // baixa | media | alta | nao_avaliada
+  criadoEm    DateTime @default(now())
+  excluidoEm  DateTime?
+
+  evidencia  Evidencia          @relation(fields: [evidenciaId], references: [id])
+  derivadoDe ArquivoEvidencia?  @relation("Derivacao", fields: [derivadoDeId], references: [id])
+  derivados  ArquivoEvidencia[] @relation("Derivacao")
+
+  @@index([evidenciaId, papel])
+  @@index([hashSha256])
+}
+
+/// Append-only: cada transferência de posse gera um novo registro.
+model CadeiaCustodia {
+  id          String   @id @default(uuid())
+  evidenciaId String
+  sequencia   Int
+  acao        String // coleta | recebimento | transferencia | analise | copia | devolucao | descarte | lacre | rompimento_lacre
+  deQuem      String?
+  paraQuem    String
+  local       String?
+  ocorridoEm  DateTime
+  hashNoMomento String?
+  observacao  String?
+  registradoPorId String
+  registradoEm DateTime @default(now())
+
+  evidencia Evidencia @relation(fields: [evidenciaId], references: [id])
+
+  @@unique([evidenciaId, sequencia])
+  @@index([evidenciaId])
+}
+
+model AcessoEvidencia {
+  id          String   @id @default(uuid())
+  evidenciaId String
+  usuarioId   String
+  acao        String // visualizacao | download | exportacao | tentativa_negada
+  ocorridoEm  DateTime @default(now())
+  origemIp    String?
+
+  evidencia Evidencia @relation(fields: [evidenciaId], references: [id])
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
+
+  @@index([evidenciaId, ocorridoEm])
+}
+
+// ===========================================================================
+// 5. Tempo, cronologia e reconstrução (seção 4.6)
+// ===========================================================================
+
+/// Relógio de origem de um registro. Permite detectar sistemas com data
+/// divergente sem sobrescrever o valor bruto.
+model FonteTemporal {
+  id             String @id @default(uuid())
+  investigacaoId String
+  nome           String // ex.: "CLP da balança", "Sistema de despacho"
+  tipo           String // sistema | relogio_local | dispositivo | relato_humano | camera | outro
+  fusoHorario    String @default("America/Sao_Paulo")
+  desvioSegundos Int?   // desvio medido em relação à referência (positivo = adiantado)
+  desvioVerificadoEm DateTime?
+  referenciaUsada String?
+  confiabilidade String @default("nao_avaliada") // baixa | media | alta | nao_avaliada
+  observacao     String?
+  criadoEm       DateTime @default(now())
+
+  investigacao Investigacao       @relation(fields: [investigacaoId], references: [id])
+  eventos      EventoCronologia[]
+
+  @@unique([investigacaoId, nome])
+}
+
+model EventoCronologia {
+  id             String @id @default(uuid())
+  investigacaoId String
+  fonteTemporalId String?
+  evidenciaId    String?
+
+  titulo      String
+  descricao   String?
+  categoria   String // anterior_relevante | manutencao | alarme | mudanca | treinamento | decisao | condicao_operacional | ocorrencia | resposta | consequencia
+  tipoAsserção String @default("fato") // ver enumeracoes.TIPOS_ASSERCAO
+
+  instanteBruto      DateTime?
+  instanteNormalizado DateTime? // após correção de desvio de relógio
+  instanteFim        DateTime?
+  precisao           String    @default("exato") // exato | aproximado | intervalo | desconhecido
+  correcaoAplicadaSegundos Int?
+  confiabilidade     String    @default("nao_avaliada")
+  conflitoTemporal   Boolean   @default(false)
+  conflitoDescricao  String?
+  ordemRelativa      Int?      // usada quando o instante é desconhecido
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm   DateTime?
+
+  investigacao  Investigacao   @relation(fields: [investigacaoId], references: [id])
+  fonteTemporal FonteTemporal? @relation(fields: [fonteTemporalId], references: [id])
+  evidencia     Evidencia?     @relation(fields: [evidenciaId], references: [id])
+
+  @@index([investigacaoId, instanteNormalizado])
+  @@index([investigacaoId, categoria])
+}
+
+// ===========================================================================
+// 6. Entrevistas e declarações (seção 4.5)
+// ===========================================================================
+
+model Entrevista {
+  id             String @id @default(uuid())
+  investigacaoId String
+  envolvidoId    String?
+  identificador  String
+  planejadaPara  DateTime?
+  realizadaEm    DateTime?
+  local          String?
+  participantes  String? // JSON: string[]
+  consentimentoObtido Boolean @default(false)
+  consentimentoBaseLegal String?
+  consentimentoRegistradoEm DateTime?
+  gravacaoAutorizada Boolean @default(false)
+  roteiro        String? // JSON: {pergunta, objetivo, origemHipoteseId}[]
+  transcricaoArquivoId String?
+  revisadaPeloEntrevistado Boolean @default(false)
+  revisadaEm     DateTime?
+  status         String @default("planejada") // planejada | realizada | transcrita | revisada | cancelada
+  observacao     String?
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  envolvido    Envolvido?   @relation(fields: [envolvidoId], references: [id])
+  declaracoes  Declaracao[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, status])
+}
+
+/// Uma declaração NUNCA vira fato automaticamente: ela é uma fonte que pode
+/// sustentar ou contrariar um Fato, sempre com natureza explícita.
+model Declaracao {
+  id           String @id @default(uuid())
+  entrevistaId String?
+  evidenciaId  String?
+  envolvidoId  String?
+  texto        String
+  natureza     String // memoria | percepcao | inferencia_do_entrevistado | opiniao | conhecimento_indireto
+  tema         String?
+  marcacaoInicio String? // timestamp ou offset na gravação/transcrição
+  marcacaoFim  String?
+  localizador  String? // página, slide, linha
+  confiabilidade String @default("nao_avaliada")
+  criadoEm     DateTime @default(now())
+  excluidoEm   DateTime?
+
+  entrevista Entrevista? @relation(fields: [entrevistaId], references: [id])
+  evidencia  Evidencia?  @relation(fields: [evidenciaId], references: [id])
+  envolvido  Envolvido?  @relation(fields: [envolvidoId], references: [id])
+  vinculosFato VinculoFatoEvidencia[]
+  itensConflito ItemConflito[]
+
+  @@index([entrevistaId])
+}
+
+// ===========================================================================
+// 7. Livro de fatos, conflitos, lacunas e hipóteses (seção 4.7)
+// ===========================================================================
+
+model Fato {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // F-001
+  /// Proposição atômica, verificável, sem juízo de valor.
+  proposicao     String
+  tipoAsserção   String @default("fato") // ver enumeracoes.TIPOS_ASSERCAO
+  estadoVerificacao String @default("nao_verificado") // nao_verificado | corroborado | contestado | refutado | indeterminado
+  confianca      String @default("nao_avaliada") // baixa | media | alta | nao_avaliada
+  impacto        String @default("nao_avaliado") // nao_avaliado | baixo | medio | alto
+  dataReferencia DateTime?
+  autor          String?
+  aprovadoPorHumano Boolean @default(false)
+  aprovadoEm     DateTime?
+  origemIa       Boolean  @default(false)
+  execucaoIaId   String?
+  observacao     String?
+
+  versao       Int      @default(1)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm   DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  vinculos     VinculoFatoEvidencia[]
+  itensConflito ItemConflito[]
+  citacoes     Citacao[]
+  classificacoesSustentadas SustentacaoClassificacao[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, estadoVerificacao])
+}
+
+/// Liga um fato às fontes que o sustentam OU o contrariam. A separação é
+/// obrigatória: nenhuma afirmação analítica pode existir sem este vínculo.
+model VinculoFatoEvidencia {
+  id          String @id @default(uuid())
+  fatoId      String
+  evidenciaId String?
+  declaracaoId String?
+  sentido     String // favoravel | contraria | contextual
+  localizador String? // página, slide, célula, timestamp
+  trecho      String?
+  peso        String @default("medio") // fraco | medio | forte
+  justificativa String?
+  criadoEm    DateTime @default(now())
+
+  fato       Fato        @relation(fields: [fatoId], references: [id])
+  evidencia  Evidencia?  @relation(fields: [evidenciaId], references: [id])
+  declaracao Declaracao? @relation(fields: [declaracaoId], references: [id])
+
+  @@index([fatoId, sentido])
+}
+
+/// Matriz de contradições: as versões conflitantes são PRESERVADAS.
+/// Nenhuma fonte sobrescreve outra silenciosamente.
+model Conflito {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // C-001
+  titulo         String
+  tipo           String // relato_vs_telemetria | procedimento_vs_manutencao | parametro_documentado_vs_configurado | data_vs_relogio | checklist_vs_evidencia_tecnica | registro_incompleto | outro
+  descricao      String
+  status         String @default("aberto") // aberto | em_diligencia | resolvido | irresolvivel
+  resolucao      String?
+  justificativaResolucao String?
+  resolvidoPor   String?
+  resolvidoEm    DateTime?
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  itens        ItemConflito[]
+  diligencias  Diligencia[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, status])
+}
+
+model ItemConflito {
+  id           String @id @default(uuid())
+  conflitoId   String
+  rotulo       String // ex.: "limite do procedimento", "parâmetro configurado"
+  valorRelatado String
+  fatoId       String?
+  evidenciaId  String?
+  declaracaoId String?
+  confiabilidadeFonte String @default("nao_avaliada")
+  justificativaConfiabilidade String?
+  criadoEm     DateTime @default(now())
+
+  conflito   Conflito    @relation(fields: [conflitoId], references: [id])
+  fato       Fato?       @relation(fields: [fatoId], references: [id])
+  evidencia  Evidencia?  @relation(fields: [evidenciaId], references: [id])
+  declaracao Declaracao? @relation(fields: [declaracaoId], references: [id])
+
+  @@index([conflitoId])
+}
+
+model Lacuna {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // L-001
+  descricao      String
+  dimensaoPeepo  String?
+  criticidade    String @default("media") // baixa | media | alta | critica
+  impactoNaConclusao String?
+  status         String @default("aberta") // aberta | em_diligencia | fechada | irresolvivel
+  motivoIrresolvivel String?
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  itensPeepo   ItemPeepo[]
+  diligencias  Diligencia[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, status])
+}
+
+model Hipotese {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // H-001
+  enunciado      String
+  estado         String @default("aberta") // aberta | sustentada | enfraquecida | refutada | descartada
+  testePrevisto  String? // que evidência confirmaria ou refutaria
+  confianca      String @default("nao_avaliada")
+  origemIa       Boolean @default(false)
+  promovidaAFatoId String?
+  promovidaPorHumano Boolean @default(false)
+  promovidaEm    DateTime?
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  itensPeepo   ItemPeepo[]
+  diligencias  Diligencia[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, estado])
+}
+
+model Diligencia {
+  id             String @id @default(uuid())
+  investigacaoId String
+  hipoteseId     String?
+  lacunaId       String?
+  conflitoId     String?
+  classificacaoId String?
+  descricao      String
+  responsavel    String?
+  prazo          DateTime?
+  prioridade     String @default("media")
+  status         String @default("pendente") // pendente | em_andamento | concluida | cancelada
+  resultado      String?
+  concluidaEm    DateTime?
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  investigacao   Investigacao   @relation(fields: [investigacaoId], references: [id])
+  hipotese       Hipotese?      @relation(fields: [hipoteseId], references: [id])
+  lacuna         Lacuna?        @relation(fields: [lacunaId], references: [id])
+  conflito       Conflito?      @relation(fields: [conflitoId], references: [id])
+  classificacao  Classificacao? @relation(fields: [classificacaoId], references: [id])
+
+  @@index([investigacaoId, status])
+}
+
+// ===========================================================================
+// 8. Catálogo ICAM, classificação e mapa causal (seções 4.8 e 5)
+// ===========================================================================
+
+/// Catálogo versionado carregado de data/icam-taxonomy.pt-BR.json.
+/// `definicao` pode ser nula enquanto o DOCX de origem não for importado —
+/// nunca é preenchida por geração de IA.
+model CodigoIcam {
+  id            String  @id @default(uuid())
+  organizacaoId String?
+  versaoCatalogo String
+  codigo        String
+  grupo         String
+  subgrupo      String?
+  titulo        String
+  definicao     String?
+  definicaoStatus String @default("PENDENTE_EXTRACAO_DOCX")
+  exemplos      String? // JSON: string[]
+  termosRelacionados String? // JSON: string[]
+  regrasInclusao String? // JSON: string[]
+  regrasExclusao String? // JSON: string[]
+  codigoGenerico Boolean @default(false)
+  exigeEstadoBarreira Boolean @default(false)
+  dadoSensivel  Boolean @default(false)
+  nivelEvidenciaMinimo String @default("suficiente")
+  fonteJson     String // proveniência completa
+  requerConferenciaHumana Boolean @default(true)
+  ativo         Boolean @default(true)
+  criadoEm      DateTime @default(now())
+
+  organizacao    Organizacao?   @relation(fields: [organizacaoId], references: [id])
+  classificacoes Classificacao[]
+  codigosSecundarios CodigoSecundario[]
+
+  @@unique([versaoCatalogo, codigo, organizacaoId])
+  @@index([grupo])
+  @@index([codigo])
+}
+
+/// Um fator ICAM identificado na investigação: uma das quatro colunas do
+/// gráfico, com código principal, secundários, evidências dos dois lados,
+/// mecanismo causal e decisão humana explícita.
+model Classificacao {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // FT-001
+  codigoIcamId   String
+
+  coluna         String // defesas | acoes | condicoes_tarefa_ambiente | fatores_humanos | fatores_organizacionais
+  descricaoContextual String // descrição específica no contexto desta investigação
+  mecanismo      String? // como contribuiu para o evento
+  posicaoSequencia Int?
+
+  estado         String @default("candidato") // candidato | em_analise | confirmado | contestado | rejeitado
+  natureza       String @default("nao_definida") // fato_constatado | fator_contribuinte | causa_sistemica | oportunidade_melhoria_nao_causal | nao_definida
+  confianca      String @default("nao_avaliada")
+
+  // Exclusivo de defesas (coluna 1)
+  estadoBarreira String? // ausente | falha | incerto | nao_aplicavel
+  justificativaBarreira String?
+
+  // Teste contrafactual (apoio analítico, nunca prova isolada)
+  contrafactualPergunta String?
+  contrafactualResposta String? // evento_ainda_plausivel | evento_improvavel | indeterminado
+  contrafactualJustificativa String?
+
+  // Governança da sugestão de IA
+  origemIa       Boolean @default(false)
+  execucaoIaId   String?
+  justificativaCodigo String? // por que este código e não os próximos
+  justificativaGenerico String? // obrigatória quando o código é "Outro"
+  decisaoHumana  String @default("pendente") // pendente | aceita | editada | rejeitada
+  decisaoJustificativa String?
+  autorId        String?
+  revisorId      String?
+  revisadoEm     DateTime?
+
+  versao       Int      @default(1)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm   DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  codigoIcam   CodigoIcam   @relation(fields: [codigoIcamId], references: [id])
+
+  secundarios     CodigoSecundario[]
+  sustentacoes    SustentacaoClassificacao[]
+  origemRelacoes  RelacaoCausal[] @relation("Origem")
+  destinoRelacoes RelacaoCausal[] @relation("Destino")
+  recomendacoes   RecomendacaoFator[]
+  diligencias     Diligencia[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, coluna])
+  @@index([investigacaoId, estado])
+}
+
+model CodigoSecundario {
+  id              String @id @default(uuid())
+  classificacaoId String
+  codigoIcamId    String
+  justificativa   String
+  ordem           Int    @default(0)
+
+  classificacao Classificacao @relation(fields: [classificacaoId], references: [id])
+  codigoIcam    CodigoIcam    @relation(fields: [codigoIcamId], references: [id])
+
+  @@unique([classificacaoId, codigoIcamId])
+}
+
+/// Evidência favorável ou contrária a um fator ICAM.
+model SustentacaoClassificacao {
+  id              String @id @default(uuid())
+  classificacaoId String
+  fatoId          String
+  sentido         String // favoravel | contraria
+  peso            String @default("medio")
+  justificativa   String?
+  criadoEm        DateTime @default(now())
+
+  classificacao Classificacao @relation(fields: [classificacaoId], references: [id])
+  fato          Fato          @relation(fields: [fatoId], references: [id])
+
+  @@unique([classificacaoId, fatoId, sentido])
+}
+
+/// Ligação do mapa causal: uma afirmação testável, com fonte e grau de
+/// sustentação. Correlação declarada não vira causalidade.
+model RelacaoCausal {
+  id             String @id @default(uuid())
+  investigacaoId String
+  origemId       String
+  destinoId      String
+  tipo           String // contribuiu_para | permitiu | ampliou | precedeu_sem_causar | correlacao_observada
+  afirmacaoTestavel String
+  grauSustentacao String @default("nao_avaliado") // nao_avaliado | fraco | moderado | forte
+  evidenciasResumo String?
+  contestada     Boolean @default(false)
+  contestacaoDescricao String?
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+  excluidoEm     DateTime?
+
+  investigacao Investigacao  @relation(fields: [investigacaoId], references: [id])
+  origem       Classificacao @relation("Origem", fields: [origemId], references: [id])
+  destino      Classificacao @relation("Destino", fields: [destinoId], references: [id])
+
+  @@unique([origemId, destinoId, tipo])
+  @@index([investigacaoId])
+}
+
+// ===========================================================================
+// 9. Recomendações, plano de ação e eficácia (seção 4.9)
+// ===========================================================================
+
+model Recomendacao {
+  id             String @id @default(uuid())
+  investigacaoId String
+  identificador  String // R-001
+  problemaTratado String
+  acaoProposta   String
+  objetivo       String
+  resultadoEsperado String?
+
+  hierarquiaControle String // eliminacao | substituicao | engenharia | administrativa | epi
+  justificativaHierarquia String
+  alternativasSuperioresAvaliadas String? // exigido quando administrativa/epi
+
+  responsavel    String?
+  unidade        String?
+  prazo          DateTime?
+  recursos       String?
+  prioridade     String @default("media")
+  riscoResidual  String?
+  riscoResidualNivel String @default("nao_avaliado")
+
+  status         String @default("proposta") // proposta | aprovada | em_execucao | concluida | cancelada | ja_tratada
+  jaTratadaPorId String? // exige vínculo explícito quando status = ja_tratada
+  evidenciaConclusao String?
+  concluidaEm    DateTime?
+
+  aprovadaPor    String?
+  aprovadaEm     DateTime?
+
+  versao       Int      @default(1)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  excluidoEm   DateTime?
+
+  investigacao Investigacao  @relation(fields: [investigacaoId], references: [id])
+  jaTratadaPor Recomendacao? @relation("Cobertura", fields: [jaTratadaPorId], references: [id])
+  cobre        Recomendacao[] @relation("Cobertura")
+
+  fatores    RecomendacaoFator[]
+  marcos     Marco[]
+  indicadores IndicadorEficacia[]
+
+  @@unique([investigacaoId, identificador])
+  @@index([investigacaoId, status])
+}
+
+/// Toda recomendação deve estar vinculada a pelo menos um fator confirmado
+/// e ao mecanismo de risco que pretende modificar.
+model RecomendacaoFator {
+  id              String @id @default(uuid())
+  recomendacaoId  String
+  classificacaoId String
+  mecanismoRiscoAlvo String
+  criadoEm        DateTime @default(now())
+
+  recomendacao  Recomendacao  @relation(fields: [recomendacaoId], references: [id])
+  classificacao Classificacao @relation(fields: [classificacaoId], references: [id])
+
+  @@unique([recomendacaoId, classificacaoId])
+}
+
+model Marco {
+  id             String @id @default(uuid())
+  recomendacaoId String
+  titulo         String
+  prazo          DateTime?
+  dependencias   String? // JSON: string[]
+  status         String @default("pendente")
+  concluidoEm    DateTime?
+
+  recomendacao Recomendacao @relation(fields: [recomendacaoId], references: [id])
+
+  @@index([recomendacaoId])
+}
+
+model IndicadorEficacia {
+  id             String @id @default(uuid())
+  recomendacaoId String
+  nome           String
+  metodoMedicao  String
+  linhaBase      String?
+  meta           String
+  responsavel    String?
+  dataVerificacao DateTime?
+  criadoEm       DateTime @default(now())
+
+  recomendacao Recomendacao @relation(fields: [recomendacaoId], references: [id])
+  avaliacoes   AvaliacaoEficacia[]
+
+  @@index([recomendacaoId])
+}
+
+model AvaliacaoEficacia {
+  id           String @id @default(uuid())
+  indicadorId  String
+  avaliadoEm   DateTime
+  valorObservado String
+  atingiuMeta  Boolean
+  evidencia    String?
+  conclusao    String // eficaz | parcialmente_eficaz | ineficaz | inconclusivo
+  acaoDecorrente String?
+  avaliadoPor  String?
+  criadoEm     DateTime @default(now())
+
+  indicador IndicadorEficacia @relation(fields: [indicadorId], references: [id])
+
+  @@index([indicadorId])
+}
+
+// ===========================================================================
+// 10. Revisão, aprovação, relatório e citações (seção 4.10)
+// ===========================================================================
+
+model Comentario {
+  id             String @id @default(uuid())
+  investigacaoId String
+  autorId        String
+  entidadeTipo   String // fato | classificacao | recomendacao | relatorio | conflito | evidencia
+  entidadeId     String
+  texto          String
+  tipo           String @default("comentario") // comentario | objecao | opiniao_divergente
+  resolvido      Boolean @default(false)
+  resolvidoEm    DateTime?
+  criadoEm       DateTime @default(now())
+  excluidoEm     DateTime?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  autor        Usuario      @relation(fields: [autorId], references: [id])
+
+  @@index([investigacaoId, entidadeTipo, entidadeId])
+}
+
+model Revisao {
+  id             String @id @default(uuid())
+  investigacaoId String
+  revisorId      String
+  escopo         String // fatos | classificacao | causalidade | recomendacoes | relatorio | completa
+  resultado      String // aprovada | aprovada_com_ressalvas | reprovada | pendente
+  observacao     String?
+  criadoEm       DateTime @default(now())
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  revisor      Usuario      @relation(fields: [revisorId], references: [id])
+
+  @@index([investigacaoId])
+}
+
+model Aprovacao {
+  id             String @id @default(uuid())
+  investigacaoId String
+  aprovadorId    String
+  relatorioId    String?
+  tipo           String // conclusoes | recomendacoes | publicacao_relatorio | encerramento
+  decisao        String // aprovado | reprovado | pendente
+  justificativa  String?
+  decididoEm     DateTime?
+  criadoEm       DateTime @default(now())
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  aprovador    Usuario      @relation(fields: [aprovadorId], references: [id])
+  relatorio    Relatorio?   @relation(fields: [relatorioId], references: [id])
+
+  @@index([investigacaoId, tipo])
+}
+
+model Relatorio {
+  id             String @id @default(uuid())
+  investigacaoId String
+  versao         Int
+  titulo         String
+  status         String @default("minuta") // minuta | em_revisao | aprovado | publicado | substituido
+  conteudoJson   String // estrutura completa do relatório
+  resumoExecutivo String?
+  limitacoes     String?
+  contribuicoesIa String? // JSON: descrição do que foi gerado/sugerido por IA
+  geradoPorId    String?
+  geradoEm       DateTime @default(now())
+  publicadoEm    DateTime?
+  hashConteudo   String?
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+  citacoes     Citacao[]
+  aprovacoes   Aprovacao[]
+
+  @@unique([investigacaoId, versao])
+  @@index([investigacaoId, status])
+}
+
+/// Toda citação deve abrir diretamente a página, slide, imagem, trecho ou
+/// timestamp correspondente. Citação sem evidência existente é bloqueada.
+model Citacao {
+  id           String @id @default(uuid())
+  relatorioId  String?
+  fatoId       String?
+  evidenciaId  String
+  arquivoId    String?
+  localizador  String // "p. 12", "slide 7", "00:14:32", "célula B4"
+  trecho       String?
+  verificada   Boolean @default(false)
+  verificadaEm DateTime?
+  criadoEm     DateTime @default(now())
+
+  relatorio Relatorio? @relation(fields: [relatorioId], references: [id])
+  fato      Fato?      @relation(fields: [fatoId], references: [id])
+  evidencia Evidencia  @relation(fields: [evidenciaId], references: [id])
+
+  @@index([relatorioId])
+  @@index([evidenciaId])
+}
+
+// ===========================================================================
+// 11. Governança de IA, verificações e auditoria (seções 6, 9 e 12)
+// ===========================================================================
+
+/// Registro imutável de cada execução de agente: modelo, versão, parâmetros,
+/// prompt, resultado, custo e sinalizações de segurança.
+model ExecucaoIa {
+  id             String @id @default(uuid())
+  investigacaoId String
+  agente         String // ingestao | temporal | fatos | contradicoes | peepo | classificador | causalidade | recomendacoes | relatorio | revisor
+  provedor       String // deterministico | anthropic | outro
+  modelo         String?
+  parametrosJson String?
+  entradaHash    String
+  entradaResumo  String?
+  saidaJson      String
+  citacoesValidadas Boolean @default(false)
+  sinalizacoesJson String? // injeção detectada, citação inexistente, dado sensível
+  duracaoMs      Int?
+  tokensEntrada  Int?
+  tokensSaida    Int?
+  erro           String?
+  executadoPorId String?
+  executadoEm    DateTime @default(now())
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+
+  @@index([investigacaoId, agente])
+}
+
+/// Resultado dos verificadores automáticos de qualidade causal (seção 12).
+model ResultadoVerificacao {
+  id             String @id @default(uuid())
+  investigacaoId String
+  regra          String // ver src/domain/qualidade/regras.ts
+  severidade     String // bloqueio | alerta | informativo
+  entidadeTipo   String?
+  entidadeId     String?
+  mensagem       String
+  detalheJson    String?
+  status         String @default("aberto") // aberto | justificado | corrigido | ignorado
+  justificativa  String?
+  avaliadoEm     DateTime @default(now())
+
+  investigacao Investigacao @relation(fields: [investigacaoId], references: [id])
+
+  @@index([investigacaoId, severidade])
+  @@index([investigacaoId, regra])
+}
+
+/// Trilha de auditoria append-only de ações humanas e de IA.
+model RegistroAuditoria {
+  id            String @id @default(uuid())
+  organizacaoId String
+  usuarioId     String?
+  atorTipo      String @default("humano") // humano | ia | sistema
+  acao          String // criar | atualizar | excluir | aprovar | rejeitar | exportar | acessar | login | negar_acesso
+  entidadeTipo  String
+  entidadeId    String
+  investigacaoId String?
+  antesJson     String?
+  depoisJson    String?
+  origemIp      String?
+  agenteUsuario String?
+  hashRegistro  String // encadeamento para detecção de adulteração
+  hashAnterior  String?
+  ocorridoEm    DateTime @default(now())
+
+  organizacao Organizacao @relation(fields: [organizacaoId], references: [id])
+  usuario     Usuario?    @relation(fields: [usuarioId], references: [id])
+
+  @@index([organizacaoId, ocorridoEm])
+  @@index([entidadeTipo, entidadeId])
+}

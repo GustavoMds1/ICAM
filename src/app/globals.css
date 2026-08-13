@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-superficie-sutil text-texto antialiased;
+  }
+
+  /* Foco sempre visível — requisito WCAG 2.2 AA (2.4.7 e 2.4.11). */
+  :focus-visible {
+    outline: 3px solid #12507a;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respeita quem pediu menos movimento. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .link-pular {
+    @apply absolute left-2 top-2 z-50 -translate-y-20 rounded bg-marca px-4 py-2 text-white focus:translate-y-0;
+  }
+
+  .cartao {
+    @apply rounded-lg border border-borda bg-superficie p-5;
+  }
+
+  .rotulo-campo {
+    @apply block text-sm font-medium text-texto-sutil;
+  }
+
+  .botao {
+    @apply inline-flex items-center gap-2 rounded-md border border-borda-forte bg-superficie px-3 py-2 text-sm font-medium text-texto hover:bg-superficie-forte disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .botao-primario {
+    @apply inline-flex items-center gap-2 rounded-md bg-marca px-3 py-2 text-sm font-medium text-white hover:bg-marca-escuro disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .tabela {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .tabela th {
+    @apply border-b border-borda-forte px-3 py-2 align-bottom font-semibold text-texto-sutil;
+  }
+
+  .tabela td {
+    @apply border-b border-borda px-3 py-2 align-top;
+  }
+
+  .tabela tbody tr:hover {
+    @apply bg-superficie-sutil;
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "icam-investigacao",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plataforma de investigação de incidentes com copiloto de IA segundo a metodologia ICAM.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:seed": "tsx scripts/semear.ts",
+    "taxonomia:validar": "tsx scripts/validar-taxonomia.ts",
+    "taxonomia:importar-docx": "tsx scripts/importar-taxonomia-docx.ts",
+    "setup": "npm run db:seed",
+    "verificar": "npm run typecheck && npm run lint && npm run test",
+    "semear": "tsx scripts/semear.ts",
+    "db:migrar": "tsx scripts/migrar.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.2.1",
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1",
+    "pg": "^8.13.1",
+    "@electric-sql/pglite": "^0.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.6",
+    "postcss": "^8.5.1",
+    "prisma": "^6.2.1",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.2.7",
+    "@eslint/eslintrc": "^3.3.6",
+    "@vitest/coverage-v8": "^3.2.7",
+    "@types/pg": "^8.11.10",
+    "mammoth": "^1.9.0"
+  }
+}

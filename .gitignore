@@ -1,0 +1,29 @@
+# Dependências
+node_modules/
+
+# Build
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Testes
+coverage/
+
+# Segredos e configuração local — NUNCA versionar
+.env
+.env.local
+.env.*.local
+
+# Dados locais de desenvolvimento (PGlite, armazenamento em arquivo)
+dados-locais/
+armazenamento/
+*.db
+*.db-journal
+prisma/dev.db*
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

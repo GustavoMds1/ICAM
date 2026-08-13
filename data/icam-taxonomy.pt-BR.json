@@ -1,0 +1,3166 @@
+{
+  "schemaVersao": "1.0.0",
+  "id": "icam-taxonomy.pt-BR",
+  "idioma": "pt-BR",
+  "versao": "2026.08.04-1+docx",
+  "geradoEm": "2026-08-04T00:00:00.000Z",
+  "totalCodigos": 101,
+  "estadoDefinicoes": "PARCIAL",
+  "avisoProveniencia": "Catálogo com 101 códigos. Código, grupo e título foram conferidos contra o prompt mestre; 99 definições e seus exemplos foram importados de \"Códigos metologia ICAM.docx\" (SHA-256 efc414ed2a63a5ed…). Nenhuma definição foi gerada por IA. Todas permanecem marcadas para conferência humana contra as 11 imagens de referência.",
+  "fontesPendentes": [
+    {
+      "arquivo": "Códigos metologia ICAM.docx",
+      "papel": "fonte_principal_definicoes",
+      "status": "IMPORTADO"
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-08-04 at 15.40.*.jpeg (11 imagens)",
+      "papel": "conferencia_visual",
+      "status": "NAO_FORNECIDO"
+    },
+    {
+      "arquivo": "PT_Investigação- Tomabamento Caminhão-rev01.pptx",
+      "papel": "exemplo_de_fluxo",
+      "status": "NAO_FORNECIDO"
+    }
+  ],
+  "grupos": [
+    {
+      "id": "defesas_ausentes_ou_falhas",
+      "ordem": 1,
+      "coluna": 1,
+      "titulo": "Defesas ausentes ou falhas",
+      "prefixo": "DF",
+      "total": 21,
+      "subgrupos": [
+        {
+          "id": "conscientizacao_deteccao",
+          "titulo": "Conscientização e detecção"
+        },
+        {
+          "id": "controle_recuperacao",
+          "titulo": "Controle e recuperação"
+        },
+        {
+          "id": "protecao_contencao",
+          "titulo": "Proteção e contenção"
+        },
+        {
+          "id": "fuga_resgate",
+          "titulo": "Fuga e resgate"
+        },
+        {
+          "id": "outro",
+          "titulo": "Outro"
+        }
+      ],
+      "regras": [
+        "Para cada código selecionado, registrar separadamente o estado da barreira: ausente, falha, incerto ou não aplicável.",
+        "Evitar DF21 (Outro) sempre que houver código específico aplicável; exigir justificativa quando usado.",
+        "Registrar justificativa para a ausência ou falha da defesa."
+      ]
+    },
+    {
+      "id": "acoes_individuais_ou_equipe",
+      "ordem": 2,
+      "coluna": 2,
+      "titulo": "Ações individuais ou em equipe",
+      "prefixo": "IT",
+      "total": 14,
+      "subgrupos": [
+        {
+          "id": "acao",
+          "titulo": "Ação"
+        },
+        {
+          "id": "outro",
+          "titulo": "Outro"
+        }
+      ],
+      "regras": [
+        "Não usar estes códigos para atribuir culpa.",
+        "Classificar somente após reconstruir objetivo, informação disponível, condições, controles e expectativa de trabalho.",
+        "Distinguir explicitamente erro de violação.",
+        "Evitar IT14 (Outro) sempre que houver código específico aplicável.",
+        "Nunca encerrar a análise nesta coluna: verificar sempre defesas, condições da tarefa e fatores organizacionais."
+      ]
+    },
+    {
+      "id": "condicoes_tarefa_ambiente",
+      "ordem": 3,
+      "coluna": 3,
+      "titulo": "Condições da tarefa e do ambiente de trabalho",
+      "prefixo": "TE",
+      "total": 24,
+      "subgrupos": [
+        {
+          "id": "condicao",
+          "titulo": "Condição"
+        },
+        {
+          "id": "outro",
+          "titulo": "Outro"
+        }
+      ],
+      "regras": [
+        "Evitar TE24 (Outro fator) sempre que houver código específico aplicável."
+      ]
+    },
+    {
+      "id": "fatores_humanos",
+      "ordem": 4,
+      "coluna": 3,
+      "titulo": "Fatores humanos",
+      "prefixo": "HF",
+      "total": 26,
+      "subgrupos": [
+        {
+          "id": "fator_humano",
+          "titulo": "Fator humano"
+        },
+        {
+          "id": "outro",
+          "titulo": "Outro"
+        }
+      ],
+      "regras": [
+        "Fatores humanos não são sinônimo de culpa.",
+        "Exigir contexto operacional e evidência robusta.",
+        "Restringir acesso a dados médicos, psicológicos, uso de substâncias e problemas pessoais.",
+        "Não inferir condições sensíveis a partir de linguagem, aparência ou comportamento isolado.",
+        "Evitar HF26 (Outro fator) sempre que houver código específico aplicável."
+      ]
+    },
+    {
+      "id": "fatores_organizacionais",
+      "ordem": 5,
+      "coluna": 4,
+      "titulo": "Fatores organizacionais",
+      "prefixo": "",
+      "total": 16,
+      "subgrupos": [
+        {
+          "id": "organizacional",
+          "titulo": "Organizacional"
+        }
+      ],
+      "regras": [
+        "Investigar decisões, sistemas, recursos, prioridades, controles, aprendizado e governança que moldaram as condições locais."
+      ]
+    }
+  ],
+  "codigos": [
+    {
+      "codigo": "DF01",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Conscientização – Identificação de perigo",
+      "definicao": "o processo usado para avaliar se alguma situação, item, condição etc. em particular pode ter o potencial de causar dano, prejuízo ou outro resultado negativo. Os exemplos incluem, mas não estão limitados a: Take 5 (Parar, Olhar, Avaliar, Controlar e Monitorar), PARE, Dê um passo para trás, SLAM (Pare, Olhe, Analise, Gerencie, na sigla em inglês) e Avaliação de Risco. Por exemplo, nenhuma análise de segurança do trabalho concluída antes de iniciar a tarefa (ausência) ou a análise de segurança do trabalho falhou em identificar o perigo presente no local de trabalho (falha).",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem, mas não estão limitados a: Take 5 (Parar, Olhar, Avaliar, Controlar e Monitorar), PARE, Dê um passo para trás, SLAM (Pare, Olhe, Analise, Gerencie, na sigla em inglês) e Avaliação de Risco.",
+        "Por exemplo, nenhuma análise de segurança do trabalho concluída antes de iniciar a tarefa (ausência) ou a análise de segurança do trabalho falhou em identificar o perigo presente no local de trabalho (falha)."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 2",
+        "trecho": "Conscientização – Identificação de perigo: o processo usado para avaliar se alguma situação, item, condição etc. em particular pode ter o potencial de causar dano, prejuízo ou outro resultado negativo. Os exemplos incluem, mas não estão lim",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Conscientização – Identificação de perigo"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF02",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Comunicação de conscientização",
+      "definicao": "a transmissão ou troca de informações falando, escrevendo ou usando algum outro meio. Pode incluir a falha na comunicação eficaz devido à falta de recursos (por exemplo, rádio, telefone, etc.) ou à falta de protocolos de comunicação (por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.). Por exemplo, o rádio bidirecional usado pelo observador não estava funcionando.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, rádio, telefone, etc.) ou à falta de protocolos de comunicação (por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.).",
+        "por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.).",
+        "Por exemplo, o rádio bidirecional usado pelo observador não estava funcionando."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 3",
+        "trecho": "Comunicação de conscientização: a transmissão ou troca de informações falando, escrevendo ou usando algum outro meio. Pode incluir a falha na comunicação eficaz devido à falta de recursos (por exemplo, rádio, telefone, etc.) ou à falta de p",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Comunicação de conscientização"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF03",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Consciência e competência/conhecimento",
+      "definicao": "a capacidade de fazer algo com sucesso ou eficiência – fatos, informações e habilidades adquiridas por meio de experiência ou formação, a compreensão teórica ou prática de um assunto. Este fator contribuinte está normalmente associado a uma falha em treinar efetivamente ou a uma falha em verificar se o indivíduo ou a equipe é competente. Por exemplo, o operador não tinha a habilidade ou capacidade necessária para usar a empilhadeira de maneira segura e eficaz.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador não tinha a habilidade ou capacidade necessária para usar a empilhadeira de maneira segura e eficaz."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 4",
+        "trecho": "Consciência e competência/conhecimento: a capacidade de fazer algo com sucesso ou eficiência – fatos, informações e habilidades adquiridas por meio de experiência ou formação, a compreensão teórica ou prática de um assunto. Este fator contr",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Consciência e competência/conhecimento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF04",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Supervisão de conscientização",
+      "definicao": "ação de supervisionar alguém ou algo. As falhas de supervisão podem ser diretas, como quando o supervisor direto não estava presente quando deveria estar ou, apesar de estar presente, não executou sua supervisão de forma eficaz ou indireta, quando o supervisor não forneceu efetivamente supervisão remota da tarefa que estava sendo realizada. Por exemplo, não houve supervisão ativa da equipe de trabalho no dia.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, não houve supervisão ativa da equipe de trabalho no dia."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 5",
+        "trecho": "Supervisão de conscientização: ação de supervisionar alguém ou algo. As falhas de supervisão podem ser diretas, como quando o supervisor direto não estava presente quando deveria estar ou, apesar de estar presente, não executou sua supervis",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Supervisão de conscientização"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF05",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Instrução/Procedimentos de trabalho de conscientização",
+      "definicao": "um guia passo a passo para realizar uma atividade, uma maneira estabelecida ou oficial de fazer algo. Controles processuais dessa natureza possuem dois elementos; o procedimento em si e a execução do procedimento. Se a instrução/procedimento de trabalho estiver mal escrita ou faltarem etapas, o projeto do próprio procedimento pode ser o ponto de falha. Se o procedimento for bem elaborado, mas o individuo ou a equipe que o executa não o seguir, o procedimento ainda não conseguiu gerenciar o risco. Por exemplo, não havia instrução de trabalho sobre como operar o equipamento com segurança.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, não havia instrução de trabalho sobre como operar o equipamento com segurança."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 6",
+        "trecho": "Instrução/Procedimentos de trabalho de conscientização: um guia passo a passo para realizar uma atividade, uma maneira estabelecida ou oficial de fazer algo. Controles processuais dessa natureza possuem dois elementos; o procedimento em si ",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Instrução/Procedimentos de trabalho de conscientização"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF06",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Sistemas de alerta de detecção visual",
+      "definicao": "a identificação visual de qualquer sistema de natureza biológica ou técnica implantado por um indivíduo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, a luz estroboscópica não estava funcionando no veículo.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a luz estroboscópica não estava funcionando no veículo."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 7",
+        "trecho": "Sistemas de alerta de detecção visual: a identificação visual de qualquer sistema de natureza biológica ou técnica implantado por um indivíduo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, a ",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Sistemas de alerta de detecção visual"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF07",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Sistemas de alerta sonoro de detecção",
+      "definicao": "ouvir qualquer sistema de natureza biológica ou técnica implantado por um individuo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, o alarme de ré em um veículo não estava funcionando ou um alarme de aviso de 5 segundos não foi ativado antes da inicialização do transportador.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o alarme de ré em um veículo não estava funcionando ou um alarme de aviso de 5 segundos não foi ativado antes da inicialização do transportador."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 8",
+        "trecho": "Sistemas de alerta sonoro de detecção: ouvir qualquer sistema de natureza biológica ou técnica implantado por um individuo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, o alarme de ré em um v",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Sistemas de alerta sonoro de detecção"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF08",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Detecção – Detectores de velocidade/movimento",
+      "definicao": "a taxa na qual alguém ou algo se move ou opera, pode mover ou operar/dispositivos que utilizam um sensor para detectar movimento próximo. Os exemplos incluem, mas não estão limitados a: acelerômetros, telemática de veículos, alarmes de excesso de velocidade, sensores de vibração, detectores de movimento infravermelho etc. Por exemplo, o velocímetro do veículo não estava funcionando.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem, mas não estão limitados a: acelerômetros, telemática de veículos, alarmes de excesso de velocidade, sensores de vibração, detectores de movimento infravermelho etc.",
+        "Por exemplo, o velocímetro do veículo não estava funcionando."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 9",
+        "trecho": "Detecção – Detectores de velocidade/movimento: a taxa na qual alguém ou algo se move ou opera, pode mover ou operar/dispositivos que utilizam um sensor para detectar movimento próximo. Os exemplos incluem, mas não estão limitados a: acelerô",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Detecção – Detectores de velocidade/movimento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF09",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Vigilância de detecção/Fadiga",
+      "definicao": "o estado de estar constantemente atento e responsivo a sinais de oportunidade, atividade ou perigo. Fadiga uma sensação de cansaço e exaustão física e mental causada por esforço ou doença. A fadiga se enquadra em duas grandes categorias: aguda e crônica. A fadiga aguda geralmente está associada a uma falta imediata de descanso (por exemplo, sono ruim imediatamente antes da tarefa) ou fadiga crônica durante um longo período de tempo (por exemplo, vários turnos consecutivos trabalhando horas extras). Os exemplos incluem dispositivos de vigilância de veículos, procedimentos de contramedidas de fadiga, escala de trabalho, etc., por exemplo, o sistema de vigilância do motorista pôde ser contornado.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, sono ruim imediatamente antes da tarefa) ou fadiga crônica durante um longo período de tempo (por exemplo, vários turnos consecutivos trabalhando horas extras).",
+        "por exemplo, vários turnos consecutivos trabalhando horas extras).",
+        "Os exemplos incluem dispositivos de vigilância de veículos, procedimentos de contramedidas de fadiga, escala de trabalho, etc., por exemplo, o sistema de vigilância do motorista pôde ser contornado.",
+        "por exemplo, o sistema de vigilância do motorista pôde ser contornado."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 10",
+        "trecho": "Vigilância de detecção/Fadiga: o estado de estar constantemente atento e responsivo a sinais de oportunidade, atividade ou perigo. Fadiga uma sensação de cansaço e exaustão física e mental causada por esforço ou doença. A fadiga se enquadra",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Vigilância de detecção/Fadiga"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF10",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Detecção de gás/substância",
+      "definicao": "um sistema de detecção de natureza biológica ou técnica usado para detectar uma substância gasosa em um local onde pode ser perigoso para o sistema em uso. Este fator de contribuição está normalmente associado a ocasiões em que um sistema de detecção de gás falha ao registrar uma atmosfera ou ambiente operacional inseguro para o sistema em uso. Por exemplo, o detector de gás estava com defeito e não alertou o trabalhador sobre um vazamento de gás.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o detector de gás estava com defeito e não alertou o trabalhador sobre um vazamento de gás."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "conscientizacao_deteccao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 11",
+        "trecho": "Detecção de gás/substância: um sistema de detecção de natureza biológica ou técnica usado para detectar uma substância gasosa em um local onde pode ser perigoso para o sistema em uso. Este fator de contribuição está normalmente associado a ",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Detecção de gás/substância"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF11",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Procedimentos de controle e recuperação",
+      "definicao": "uma série estabelecida de etapas projetadas para gerenciar um sistema ou processo que excedeu ou está em uma trajetória para exceder um limite definido. Os exemplos incluem listas de verificação de emergência de aeronaves, listas de verificação de código médico vermelho/preto/azul etc., por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem listas de verificação de emergência de aeronaves, listas de verificação de código médico vermelho/preto/azul etc., por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito.",
+        "por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "controle_recuperacao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 13",
+        "trecho": "Procedimentos de controle e recuperação: uma série estabelecida de etapas projetadas para gerenciar um sistema ou processo que excedeu ou está em uma trajetória para exceder um limite definido. Os exemplos incluem listas de verificação de e",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Procedimentos de controle e recuperação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF12",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Válvulas de desvio/circuitos de controle e recuperação",
+      "definicao": "um dispositivo de reserva (válvula) em uma linha para permitir operação contínua em caso de falha. Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de reserva etc. Por exemplo, a válvula de reserva não funcionou conforme projetado.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de reserva etc.",
+        "Por exemplo, a válvula de reserva não funcionou conforme projetado."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "controle_recuperacao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 14",
+        "trecho": "Válvulas de desvio/circuitos de controle e recuperação: um dispositivo de reserva (válvula) em uma linha para permitir operação contínua em caso de falha. Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Válvulas de desvio/circuitos de controle e recuperação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF13",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Desligamento de emergência para controle e recuperação",
+      "definicao": "sistemas de segurança que compreendem detecção, sinalização, controle lógico, válvulas e atuadores, que podem, em conjunto com mecanismos de alarme e controle direto, permitir o desligamento seguro e eficaz de instalações e máquinas de maneira controlada. Os exemplos incluem dispositivos de proteção contra sobretensão e sobrecorrente em circuitos elétricos, sensores de sobrepressão em sistemas hidráulicos e painéis de explosão. Por exemplo, o botão de parada de emergência não conseguiu parar o motor.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem dispositivos de proteção contra sobretensão e sobrecorrente em circuitos elétricos, sensores de sobrepressão em sistemas hidráulicos e painéis de explosão.",
+        "Por exemplo, o botão de parada de emergência não conseguiu parar o motor."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "controle_recuperacao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 15",
+        "trecho": "Desligamento de emergência para controle e recuperação: sistemas de segurança que compreendem detecção, sinalização, controle lógico, válvulas e atuadores, que podem, em conjunto com mecanismos de alarme e controle direto, permitir o deslig",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Desligamento de emergência para controle e recuperação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF14",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "EPI de proteção e contenção",
+      "definicao": "dispositivos usados para proteger as pessoas contra perigos ou instalados em equipamentos para proteger os usuários, por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airbags, sistema de proteção contra capotamento, etc., por exemplo, Um capacete não foi usado durante a realização da tarefa.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airbags, sistema de proteção contra capotamento, etc., por exemplo, Um capacete não foi usado durante a realização da tarefa.",
+        "por exemplo, Um capacete não foi usado durante a realização da tarefa."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "protecao_contencao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 17",
+        "trecho": "EPI de proteção e contenção: dispositivos usados para proteger as pessoas contra perigos ou instalados em equipamentos para proteger os usuários, por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airba",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "EPI de proteção e contenção"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF15",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Combate a incêndio para proteção e contenção",
+      "definicao": "a ação ou processo de extinguir incêndios. Pode ser automático (por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, manta antichama etc). Por exemplo, os sistemas de sprinklers não foram ativados automaticamente.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, manta antichama etc).",
+        "por exemplo, extintores de incêndio, manta antichama etc).",
+        "Por exemplo, os sistemas de sprinklers não foram ativados automaticamente."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "protecao_contencao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 18",
+        "trecho": "Combate a incêndio para proteção e contenção: a ação ou processo de extinguir incêndios. Pode ser automático (por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, ma",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Combate a incêndio para proteção e contenção"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF16",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Resposta a derramamentos para proteção e contenção",
+      "definicao": "a ação para controlar uma liberação não intencional de uma substância (normalmente um líquido). Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por exemplo, não havia nenhum kit de derramamento disponível no local.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por exemplo, não havia nenhum kit de derramamento disponível no local.",
+        "por exemplo, não havia nenhum kit de derramamento disponível no local."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "protecao_contencao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 19",
+        "trecho": "Resposta a derramamentos para proteção e contenção: a ação para controlar uma liberação não intencional de uma substância (normalmente um líquido). Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Resposta a derramamentos para proteção e contenção"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF17",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Zonas de proteção e contenção/Barricadas/Exclusão",
+      "definicao": "Fazer a contenção da área dentro de uma estrutura projetada para evitar inundações ou brechas de vários tipos após a falha do reservatório primário de contenção. A capacidade de contenção deve ser de pelo menos 110% do volume do reservatório primário. Barricada para bloquear o fechamento/cercamento interno da vedação. Usado para impedir a entrada em áreas designadas. Por exemplo, as barreiras não impediram a entrada de um veículo no canteiro de obras. Zonas de exclusão: uma área em que a entrada é proibida. As zonas de exclusão normalmente devem ser bem marcadas e sinalizadas para fornecer ao pessoal um nível de conscientização sobre a área excluída. Por exemplo, não havia zonas de exclusão claramente marcadas no local de trabalho.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, as barreiras não impediram a entrada de um veículo no canteiro de obras.",
+        "Por exemplo, não havia zonas de exclusão claramente marcadas no local de trabalho."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "protecao_contencao",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 20",
+        "trecho": "Zonas de proteção e contenção/Barricadas/Exclusão: Fazer a contenção da área dentro de uma estrutura projetada para evitar inundações ou brechas de vários tipos após a falha do reservatório primário de contenção. A capacidade de contenção d",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Zonas de proteção e contenção/Barricadas/Exclusão"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF18",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Acesso/saída segura para fuga e resgate",
+      "definicao": "o meio seguro de entrada ou saída para um local seguro. Inclui caminhos, corredores, portas, escadas, degraus, etc., por exemplo, a saída de emergência estava bloqueada com móveis.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, a saída de emergência estava bloqueada com móveis."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fuga_resgate",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 22",
+        "trecho": "Acesso/saída segura para fuga e resgate: o meio seguro de entrada ou saída para um local seguro. Inclui caminhos, corredores, portas, escadas, degraus, etc., por exemplo, a saída de emergência estava bloqueada com móveis.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Acesso/saída segura para fuga e resgate"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF19",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Planejamento/resposta a emergências para fuga e resgate",
+      "definicao": "a resposta pretendida a uma ocorrência inesperada, grave e perigosa que deve fazer parte do Sistema de Gestão de Segurança de uma organização. Os planos de resposta a emergências devem fazer parte do programa de indução de uma organização e devem ser exercidos regularmente para confirmar a eficácia do plano. Por exemplo, o plano de resposta a emergências não identificou o risco de explosão.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o plano de resposta a emergências não identificou o risco de explosão."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fuga_resgate",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 23",
+        "trecho": "Planejamento/resposta a emergências para fuga e resgate: a resposta pretendida a uma ocorrência inesperada, grave e perigosa que deve fazer parte do Sistema de Gestão de Segurança de uma organização. Os planos de resposta a emergências deve",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Planejamento/resposta a emergências para fuga e resgate"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF20",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Comunicação de emergência para fuga e resgate",
+      "definicao": "um recurso e um protocolo de comunicação de emergência fornecem um meio de comunicação com pessoas e grupos antes, durante e após uma crise, fornecendo diretrizes passo a passo para superar incidentes. Por exemplo, o chefe dos bombeiros não tinha um método de comunicação com outros bombeiros.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o chefe dos bombeiros não tinha um método de comunicação com outros bombeiros."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fuga_resgate",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 24",
+        "trecho": "Comunicação de emergência para fuga e resgate: um recurso e um protocolo de comunicação de emergência fornecem um meio de comunicação com pessoas e grupos antes, durante e após uma crise, fornecendo diretrizes passo a passo para superar inc",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Comunicação de emergência para fuga e resgate"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DF21",
+      "grupo": "defesas_ausentes_ou_falhas",
+      "titulo": "Outro",
+      "definicao": "adicione uma defesa se não for encontrada acima.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "outro",
+      "exigeEstadoBarreira": true,
+      "estadosBarreiraPermitidos": [
+        "ausente",
+        "falha",
+        "incerto",
+        "nao_aplicavel"
+      ],
+      "codigoGenerico": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 25",
+        "trecho": "Outro: adicione uma defesa se não for encontrada acima.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Outro"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT01",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Supervisão",
+      "definicao": "significa que o supervisor encarregado e responsável por dirigir e coordenar a operação do sistema, equipamento, pessoas comete um erro ou comete uma violação. Por exemplo, o supervisor forneceu instruções inadequadas para realizar a tarefa com segurança.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o supervisor forneceu instruções inadequadas para realizar a tarefa com segurança."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 27",
+        "trecho": "Supervisão: significa que o supervisor encarregado e responsável por dirigir e coordenar a operação do sistema, equipamento, pessoas comete um erro ou comete uma violação. Por exemplo, o supervisor forneceu instruções inadequadas para reali",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Supervisão"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT02",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Autoridade operacional",
+      "definicao": "os limites de uso autorizado de um equipamento ou aplicação de um procedimento. Por exemplo, o operador usou um equipamento que não estava autorizado a operar.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador usou um equipamento que não estava autorizado a operar."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 28",
+        "trecho": "Autoridade operacional: os limites de uso autorizado de um equipamento ou aplicação de um procedimento. Por exemplo, o operador usou um equipamento que não estava autorizado a operar.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Autoridade operacional"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT03",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Velocidade de operação",
+      "definicao": "a velocidade com que uma pessoa opera um equipamento. Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 29",
+        "trecho": "Velocidade de operação: a velocidade com que uma pessoa opera um equipamento. Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Velocidade de operação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT04",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Uso do equipamento",
+      "definicao": "o uso inadequado de equipamentos para uma finalidade específica. Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 30",
+        "trecho": "Uso do equipamento: o uso inadequado de equipamentos para uma finalidade específica. Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Uso do equipamento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT05",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Uso de EPI",
+      "definicao": "dispositivos usados para proteção contra perigos. Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 31",
+        "trecho": "Uso de EPI: dispositivos usados para proteção contra perigos. Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Uso de EPI"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT06",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Conformidade processual",
+      "definicao": "seguir uma maneira estabelecida ou oficial de fazer algo. Por exemplo, o operador desviou-se da lista de verificação publicada.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador desviou-se da lista de verificação publicada."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 32",
+        "trecho": "Conformidade processual: seguir uma maneira estabelecida ou oficial de fazer algo. Por exemplo, o operador desviou-se da lista de verificação publicada.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Conformidade processual"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT07",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Gestão de mudanças",
+      "definicao": "as etapas necessárias para preparar, apoiar e ajudar indivíduos, equipes e organizações a fazer mudanças organizacionais. Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou um buraco próximo à área de trabalho, resultando na escavação alojada no buraco.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou um buraco próximo à área de trabalho, resultando na escavação alojada no buraco."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 33",
+        "trecho": "Gestão de mudanças: as etapas necessárias para preparar, apoiar e ajudar indivíduos, equipes e organizações a fazer mudanças organizacionais. Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de mudanças"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT08",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Erro ou violação de equipamento/manuseio de materiais",
+      "definicao": "uma falha no método ou equipamento utilizado para movimentação, armazenamento, controle e proteção de materiais, mercadorias, produtos e pessoas. Por exemplo, o operador girou a caçamba da escavadeira sem permitir folga adequada sobre o caminhão.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador girou a caçamba da escavadeira sem permitir folga adequada sobre o caminhão."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 34",
+        "trecho": "Erro ou violação de equipamento/manuseio de materiais: uma falha no método ou equipamento utilizado para movimentação, armazenamento, controle e proteção de materiais, mercadorias, produtos e pessoas. Por exemplo, o operador girou a caçamba",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Erro ou violação de equipamento/manuseio de materiais"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT09",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Brincadeiras",
+      "definicao": "ações tolas ou comportamento fora das regras conhecidas. Busca de emoção: participação em atividades emocionantes que envolvam risco físico. Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 35",
+        "trecho": "Brincadeiras: ações tolas ou comportamento fora das regras conhecidas. Busca de emoção: participação em atividades emocionantes que envolvam risco físico. Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Brincadeiras"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT10",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Reconhecimento/percepção de perigo",
+      "definicao": "o reconhecimento de perigos faz parte da avaliação de riscos na qual os perigos são identificados para investigação posterior. A percepção é a capacidade de ver, ouvir ou tomar consciência de algo através dos sentidos. Por exemplo, o operador líder não avaliou efetivamente o risco representado pelas linhas de alta tensão suspensas no local de trabalho.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador líder não avaliou efetivamente o risco representado pelas linhas de alta tensão suspensas no local de trabalho."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 36",
+        "trecho": "Reconhecimento/percepção de perigo: o reconhecimento de perigos faz parte da avaliação de riscos na qual os perigos são identificados para investigação posterior. A percepção é a capacidade de ver, ouvir ou tomar consciência de algo através",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Reconhecimento/percepção de perigo"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT11",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Erro ou violação de gerenciamento de riscos",
+      "definicao": "gestão de perigos que são situações, processos ou itens dentro do local de trabalho ou do ambiente operacional, que têm o potencial de causar danos ou perturbações às pessoas, ao ambiente, à imagem corporativa e às operações comerciais. Por exemplo, o operador não dirigiu nas condições corretas na superfície da estrada não pavimentada, molhada e escorregadia.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador não dirigiu nas condições corretas na superfície da estrada não pavimentada, molhada e escorregadia."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 37",
+        "trecho": "Erro ou violação de gerenciamento de riscos: gestão de perigos que são situações, processos ou itens dentro do local de trabalho ou do ambiente operacional, que têm o potencial de causar danos ou perturbações às pessoas, ao ambiente, à imag",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Erro ou violação de gerenciamento de riscos"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT12",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Erro ou violação do método de trabalho",
+      "definicao": "um procedimento, técnica ou maneira de fazer algo, de acordo com um plano definido ou guia passo a passo para realizar uma atividade. Por exemplo, o operador não seguiu as instruções do supervisor e inseriu o pino antes de girar a luva de travamento para a posição encaixada.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador não seguiu as instruções do supervisor e inseriu o pino antes de girar a luva de travamento para a posição encaixada."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 38",
+        "trecho": "Erro ou violação do método de trabalho: um procedimento, técnica ou maneira de fazer algo, de acordo com um plano definido ou guia passo a passo para realizar uma atividade. Por exemplo, o operador não seguiu as instruções do supervisor e i",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Erro ou violação do método de trabalho"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT13",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Práticas de higiene ocupacional",
+      "definicao": "a disciplina de antecipar, reconhecer, avaliar e controlar os perigos para a saúde no ambiente de trabalho. Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção respiratória com base nas amostras de poeira que foram avaliadas quanto a partículas de sílica.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção respiratória com base nas amostras de poeira que foram avaliadas quanto a partículas de sílica."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "acao",
+      "codigoGenerico": false,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 39",
+        "trecho": "Práticas de higiene ocupacional: a disciplina de antecipar, reconhecer, avaliar e controlar os perigos para a saúde no ambiente de trabalho. Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção res",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Práticas de higiene ocupacional"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IT14",
+      "grupo": "acoes_individuais_ou_equipe",
+      "titulo": "Outro",
+      "definicao": "adicione uma ação individual ou de equipe se não for encontrada acima.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "outro",
+      "codigoGenerico": true,
+      "exigeReconstrucaoDeContexto": true,
+      "exigeDistincaoErroViolacao": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 40",
+        "trecho": "Outro: adicione uma ação individual ou de equipe se não for encontrada acima.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Outro"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE01",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Planejamento de tarefas/Preparação/Pessoal",
+      "definicao": "o processo de planejamento e avaliação de recursos e requisitos de pessoal para concluir uma tarefa com segurança e eficiência. Por exemplo, a organização planejou mal o trabalho, resultando em recursos insuficientes disponíveis para concluir a tarefa no prazo",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a organização planejou mal o trabalho, resultando em recursos insuficientes disponíveis para concluir a tarefa no prazo"
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 42",
+        "trecho": "Planejamento de tarefas/Preparação/Pessoal: o processo de planejamento e avaliação de recursos e requisitos de pessoal para concluir uma tarefa com segurança e eficiência. Por exemplo, a organização planejou mal o trabalho, resultando em re",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Planejamento de tarefas/Preparação/Pessoal"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE02",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Análise de perigos/Análise de segurança no trabalho/Tomada 5",
+      "definicao": "um processo documentado que divide cada tarefa em suas etapas básicas, bem como identifica e controla os perigos potenciais para garantir a conclusão segura da tarefa. Por exemplo, a Segurança do Trabalho e Análise Ambiental (JSEA) foi aplicada de forma inconsistente em todo o escopo do trabalho.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a Segurança do Trabalho e Análise Ambiental (JSEA) foi aplicada de forma inconsistente em todo o escopo do trabalho."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 43",
+        "trecho": "Análise de perigos/Análise de segurança no trabalho/Tomada 5: um processo documentado que divide cada tarefa em suas etapas básicas, bem como identifica e controla os perigos potenciais para garantir a conclusão segura da tarefa. Por exempl",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Análise de perigos/Análise de segurança no trabalho/Tomada 5"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE03",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Disponibilidade e adequação dos procedimentos de trabalho",
+      "definicao": "os procedimentos são fornecidos para tarefas específicas, são relevantes para essas tarefas e estão prontamente disponíveis para os trabalhadores. Por exemplo, não havia nenhum procedimento publicado para a tarefa.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, não havia nenhum procedimento publicado para a tarefa."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 44",
+        "trecho": "Disponibilidade e adequação dos procedimentos de trabalho: os procedimentos são fornecidos para tarefas específicas, são relevantes para essas tarefas e estão prontamente disponíveis para os trabalhadores. Por exemplo, não havia nenhum proc",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Disponibilidade e adequação dos procedimentos de trabalho"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE04",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Disponibilidade e adequação da permissão de trabalho",
+      "definicao": "autorização formal por escrito para pessoa(s) devidamente qualificada(s) para realizar uma tarefa considerada de alto risco. A permissão de trabalho adequada identifica os perigos e os controles necessários para garantir que o trabalho seja concluído com segurança e eficiência. Por exemplo, uma permissão de trabalho foi usada no dia, mas não abrangeu todo o escopo da atividade que estava sendo realizada",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, uma permissão de trabalho foi usada no dia, mas não abrangeu todo o escopo da atividade que estava sendo realizada"
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 45",
+        "trecho": "Disponibilidade e adequação da permissão de trabalho: autorização formal por escrito para pessoa(s) devidamente qualificada(s) para realizar uma tarefa considerada de alto risco. A permissão de trabalho adequada identifica os perigos e os c",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Disponibilidade e adequação da permissão de trabalho"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE05",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Situação/condição operacional anormal",
+      "definicao": "situação em que o funcionamento do equipamento é inconsistente com a configuração normal ou uma condição identificada que pode indicar mau funcionamento de um componente ou desvio das condições normais de operação. Por exemplo, a máquina estava operando na capacidade máxima por longos períodos de tempo fora do uso recomendado.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a máquina estava operando na capacidade máxima por longos períodos de tempo fora do uso recomendado."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 46",
+        "trecho": "Situação/condição operacional anormal: situação em que o funcionamento do equipamento é inconsistente com a configuração normal ou uma condição identificada que pode indicar mau funcionamento de um componente ou desvio das condições normais",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Situação/condição operacional anormal"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE06",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Ferramentas/condição/disponibilidade do equipamento",
+      "definicao": "ferramentas e equipamentos corretos são fornecidos para a tarefa, o equipamento está em boas condições operacionais (mantido de acordo com o padrão exigido). Por exemplo, o moedor não tinha uma proteção instalada",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o moedor não tinha uma proteção instalada"
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 47",
+        "trecho": "Ferramentas/condição/disponibilidade do equipamento: ferramentas e equipamentos corretos são fornecidos para a tarefa, o equipamento está em boas condições operacionais (mantido de acordo com o padrão exigido). Por exemplo, o moedor não tin",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Ferramentas/condição/disponibilidade do equipamento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE07",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Disponibilidade e adequação de materiais",
+      "definicao": "ter o tipo, quantidade e qualidade apropriados de um determinado material para concluir um trabalho no padrão exigido. Por exemplo, a especificação errada de madeira estava sendo usada para suportar o muro de contenção.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a especificação errada de madeira estava sendo usada para suportar o muro de contenção."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 48",
+        "trecho": "Disponibilidade e adequação de materiais: ter o tipo, quantidade e qualidade apropriados de um determinado material para concluir um trabalho no padrão exigido. Por exemplo, a especificação errada de madeira estava sendo usada para suportar",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Disponibilidade e adequação de materiais"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE08",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Integridade do equipamento",
+      "definicao": "o gerenciamento de equipamentos para garantir que eles sejam projetados e instalados corretamente, e que operem e sejam mantidos corretamente. Por exemplo, os freios do caminhão estavam com defeito e fora da vida útil.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, os freios do caminhão estavam com defeito e fora da vida útil."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 49",
+        "trecho": "Integridade do equipamento: o gerenciamento de equipamentos para garantir que eles sejam projetados e instalados corretamente, e que operem e sejam mantidos corretamente. Por exemplo, os freios do caminhão estavam com defeito e fora da vida",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Integridade do equipamento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE09",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Serviço de limpeza",
+      "definicao": "a rotina de limpeza e organização de um local de trabalho para garantir que as áreas de trabalho estejam organizadas, livres de riscos de escorregar, tropeçar e cair, livres de riscos de incêndio etc., por exemplo, o chão estava cheio de produtos de construção, criando riscos de tropeçar.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, o chão estava cheio de produtos de construção, criando riscos de tropeçar."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 50",
+        "trecho": "Serviço de limpeza: a rotina de limpeza e organização de um local de trabalho para garantir que as áreas de trabalho estejam organizadas, livres de riscos de escorregar, tropeçar e cair, livres de riscos de incêndio etc., por exemplo, o chã",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Serviço de limpeza"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE10",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Condições do tempo",
+      "definicao": "refere-se às condições meteorológicas que influenciaram a tarefa e/ou comportamentos que levaram ao resultado adverso, como o grau em que está quente ou frio, úmido ou seco, calmo ou tempestuoso, claro ou nublado. Ventos fortes colocaram carga no poste de luz, fazendo-o cair no chão.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 51",
+        "trecho": "Condições do tempo: refere-se às condições meteorológicas que influenciaram a tarefa e/ou comportamentos que levaram ao resultado adverso, como o grau em que está quente ou frio, úmido ou seco, calmo ou tempestuoso, claro ou nublado. Ventos",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Condições do tempo"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE11",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Congestionamento/restrição/acesso",
+      "definicao": "uma área que pode estar bloqueada ou lotada (desordenada) que pode restringir o acesso a determinados equipamentos ou materiais e pode afetar o acesso, as operações de entrada e saída de um local de trabalho. Por exemplo, o operador estava trabalhando em um espaço apertado e não tinha espaço para manobrar o equipamento na orientação desejada.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador estava trabalhando em um espaço apertado e não tinha espaço para manobrar o equipamento na orientação desejada."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 52",
+        "trecho": "Congestionamento/restrição/acesso: uma área que pode estar bloqueada ou lotada (desordenada) que pode restringir o acesso a determinados equipamentos ou materiais e pode afetar o acesso, as operações de entrada e saída de um local de trabal",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Congestionamento/restrição/acesso"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE12",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Tarefa rotineira/não rotineira",
+      "definicao": "repetição de uma ou mais tarefas em intervalos regulares/tarefas executadas com pouca frequência que os detalhes da tarefa em si, os perigos e controles podem não ser totalmente desenvolvidos e/ou compreendidos por aqueles que executam a tarefa. Por exemplo, usar uma britadeira não é uma tarefa rotineira para o operador.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, usar uma britadeira não é uma tarefa rotineira para o operador."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 53",
+        "trecho": "Tarefa rotineira/não rotineira: repetição de uma ou mais tarefas em intervalos regulares/tarefas executadas com pouca frequência que os detalhes da tarefa em si, os perigos e controles podem não ser totalmente desenvolvidos e/ou compreendid",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Tarefa rotineira/não rotineira"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE13",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Perigo de incêndio e/ou explosão",
+      "definicao": "líquidos e substâncias combustíveis e inflamáveis presentes no ambiente de trabalho ou causados pela tarefa executada (por exemplo, trabalho a quente). Por exemplo, o operador trabalhava com produtos explosivos (gasolina).",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, trabalho a quente).",
+        "Por exemplo, o operador trabalhava com produtos explosivos (gasolina)."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 54",
+        "trecho": "Perigo de incêndio e/ou explosão: líquidos e substâncias combustíveis e inflamáveis presentes no ambiente de trabalho ou causados pela tarefa executada (por exemplo, trabalho a quente). Por exemplo, o operador trabalhava com produtos explos",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Perigo de incêndio e/ou explosão"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE14",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Iluminação",
+      "definicao": "a quantidade de luz disponível no local de trabalho/área de trabalho para garantir iluminação ou visibilidade apropriada. Refere-se tanto a fontes naturais quanto artificiais. Por exemplo, as luzes do armazém não estavam funcionando naquele dia.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, as luzes do armazém não estavam funcionando naquele dia."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 55",
+        "trecho": "Iluminação: a quantidade de luz disponível no local de trabalho/área de trabalho para garantir iluminação ou visibilidade apropriada. Refere-se tanto a fontes naturais quanto artificiais. Por exemplo, as luzes do armazém não estavam funcion",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Iluminação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE15",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Equipamento/temperatura/condições do material",
+      "definicao": "a temperatura do ambiente operacional ou do equipamento que está sendo usado no momento. Por exemplo, o operador estava trabalhando com metal quente.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador estava trabalhando com metal quente."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 56",
+        "trecho": "Equipamento/temperatura/condições do material: a temperatura do ambiente operacional ou do equipamento que está sendo usado no momento. Por exemplo, o operador estava trabalhando com metal quente.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Equipamento/temperatura/condições do material"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE16",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Barulho",
+      "definicao": "som indesejado, especialmente som alto ou desagradável e que pode causar perturbação ou distração. Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 57",
+        "trecho": "Barulho: som indesejado, especialmente som alto ou desagradável e que pode causar perturbação ou distração. Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Barulho"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE17",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Ventilação",
+      "definicao": "o fornecimento de ar fresco a um edifício, sala, local de trabalho etc., por exemplo, não há ar fresco entrando no prédio.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, não há ar fresco entrando no prédio."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 58",
+        "trecho": "Ventilação: o fornecimento de ar fresco a um edifício, sala, local de trabalho etc., por exemplo, não há ar fresco entrando no prédio.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Ventilação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE18",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Gás, poeira ou fumaça",
+      "definicao": "a presença de contaminantes transportados pelo ar na área de trabalho que afetam a capacidade do operador de concluir a tarefa. Por exemplo, fumaça do cano de exaustão entrou no prédio.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, fumaça do cano de exaustão entrou no prédio."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 59",
+        "trecho": "Gás, poeira ou fumaça: a presença de contaminantes transportados pelo ar na área de trabalho que afetam a capacidade do operador de concluir a tarefa. Por exemplo, fumaça do cano de exaustão entrou no prédio.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gás, poeira ou fumaça"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE19",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Radiação",
+      "definicao": "a presença de partículas ionizantes ou não ionizantes que têm o potencial de causar danos. Por exemplo, a radiação da máquina de raios X estava vazando.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a radiação da máquina de raios X estava vazando."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 60",
+        "trecho": "Radiação: a presença de partículas ionizantes ou não ionizantes que têm o potencial de causar danos. Por exemplo, a radiação da máquina de raios X estava vazando.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Radiação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE20",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Produto químico",
+      "definicao": "qualquer substância básica usada ou produzida por uma reação que envolva alterações em átomos ou moléculas; risco químico é o risco envolvido no uso de um produto químico e representa um risco ocupacional causado pela exposição ao produto químico. Por exemplo, um selante estava vazando do recipiente.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, um selante estava vazando do recipiente."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 61",
+        "trecho": "Produto químico: qualquer substância básica usada ou produzida por uma reação que envolva alterações em átomos ou moléculas; risco químico é o risco envolvido no uso de um produto químico e representa um risco ocupacional causado pela expos",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Produto químico"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE21",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Animais",
+      "definicao": "presença de animais na área de trabalho que impactam na tarefa que está sendo realizada. Por exemplo, cangurus estavam presentes na área.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, cangurus estavam presentes na área."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 62",
+        "trecho": "Animais: presença de animais na área de trabalho que impactam na tarefa que está sendo realizada. Por exemplo, cangurus estavam presentes na área.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Animais"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE22",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Condições/gradiente da superfície",
+      "definicao": "gradiente da superfície é o grau em que uma superfície sobe e desce ao longo de seu comprimento; a condição da superfície refere-se à suavidade ou rugosidade de uma superfície. Por exemplo, a rampa íngreme sem tratamento de fricção tornava a caminhada escorregadia.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a rampa íngreme sem tratamento de fricção tornava a caminhada escorregadia."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 63",
+        "trecho": "Condições/gradiente da superfície: gradiente da superfície é o grau em que uma superfície sobe e desce ao longo de seu comprimento; a condição da superfície refere-se à suavidade ou rugosidade de uma superfície. Por exemplo, a rampa íngreme",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Condições/gradiente da superfície"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE23",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Visibilidade reduzida/restrita",
+      "definicao": "redução de quão longe se pode ver claramente em condições particulares de clima, luz ou ambiente/local de trabalho. Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "condicao",
+      "codigoGenerico": false,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 64",
+        "trecho": "Visibilidade reduzida/restrita: redução de quão longe se pode ver claramente em condições particulares de clima, luz ou ambiente/local de trabalho. Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Visibilidade reduzida/restrita"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TE24",
+      "grupo": "condicoes_tarefa_ambiente",
+      "titulo": "Outro fator",
+      "definicao": null,
+      "definicaoStatus": "SEM_DEFINICAO_NA_FONTE",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "outro",
+      "codigoGenerico": true,
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 65",
+        "trecho": "Outro fator",
+        "confianca": "alta",
+        "escopo": "ausencia_de_definicao_confirmada",
+        "observacao": "O código consta do documento de origem, mas o documento não fornece definição além do rótulo. A ausência foi confirmada na fonte e não deve ser preenchida por inferência."
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF01",
+      "grupo": "fatores_humanos",
+      "titulo": "Complacência/motivação/dessensibilização ao perigo",
+      "definicao": "desejo geral ou vontade de fazer algo/estar tão familiarizado ou ter exposição de longo prazo a um perigo que eles tenham uma resposta emocional decrescente a ele e percebam o risco como menor do que realmente é. Por exemplo, os trabalhadores têm uma atitude complacente em relação ao trabalho em eletricidade de alta tensão, pois o fazem o tempo todo.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, os trabalhadores têm uma atitude complacente em relação ao trabalho em eletricidade de alta tensão, pois o fazem o tempo todo."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 67",
+        "trecho": "Complacência/motivação/dessensibilização ao perigo: desejo geral ou vontade de fazer algo/estar tão familiarizado ou ter exposição de longo prazo a um perigo que eles tenham uma resposta emocional decrescente a ele e percebam o risco como m",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Complacência/motivação/dessensibilização ao perigo"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF02",
+      "grupo": "fatores_humanos",
+      "titulo": "Drogas/influência do álcool",
+      "definicao": "intoxicação causada pelo uso de álcool, drogas ou uma combinação de ambos. O termo drogas pode estar se referindo a medicamentos prescritos, bem como a substâncias ilícitas. Por exemplo, o trabalhador estava embriagado devido ao consumo de álcool.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o trabalhador estava embriagado devido ao consumo de álcool."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 68",
+        "trecho": "Drogas/influência do álcool: intoxicação causada pelo uso de álcool, drogas ou uma combinação de ambos. O termo drogas pode estar se referindo a medicamentos prescritos, bem como a substâncias ilícitas. Por exemplo, o trabalhador estava emb",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Drogas/influência do álcool"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF03",
+      "grupo": "fatores_humanos",
+      "titulo": "Familiaridade com a tarefa",
+      "definicao": "o estado de saber como concluir bem uma tarefa. Por exemplo, esta foi a primeira vez que o operador realizou a tarefa.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, esta foi a primeira vez que o operador realizou a tarefa."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 69",
+        "trecho": "Familiaridade com a tarefa: o estado de saber como concluir bem uma tarefa. Por exemplo, esta foi a primeira vez que o operador realizou a tarefa.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Familiaridade com a tarefa"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF04",
+      "grupo": "fatores_humanos",
+      "titulo": "Fadiga",
+      "definicao": "cansaço que resulta de esforço mental ou físico; ou cansaço provocado por falta de descanso/sono suficiente ou de qualidade. Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 70",
+        "trecho": "Fadiga: cansaço que resulta de esforço mental ou físico; ou cansaço provocado por falta de descanso/sono suficiente ou de qualidade. Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Fadiga"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF05",
+      "grupo": "fatores_humanos",
+      "titulo": "Consciência situacional",
+      "definicao": "conhecer e estar atento ao que se passa à nossa volta. Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 71",
+        "trecho": "Consciência situacional: conhecer e estar atento ao que se passa à nossa volta. Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Consciência situacional"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF06",
+      "grupo": "fatores_humanos",
+      "titulo": "Pressões de tempo/produtividade",
+      "definicao": "ser fornecido menos tempo do que o necessário/considerado necessário para concluir uma tarefa específica. Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 72",
+        "trecho": "Pressões de tempo/produtividade: ser fornecido menos tempo do que o necessário/considerado necessário para concluir uma tarefa específica. Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Pressões de tempo/produtividade"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF07",
+      "grupo": "fatores_humanos",
+      "titulo": "Pressão dos colegas/exemplo de supervisão",
+      "definicao": "esta é a influência direta dos colegas sobre o comportamento de alguém, como a mudança de atitudes e comportamentos para se adequar aos de seu colega ou supervisor. Por exemplo, o funcionário se sentiu pressionado pela atitude relaxada de seu gerente em relação à conformidade com os EPIs e, portanto, continuou a trabalhar sem óculos de segurança, seguindo o exemplo de seu gerente.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário se sentiu pressionado pela atitude relaxada de seu gerente em relação à conformidade com os EPIs e, portanto, continuou a trabalhar sem óculos de segurança, seguindo o exemplo de seu gerente."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 73",
+        "trecho": "Pressão dos colegas/exemplo de supervisão: esta é a influência direta dos colegas sobre o comportamento de alguém, como a mudança de atitudes e comportamentos para se adequar aos de seu colega ou supervisor. Por exemplo, o funcionário se se",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Pressão dos colegas/exemplo de supervisão"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF08",
+      "grupo": "fatores_humanos",
+      "titulo": "Capacidades físicas",
+      "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa física. Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 74",
+        "trecho": "Capacidades físicas: o grau em que uma pessoa é capaz de realizar uma tarefa física. Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Capacidades físicas"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF09",
+      "grupo": "fatores_humanos",
+      "titulo": "Capacidades mentais",
+      "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa mental, por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 75",
+        "trecho": "Capacidades mentais: o grau em que uma pessoa é capaz de realizar uma tarefa mental, por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Capacidades mentais"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF10",
+      "grupo": "fatores_humanos",
+      "titulo": "Estresse físico",
+      "definicao": "o resultado da operação estendida sem tempo de recuperação apropriado sendo disponibilizado. Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 76",
+        "trecho": "Estresse físico: o resultado da operação estendida sem tempo de recuperação apropriado sendo disponibilizado. Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Estresse físico"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF11",
+      "grupo": "fatores_humanos",
+      "titulo": "Estresse mental",
+      "definicao": "as expectativas colocadas sobre um indivíduo para concluir uma tarefa. Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 77",
+        "trecho": "Estresse mental: as expectativas colocadas sobre um indivíduo para concluir uma tarefa. Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Estresse mental"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF12",
+      "grupo": "fatores_humanos",
+      "titulo": "Nível de confiança",
+      "definicao": "crença nas próprias habilidades para realizar uma determinada tarefa, o sentimento de que se tem habilidade e experiência para realizar uma tarefa. Por exemplo, o nível de confiança do trabalhador superou em muito sua capacidade de concluir a tarefa adequadamente e, devido à falta de habilidade do trabalhador, resultou em um resultado adverso.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o nível de confiança do trabalhador superou em muito sua capacidade de concluir a tarefa adequadamente e, devido à falta de habilidade do trabalhador, resultou em um resultado adverso."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 78",
+        "trecho": "Nível de confiança: crença nas próprias habilidades para realizar uma determinada tarefa, o sentimento de que se tem habilidade e experiência para realizar uma tarefa. Por exemplo, o nível de confiança do trabalhador superou em muito sua ca",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Nível de confiança"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF13",
+      "grupo": "fatores_humanos",
+      "titulo": "Objetivos secundários",
+      "definicao": "outros objetivos que não fazem parte de um objetivo principal. Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário de atingir as metas de produção aconteceria se os sistemas e processos seguros estivessem operando com eficiência.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário de atingir as metas de produção aconteceria se os sistemas e processos seguros estivessem operando com eficiência."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 79",
+        "trecho": "Objetivos secundários: outros objetivos que não fazem parte de um objetivo principal. Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário d",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Objetivos secundários"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF14",
+      "grupo": "fatores_humanos",
+      "titulo": "Problemas pessoais",
+      "definicao": "eventos de natureza pessoal que podem causar distrações no local de trabalho. Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 80",
+        "trecho": "Problemas pessoais: eventos de natureza pessoal que podem causar distrações no local de trabalho. Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Problemas pessoais"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF15",
+      "grupo": "fatores_humanos",
+      "titulo": "Distração/pré-ocupação",
+      "definicao": "qualquer coisa que impeça alguém de dar toda a atenção à tarefa em questão. Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 81",
+        "trecho": "Distração/pré-ocupação: qualquer coisa que impeça alguém de dar toda a atenção à tarefa em questão. Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Distração/pré-ocupação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF16",
+      "grupo": "fatores_humanos",
+      "titulo": "Experiência/Conhecimento/Habilidade para a tarefa",
+      "definicao": "ter o nível exigido de experiência no local de trabalho (exposição)/conhecimento do que é necessário para executar uma tarefa específica (treinamento e formação)/habilidade é saber como executar a tarefa. Por exemplo, o funcionário tem apenas uma experiência limitada na condução deste tipo de caminhão.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário tem apenas uma experiência limitada na condução deste tipo de caminhão."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 82",
+        "trecho": "Experiência/Conhecimento/Habilidade para a tarefa: ter o nível exigido de experiência no local de trabalho (exposição)/conhecimento do que é necessário para executar uma tarefa específica (treinamento e formação)/habilidade é saber como exe",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Experiência/Conhecimento/Habilidade para a tarefa"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF17",
+      "grupo": "fatores_humanos",
+      "titulo": "Competência",
+      "definicao": "a capacidade de concluir uma tarefa com segurança, eficiência e no padrão exigido. Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 83",
+        "trecho": "Competência: a capacidade de concluir uma tarefa com segurança, eficiência e no padrão exigido. Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Competência"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF18",
+      "grupo": "fatores_humanos",
+      "titulo": "Crenças comportamentais (ganhos > riscos)",
+      "definicao": "a crença de que um determinado comportamento produzirá um determinado resultado em que os ganhos de se engajar no comportamento superam os riscos envolvidos (por exemplo, fazer um atalho em um procedimento para economizar tempo). Por exemplo, o funcionário achou que não havia problema em lixar metal sem usar os óculos de segurança.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "por exemplo, fazer um atalho em um procedimento para economizar tempo).",
+        "Por exemplo, o funcionário achou que não havia problema em lixar metal sem usar os óculos de segurança."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 84",
+        "trecho": "Crenças comportamentais (ganhos > riscos): a crença de que um determinado comportamento produzirá um determinado resultado em que os ganhos de se engajar no comportamento superam os riscos envolvidos (por exemplo, fazer um atalho em um proc",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Crenças comportamentais (ganhos > riscos)"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF19",
+      "grupo": "fatores_humanos",
+      "titulo": "Personalidade/atitude",
+      "definicao": "a combinação de características ou qualidades que formam o caráter distintivo de um indivíduo/a maneira de pensar ou sentir de um indivíduo sobre algo. Por exemplo, a personalidade persuasiva do supervisor influenciou outros trabalhadores a seguir sua liderança, mesmo que não tenham seguido todas as etapas do procedimento.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a personalidade persuasiva do supervisor influenciou outros trabalhadores a seguir sua liderança, mesmo que não tenham seguido todas as etapas do procedimento."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": true,
+      "nivelEvidenciaMinimo": "robusta",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 85",
+        "trecho": "Personalidade/atitude: a combinação de características ou qualidades que formam o caráter distintivo de um indivíduo/a maneira de pensar ou sentir de um indivíduo sobre algo. Por exemplo, a personalidade persuasiva do supervisor influenciou",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Personalidade/atitude"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF20",
+      "grupo": "fatores_humanos",
+      "titulo": "Comunicações deficientes",
+      "definicao": "é quando há uma discrepância entre o que é dito por uma pessoa e o que é ouvido por outra, ou seja, um mal-entendido da mensagem. Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à ré, pois nenhum padrão de comunicação havia sido estabelecido.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à ré, pois nenhum padrão de comunicação havia sido estabelecido."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 86",
+        "trecho": "Comunicações deficientes: é quando há uma discrepância entre o que é dito por uma pessoa e o que é ouvido por outra, ou seja, um mal-entendido da mensagem. Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à r",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Comunicações deficientes"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF21",
+      "grupo": "fatores_humanos",
+      "titulo": "Padrões de turno ruins e horas extras",
+      "definicao": "expor ou exigir que os funcionários passem longos períodos de tempo no local de trabalho que são inadequados para gerenciar o risco de fadiga Por exemplo, o padrão de turno do funcionário não foi avaliado quanto ao risco de fadiga e resultou no estado de fadiga do trabalhador ao iniciar o dia 5 do padrão do turno.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o padrão de turno do funcionário não foi avaliado quanto ao risco de fadiga e resultou no estado de fadiga do trabalhador ao iniciar o dia 5 do padrão do turno."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 87",
+        "trecho": "Padrões de turno ruins e horas extras: expor ou exigir que os funcionários passem longos períodos de tempo no local de trabalho que são inadequados para gerenciar o risco de fadiga Por exemplo, o padrão de turno do funcionário não foi avali",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Padrões de turno ruins e horas extras"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF22",
+      "grupo": "fatores_humanos",
+      "titulo": "Tolerância passiva de violações",
+      "definicao": "aceitação de comportamento inseguro e condições inseguras por não denunciá-los verbalmente ou ativamente. Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas não fez nada a respeito.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas não fez nada a respeito."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 88",
+        "trecho": "Tolerância passiva de violações: aceitação de comportamento inseguro e condições inseguras por não denunciá-los verbalmente ou ativamente. Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas ",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Tolerância passiva de violações"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF23",
+      "grupo": "fatores_humanos",
+      "titulo": "Licença percebida para quebrar regras",
+      "definicao": "a crença de que alguém tem autoridade para não seguir implicitamente as regras, pois você acredita que a regra não é importante, que nenhum mal pode advir dela e que pode haver benefícios em fazer do seu jeito. Por exemplo, a organização não tinha um processo padrão para verificar o desempenho dos funcionários e permitia que eles trabalhassem da maneira que quisessem, desde que a tarefa fosse concluída no prazo e dentro do orçamento.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, a organização não tinha um processo padrão para verificar o desempenho dos funcionários e permitia que eles trabalhassem da maneira que quisessem, desde que a tarefa fosse concluída no prazo e dentro do orçamento."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 89",
+        "trecho": "Licença percebida para quebrar regras: a crença de que alguém tem autoridade para não seguir implicitamente as regras, pois você acredita que a regra não é importante, que nenhum mal pode advir dela e que pode haver benefícios em fazer do s",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Licença percebida para quebrar regras"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF24",
+      "grupo": "fatores_humanos",
+      "titulo": "Mudança de rotina",
+      "definicao": "desvio do que seria considerado uma atividade normal ou prática normal e implicaria que a atividade ou processo não é familiar para a pessoa que o executa. Por exemplo, o motorista recebeu uma rota de entrega diferente da rota normal com a qual estava familiarizado e, posteriormente, se perdeu tentando encontrar o endereço correto.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, o motorista recebeu uma rota de entrega diferente da rota normal com a qual estava familiarizado e, posteriormente, se perdeu tentando encontrar o endereço correto."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 90",
+        "trecho": "Mudança de rotina: desvio do que seria considerado uma atividade normal ou prática normal e implicaria que a atividade ou processo não é familiar para a pessoa que o executa. Por exemplo, o motorista recebeu uma rota de entrega diferente da",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Mudança de rotina"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF25",
+      "grupo": "fatores_humanos",
+      "titulo": "Confiança em conhecimento não documentado",
+      "definicao": "conhecimento e informações importantes sobre processos de negócios, práticas e sistemas complexos não são amplamente documentados, o que resulta em informações importantes sendo conhecidas por muito poucos indivíduos ou equipes e não estão disponíveis para outras pessoas por meio de procedimentos e treinamento formal. Por exemplo, sem procedimentos escritos para usar como referência, o trabalhador agiu de acordo com as instruções verbais de outro trabalhador.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [
+        "Por exemplo, sem procedimentos escritos para usar como referência, o trabalhador agiu de acordo com as instruções verbais de outro trabalhador."
+      ],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "fator_humano",
+      "codigoGenerico": false,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 91",
+        "trecho": "Confiança em conhecimento não documentado: conhecimento e informações importantes sobre processos de negócios, práticas e sistemas complexos não são amplamente documentados, o que resulta em informações importantes sendo conhecidas por muit",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Confiança em conhecimento não documentado"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HF26",
+      "grupo": "fatores_humanos",
+      "titulo": "Outro fator",
+      "definicao": null,
+      "definicaoStatus": "SEM_DEFINICAO_NA_FONTE",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "outro",
+      "codigoGenerico": true,
+      "dadoSensivel": false,
+      "nivelEvidenciaMinimo": "suficiente",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 92",
+        "trecho": "Outro fator",
+        "confianca": "alta",
+        "escopo": "ausencia_de_definicao_confirmada",
+        "observacao": "O código consta do documento de origem, mas o documento não fornece definição além do rótulo. A ausência foi confirmada na fonte e não deve ser preenchida por inferência."
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "CM",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Gestão de Empreiteiros",
+      "definicao": "a avaliação, seleção e retenção de serviços contratados, equipamentos, pessoal e material para garantir que os riscos às pessoas, ambiente, equipamentos ou propriedades sejam reduzidos a um nível que seja tão baixo quanto razoavelmente praticável.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 94",
+        "trecho": "Gestão de Empreiteiros: a avaliação, seleção e retenção de serviços contratados, equipamentos, pessoal e material para garantir que os riscos às pessoas, ambiente, equipamentos ou propriedades sejam reduzidos a um nível que seja tão baixo q",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de Empreiteiros"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "CO",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Comunicação",
+      "definicao": "falhas na comunicação quando o alvo é conhecido, mas a mensagem falha ou está atrasada. Envolve hardware inadequado e incompreensão por parte dos envolvidos. Falha na validação da recepção.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 95",
+        "trecho": "Comunicação: falhas na comunicação quando o alvo é conhecido, mas a mensagem falha ou está atrasada. Envolve hardware inadequado e incompreensão por parte dos envolvidos. Falha na validação da recepção.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Comunicação"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "DE",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Design",
+      "definicao": "a maneira como o equipamento é construído que dificulta certas operações ou permite o uso inesperado. Um design ruim pode exigir esforço extra e manutenção incomum. A capacidade de design inadequada pode levar à extensão do equipamento além dos limites. Muitas falhas de design resultam da separação física e profissional do designer e do usuário final.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 96",
+        "trecho": "Design: a maneira como o equipamento é construído que dificulta certas operações ou permite o uso inesperado. Um design ruim pode exigir esforço extra e manutenção incomum. A capacidade de design inadequada pode levar à extensão do equipame",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Design"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "HW",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Hardware",
+      "definicao": "a qualidade, disponibilidade e posição no ciclo de vida de ferramentas, equipamentos e componentes. Diz respeito aos materiais selecionados, e não ao design ou à má manutenção do equipamento.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 97",
+        "trecho": "Hardware: a qualidade, disponibilidade e posição no ciclo de vida de ferramentas, equipamentos e componentes. Diz respeito aos materiais selecionados, e não ao design ou à má manutenção do equipamento.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Hardware"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "IG",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Metas incompatíveis",
+      "definicao": "a presença de conflitos entre produção, segurança, planejamento e metas econômicas, bem como conflitos entre pressões do grupo e dos colegas e metas pessoais. As metas incompatíveis tornam-se um problema quando a alta administração não dá diretrizes sobre prioridades.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 98",
+        "trecho": "Metas incompatíveis: a presença de conflitos entre produção, segurança, planejamento e metas econômicas, bem como conflitos entre pressões do grupo e dos colegas e metas pessoais. As metas incompatíveis tornam-se um problema quando a alta a",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Metas incompatíveis"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "MC",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Gestão de mudanças",
+      "definicao": "a avaliação sistemática de mudanças em operações, processos, equipamentos, serviços e pessoal para riscos potenciais e a aplicação de ações apropriadas para garantir que os níveis de desempenho existentes não sejam comprometidos.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 99",
+        "trecho": "Gestão de mudanças: a avaliação sistemática de mudanças em operações, processos, equipamentos, serviços e pessoal para riscos potenciais e a aplicação de ações apropriadas para garantir que os níveis de desempenho existentes não sejam compr",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de mudanças"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "MM",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Gestão de manutenção",
+      "definicao": "a adequação da gestão do sistema de manutenção, envolvendo planejamento, recursos e tipo de manutenção, em vez da execução de trabalhos de manutenção. As más práticas envolvendo procedimentos, ferramentas e treinamento são abordadas em outro lugar.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 100",
+        "trecho": "Gestão de manutenção: a adequação da gestão do sistema de manutenção, envolvendo planejamento, recursos e tipo de manutenção, em vez da execução de trabalhos de manutenção. As más práticas envolvendo procedimentos, ferramentas e treinamento",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de manutenção"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "MS",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Sistemas de gestão",
+      "definicao": "um conjunto integrado de práticas de trabalho, crenças e procedimentos para monitorar e melhorar a segurança e saúde de todos os aspectos das operações. A aplicação ineficaz de Sistemas de Gestão de Segurança pode levar a deficiências de segurança e aumento de riscos. Inclui sistemas de garantia de segurança inadequados (investigação, auditoria etc.).",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 101",
+        "trecho": "Sistemas de gestão: um conjunto integrado de práticas de trabalho, crenças e procedimentos para monitorar e melhorar a segurança e saúde de todos os aspectos das operações. A aplicação ineficaz de Sistemas de Gestão de Segurança pode levar ",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Sistemas de gestão"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "OC",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Cultura organizacional",
+      "definicao": "a cultura inclui o conjunto de crenças, valores (o que é importante), normas e pressupostos fundamentais (a forma como fazemos as coisas) que definem a organização. De fato, os valores e crenças compartilhados interagem com as estruturas e sistemas de controle de uma organização para produzir um conjunto de \"regras não escritas\" que regem as normas comportamentais.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 102",
+        "trecho": "Cultura organizacional: a cultura inclui o conjunto de crenças, valores (o que é importante), normas e pressupostos fundamentais (a forma como fazemos as coisas) que definem a organização. De fato, os valores e crenças compartilhados intera",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Cultura organizacional"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "OL",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Aprendizagem organizacional",
+      "definicao": "as estratégias que as organizações adotam para garantir que as lições sejam aprendidas com as investigações de ocorrências, implementação de ações corretivas, constatações de auditoria, processos e revisões de gerenciamento de riscos.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 103",
+        "trecho": "Aprendizagem organizacional: as estratégias que as organizações adotam para garantir que as lições sejam aprendidas com as investigações de ocorrências, implementação de ações corretivas, constatações de auditoria, processos e revisões de g",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Aprendizagem organizacional"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "OR",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Organização",
+      "definicao": "deficiências na estrutura de responsabilidade e prestação de contas que não são adequadas ao trabalho atual. Pode envolver coordenação, supervisão e fornecimento de comunicação e feedback, bem como falta de recursos adequados.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 104",
+        "trecho": "Organização: deficiências na estrutura de responsabilidade e prestação de contas que não são adequadas ao trabalho atual. Pode envolver coordenação, supervisão e fornecimento de comunicação e feedback, bem como falta de recursos adequados.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Organização"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "PR",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Procedimentos",
+      "definicao": "a presença de procedimentos precisos e compreensíveis que são conhecidos e usados. Refere-se à forma como os procedimentos são escritos, testados, documentados e controlados.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 105",
+        "trecho": "Procedimentos: a presença de procedimentos precisos e compreensíveis que são conhecidos e usados. Refere-se à forma como os procedimentos são escritos, testados, documentados e controlados.",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Procedimentos"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "RI",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Influência regulatória",
+      "definicao": "o órgão regulador influencia a cultura de segurança ao definir e controlar a estrutura de segurança na qual a organização deve operar. A estrutura inclui: requisitos legislativos, documentação e práticas de segurança exigidas das organizações e supervisão regulatória.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 106",
+        "trecho": "Influência regulatória: o órgão regulador influencia a cultura de segurança ao definir e controlar a estrutura de segurança na qual a organização deve operar. A estrutura inclui: requisitos legislativos, documentação e práticas de segurança",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Influência regulatória"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "RM",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Gestão de riscos",
+      "definicao": "a aplicação sistemática de políticas de gestão, processos e procedimentos para as tarefas de identificação, análise, avaliação de redução para tão baixo quanto razoavelmente praticável, e monitoramento contínuo de risco em sistemas homem-máquina que contêm um potencial para ter um efeito adverso nas pessoas, no ambiente, no equipamento, na propriedade ou na comunidade.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 107",
+        "trecho": "Gestão de riscos: a aplicação sistemática de políticas de gestão, processos e procedimentos para as tarefas de identificação, análise, avaliação de redução para tão baixo quanto razoavelmente praticável, e monitoramento contínuo de risco em",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de riscos"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "TR",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Treinamento",
+      "definicao": "o fornecimento de conhecimentos e habilidades corretas aos funcionários necessários para que eles façam o trabalho com segurança. As falhas podem envolver treinamento insuficiente, ineficaz ou excessivo, falta de recursos ou avaliação e incompatibilidade de habilidades com as tarefas.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 108",
+        "trecho": "Treinamento: o fornecimento de conhecimentos e habilidades corretas aos funcionários necessários para que eles façam o trabalho com segurança. As falhas podem envolver treinamento insuficiente, ineficaz ou excessivo, falta de recursos ou av",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Treinamento"
+      },
+      "requerConferenciaHumana": true
+    },
+    {
+      "codigo": "VW",
+      "grupo": "fatores_organizacionais",
+      "titulo": "Gestão de veículos",
+      "definicao": "um sistema para gerenciar a aquisição, manutenção e operação de veículos dentro de um ambiente/configuração de trabalho definido. Se o sistema for mal gerenciado, os veículos podem causar riscos desnecessários aos funcionários, contratados e clientes, além de afetar a produção e a eficiência organizacional.",
+      "definicaoStatus": "IMPORTADA",
+      "exemplos": [],
+      "termosRelacionados": [],
+      "regrasInclusao": [],
+      "regrasExclusao": [],
+      "subgrupo": "organizacional",
+      "fonte": {
+        "arquivo": "Códigos metologia ICAM.docx",
+        "hashSha256": "efc414ed2a63a5ed088e8ea447be4ae589a527078d7dcfa256089fb067ebdc29",
+        "metodoExtracao": "mammoth_convert_to_html + parse_tabela",
+        "extraidoEm": "2026-08-12T14:30:20.878Z",
+        "localizacao": "tabela, linha 109",
+        "trecho": "Gestão de veículos: um sistema para gerenciar a aquisição, manutenção e operação de veículos dentro de um ambiente/configuração de trabalho definido. Se o sistema for mal gerenciado, os veículos podem causar riscos desnecessários aos funcio",
+        "confianca": "media",
+        "escopo": "definicao_e_exemplos",
+        "observacao": "Definição extraída da tabela do documento de origem. Conferir contra as 11 imagens de referência antes de marcar como CONFERIDA.",
+        "tituloNoDocumento": "Gestão de veículos"
+      },
+      "requerConferenciaHumana": true
+    }
+  ]
+}
