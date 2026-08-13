@@ -1,187 +1,87 @@
-# Passo a passo — publicar no GitHub sem usar terminal
+# Passo a passo — publicar no GitHub
 
-Escolha **uma** das duas rotas. Ambas chegam ao mesmo lugar.
+Destino: repositório **privado** chamado **ICAM**, na sua conta.
 
-| Rota | Para quem | Terminal? | Tempo |
-| --- | --- | --- | --- |
-| **A — GitHub Desktop** | Recomendada. Programa com botões, tudo visual | Nenhum | ~15 min |
-| **B — Duplo clique no arquivo** | Se preferir algo automático | Nenhum (só uma janela preta que se resolve sozinha) | ~10 min |
+O que já está pronto na sua pasta:
+
+- A versão local está registrada (commit `54de0fa`, 104 arquivos)
+- Nada sensível será enviado: `.env`, `node_modules`, `armazenamento` e o banco local ficam de fora
+- O programa `PUBLICAR-NO-GITHUB.bat` faz o envio e confere tudo antes
+
+Você não precisa escrever nenhum comando.
 
 ---
 
 ## Antes de começar: o que é isso e por que fazer
 
-O GitHub é onde o código do projeto vai ficar guardado. É necessário porque o **Render** — o
-serviço que vai deixar a plataforma no ar — busca o código de lá para publicar.
+O GitHub é onde o código do projeto fica guardado. É necessário porque o **Render** — o serviço
+que vai deixar a plataforma no ar — busca o código de lá para publicar.
 
-Pense assim: o GitHub é o arquivo onde o projeto mora; o Render é quem coloca ele no ar.
-
-**Nada de sensível vai para o GitHub.** As senhas e o segredo de sessão ficam de fora — isso já
-está configurado e é conferido automaticamente antes de qualquer envio.
+O GitHub é o arquivo onde o projeto mora; o Render é quem coloca ele no ar.
 
 ---
 
-# ROTA A — GitHub Desktop (recomendada)
+# Rota escolhida — duplo clique no programa
 
-Nenhum comando. Só cliques.
+## Passo 1 — Ter conta no GitHub
 
-## Passo A1 — Criar a conta no GitHub
+Se ainda não tem: <https://github.com/signup>. Anote o **nome de usuário** — é a única coisa que o
+programa vai perguntar.
 
-1. Abra <https://github.com/signup>
-2. Informe seu e-mail, crie uma senha e escolha um nome de usuário.
-   **Anote o nome de usuário** — você vai usá-lo em seguida.
-3. Confirme o e-mail que o GitHub enviar.
+Se já tem, siga para o Passo 2.
 
-> Se já tem conta, pule para o Passo A2.
-
-## Passo A2 — Instalar o GitHub Desktop
-
-1. Abra <https://desktop.github.com>
-2. Clique em **Download for Windows**
-3. Execute o arquivo baixado. A instalação é automática, sem perguntas.
-4. Ao abrir, clique em **Sign in to GitHub.com**. Uma janela do navegador abre para você entrar
-   com a conta do Passo A1. Autorize quando pedir.
-5. Na tela seguinte, ele pede nome e e-mail para identificar suas alterações. Confirme.
-
-> O GitHub Desktop instala o Git junto. Você não precisa instalar nada além disso.
-
-## Passo A3 — Adicionar o projeto
-
-1. No GitHub Desktop, clique no menu **File** → **Add local repository…**
-2. Clique em **Choose…** e navegue até:
-
-   ```
-   C:\Users\gusta\OneDrive\Documentos\ICAM
-   ```
-
-3. Clique em **Selecionar pasta** e depois em **Add repository**.
-
-**Se aparecer um aviso** dizendo que a pasta já é um repositório mas está com problema, ou algo
-sobre `index.lock`:
-
-- Abra o Explorador de Arquivos na pasta `ICAM`
-- No menu **Exibir**, marque **Itens ocultos**
-- Entre na pasta `.git` que apareceu
-- Apague o arquivo chamado `index.lock` (se existir)
-- Volte ao GitHub Desktop e tente adicionar de novo
-
-> Esse arquivo ficou travado porque eu preparei o repositório de um ambiente que não conseguiu
-> removê-lo. No seu computador ele apaga normalmente.
-
-## Passo A4 — Conferir o que será enviado
-
-Na coluna da esquerda você verá a lista de arquivos. **Confira estas duas coisas:**
-
-- Deve haver por volta de **101 arquivos**
-- **Não pode** aparecer nenhum item chamado `.env` (sozinho, sem o `.example`),
-  `node_modules`, `armazenamento` ou `dados-locais`
-
-O item `.env.example` **pode** aparecer — esse é só o modelo, sem senhas reais.
-
-Se aparecer algo da lista proibida, **pare** e me avise antes de continuar.
-
-## Passo A5 — Registrar a versão
-
-No canto inferior esquerdo:
-
-1. No campo **Summary**, escreva:
-
-   ```
-   Plataforma de investigação ICAM
-   ```
-
-2. Clique no botão azul **Commit to main**
-
-Isso registra a versão do projeto no seu computador. Ainda não foi para a internet.
-
-## Passo A6 — Enviar para o GitHub
-
-1. No topo da tela, clique em **Publish repository**
-2. Uma janela abre:
-   - **Name:** deixe `ICAM` (ou mude para `icam`, tanto faz)
-   - **Description:** opcional
-   - **Keep this code private:** ✅ **deixe MARCADO**
-
-     Isso é importante. Mesmo sem dados reais, o código contém a estrutura de segurança da
-     plataforma. Você pode tornar público depois, se quiser.
-3. Clique em **Publish repository**
-
-Aguarde a barra de progresso. Quando terminar, seu código está no GitHub.
-
-## Passo A7 — Confirmar
-
-1. No GitHub Desktop, menu **Repository** → **View on GitHub**
-2. O navegador abre no seu repositório
-3. Confira: o `README.md` deve aparecer renderizado no meio da página, com o título
-   "Plataforma de investigação ICAM"
-
-**Anote o endereço da página.** Vai ser algo como:
-
-```
-https://github.com/SEU-USUARIO/ICAM
-```
-
-É esse endereço que o Render vai usar.
-
----
-
-# ROTA B — Duplo clique
-
-Se preferir o caminho automático.
-
-## Passo B1 — Criar a conta no GitHub
-
-Igual ao Passo A1: <https://github.com/signup>. Anote o nome de usuário.
-
-## Passo B2 — Instalar o Git
+## Passo 2 — Instalar o Git
 
 1. Abra <https://git-scm.com/download/win>
 2. O download começa sozinho. Execute o arquivo baixado.
 3. Clique em **Next** em todas as telas, sem mudar nada, e depois em **Install**.
 4. Ao terminar, desmarque "View Release Notes" e clique em **Finish**.
 
-## Passo B3 — Executar
+> Se não souber se já tem o Git, pule este passo. O programa avisa se estiver faltando.
+
+## Passo 3 — Executar o programa
 
 1. Abra o Explorador de Arquivos em `C:\Users\gusta\OneDrive\Documentos\ICAM`
-2. Dê **duplo clique** no arquivo **`PUBLICAR-NO-GITHUB.bat`**
+2. Dê **duplo clique** em **`PUBLICAR-NO-GITHUB.bat`**
 3. Uma janela preta abre e pergunta seu usuário do GitHub. Digite e pressione **Enter**.
-
-O que acontece em seguida:
-
-- O programa confere se não há senhas no que vai ser enviado, e **para sozinho** se encontrar algo
-- Registra a versão
-- Tenta criar o repositório
 
 **Se o Windows mostrar um aviso azul** ("O Windows protegeu o computador"), clique em
 **Mais informações** → **Executar assim mesmo**. Isso aparece porque o arquivo foi criado
-recentemente, não porque há problema com ele.
+recentemente, não porque haja problema com ele.
 
-## Passo B4 — Criar o repositório no site
+O programa então:
 
-O programa provavelmente vai dizer que o *GitHub CLI não está instalado* e mostrar instruções.
-É esperado. Faça o seguinte, **sem fechar a janela preta**:
+- confere o Git
+- confere arquivo por arquivo se há senha ou dado local no que vai ser enviado, e **para sozinho**
+  se encontrar qualquer coisa
+- registra a versão, se houver algo novo
+- abre o navegador para você criar o repositório
 
-1. Abra <https://github.com/new>
-2. Em **Repository name**, escreva: `icam`
-3. Escolha **Private**
-4. **NÃO marque** nenhuma das três caixas do fim da página:
+## Passo 4 — Criar o repositório (o navegador abre sozinho)
+
+A página <https://github.com/new> abre já com o nome preenchido. Na tela:
+
+1. **Repository name:** confira que está `ICAM`
+2. Marque **Private**
+3. **NÃO marque** nenhuma das três caixas do fim da página:
    - ❌ Add a README file
    - ❌ Add .gitignore
    - ❌ Choose a license
 
    > Marcar qualquer uma delas faz o envio dar erro de conflito. O projeto já tem esses arquivos.
 
-5. Clique no botão verde **Create repository**
+4. Clique no botão verde **Create repository**
 
-## Passo B5 — Enviar
+> Se a página disser que o nome já existe, o repositório já foi criado antes. Não faça nada, é só
+> voltar para a janela preta.
 
-Volte à janela preta e dê **duplo clique no `PUBLICAR-NO-GITHUB.bat` de novo**, informando o mesmo
-usuário.
+## Passo 5 — Voltar à janela preta e enviar
 
-Desta vez ele vai pedir suas credenciais. Vai abrir uma janela do navegador ou uma caixa pedindo
-login:
+Volte para a janela preta e pressione **Enter**.
 
-- **Se abrir o navegador:** entre com sua conta do GitHub e autorize. Pronto.
+Agora o Git pede para você entrar na conta:
+
+- **Se abrir uma janela do navegador:** entre com sua conta do GitHub e autorize. Pronto.
 - **Se pedir usuário e senha na janela preta:** a senha da conta **não funciona**. Você precisa de
   um token — veja o quadro abaixo.
 
@@ -193,47 +93,81 @@ login:
 4. Marque a caixa **`repo`** (a primeira da lista, com várias sub-opções)
 5. Role até o fim e clique em **Generate token**
 6. **Copie o código que aparecer** — ele só é exibido uma vez
-7. Cole no lugar da senha na janela preta
+7. Cole no lugar da senha, na janela preta
 
    > Ao colar, nada aparece na tela. É proposital, por segurança. Cole e pressione Enter.
 
-Quando terminar, aparece o endereço do repositório. **Anote.**
+## Passo 6 — Confirmar
+
+Quando terminar, a janela mostra em verde:
+
+```
+PUBLICADO: https://github.com/SEU-USUARIO/ICAM
+```
+
+Abra esse endereço. O `README.md` deve aparecer renderizado no meio da página, com o título
+"Plataforma de investigação ICAM". **Anote o endereço** — é ele que o Render vai usar.
+
+---
+
+## Rota alternativa — GitHub Desktop
+
+Se preferir clicar em botões em vez de usar a janela preta.
+
+1. Instale o <https://desktop.github.com> e entre com sua conta (ele instala o Git junto).
+2. Menu **File** → **Add local repository…** → **Choose…** → selecione
+   `C:\Users\gusta\OneDrive\Documentos\ICAM` → **Add repository**.
+
+   Se reclamar de `index.lock`: no Explorador, menu **Exibir** → marque **Itens ocultos**, entre na
+   pasta `.git` e apague o arquivo `index.lock`. Tente de novo.
+
+3. Confira a lista de arquivos à esquerda: deve ter por volta de **104** itens, e **não pode**
+   aparecer `.env` sozinho, `node_modules`, `armazenamento` nem `dados-locais`.
+   O `.env.example` **pode** aparecer — é só o modelo, sem senhas reais.
+4. Se houver algo pendente no campo **Summary**, escreva `Plataforma de investigação ICAM` e clique
+   em **Commit to main**. Se não houver, siga adiante.
+5. No topo, clique em **Publish repository**:
+   - **Name:** `ICAM`
+   - **Keep this code private:** ✅ deixe **MARCADO**
+6. Clique em **Publish repository** e aguarde.
+7. Menu **Repository** → **View on GitHub** para confirmar.
 
 ---
 
 ## Depois de publicar
 
-Você agora tem o código no GitHub. O próximo passo é colocar no ar.
-
 Abra o **`PUBLICAR.md`** e siga a partir do **Passo 2 — Criar a conta e o serviço no Render**.
-Lá você vai conectar o Render a este repositório, e ele cuida do resto: banco de dados, HTTPS e
+Lá você conecta o Render a este repositório, e ele cuida do resto: banco de dados, HTTPS e
 publicação automática.
 
 ---
 
 ## Se algo der errado
 
-| O que aconteceu | O que fazer |
-| --- | --- |
-| "git não é reconhecido" | O Git não está instalado ou a janela foi aberta antes da instalação. Instale (Passo B2), **feche a janela** e abra de novo |
-| "Another git process seems to be running" | Apague `.git\index.lock` como descrito no Passo A3 |
-| "Updates were rejected" / "failed to push" | Você marcou alguma caixa ao criar o repositório no site. Apague o repositório em Settings → Delete this repository e refaça o Passo B4 sem marcar nada |
-| "Authentication failed" | A senha da conta não serve. Crie um token (quadro acima) |
-| O programa parou dizendo que encontrou arquivos proibidos | **Não force.** Ele encontrou algo que não deveria ser publicado. Me avise qual arquivo apareceu |
-| A janela preta fecha sozinha antes de eu ler | Abra o Explorador na pasta, clique com o botão direito no `.bat` e escolha **Executar como administrador** — ou use a Rota A |
+O programa pode ser executado quantas vezes for preciso. Nada se perde entre uma tentativa e outra.
 
-Se travar em qualquer ponto, me diga **em qual passo** parou e **o que apareceu na tela**. Com isso
-eu consigo indicar exatamente o que fazer.
+| O que apareceu | O que fazer |
+| --- | --- |
+| "git não é reconhecido" / "O Git não está instalado" | Instale (Passo 2), **feche a janela preta** e execute de novo |
+| "Another git process seems to be running" | O programa já apaga essa trava sozinho. Se insistir, apague `.git\index.lock` como descrito na rota alternativa |
+| "Repository not found" | O nome de usuário foi digitado diferente, ou o repositório não foi criado. Confira em <https://github.com> e execute de novo |
+| "Authentication failed" | A senha da conta não serve. Crie um token (quadro do Passo 5) |
+| "Updates were rejected" | Você marcou alguma caixa ao criar o repositório. Apague-o em Settings → Delete this repository e refaça o Passo 4 sem marcar nada |
+| O programa parou dizendo que encontrou arquivos proibidos | **Não force.** Ele encontrou algo que não deveria ser publicado. Me avise qual arquivo apareceu |
+| A janela fecha sozinha antes de eu ler | Clique com o botão direito no `.bat` → **Executar como administrador**, ou use a rota alternativa |
+
+Se travar, me diga **em qual passo** parou e **o que apareceu na tela**.
 
 ---
 
-## E a rota em que eu publico para você?
+## E a rota em que eu publico para você, sem você tocar em nada?
 
-Existe uma: **autorizar o conector do GitHub no claude.ai**.
+Conferi nesta sessão: **não há conector do GitHub disponível** para autorizar na sua conta, e a
+extensão do navegador não está conectada. Sem um desses, eu não tenho como me autenticar no GitHub.
 
-Em Configurações → Conectores, autorize o GitHub. Feito isso, em uma nova conversa eu consigo criar
-o repositório e enviar o código sem que você toque em nada.
+O que eu **não** faço, nem se você pedir, é receber sua senha ou seu token de acesso. Essas
+credenciais dão controle total da conta, e o certo é você usá-las diretamente — pelo navegador que
+abre no Passo 5, pelo GitHub Desktop, ou por um conector autorizado.
 
-O que eu **não** posso fazer, nem se você pedir, é receber sua senha ou seu token de acesso. Essas
-credenciais dão controle total da sua conta, e a forma correta é você usá-las diretamente — pelo
-GitHub Desktop, pelo navegador, ou pelo conector autorizado.
+O que eu já fiz por você: preparei o repositório, conferi arquivo por arquivo que nada sensível
+será enviado, e deixei o programa pronto para um duplo clique.

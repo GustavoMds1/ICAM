@@ -1,6 +1,5 @@
 @echo off
 setlocal
-chcp 65001 >nul 2>&1
 cd /d "%~dp0"
 
 echo.
@@ -8,11 +7,11 @@ echo ============================================================
 echo   PUBLICAR NO GITHUB - Plataforma de investigacao ICAM
 echo ============================================================
 echo.
-echo Este assistente envia o projeto para o GitHub.
+echo O projeto sera enviado para um repositorio PRIVADO chamado ICAM.
 echo Voce so precisa informar seu nome de usuario do GitHub.
 echo.
 echo Se ainda nao tem conta, crie em https://github.com/signup
-echo (leva 2 minutos; depois volte aqui e rode de novo)
+echo (leva 2 minutos; depois volte aqui e execute este arquivo de novo)
 echo.
 
 where git >nul 2>&1
@@ -45,6 +44,7 @@ echo.
 if %CODIGO% NEQ 0 (
   echo ------------------------------------------------------------
   echo A publicacao NAO foi concluida. Leia as mensagens acima.
+  echo Pode executar este arquivo quantas vezes precisar: nada se perde.
   echo ------------------------------------------------------------
 )
 echo.
