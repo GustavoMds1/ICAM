@@ -1,7 +1,8 @@
 'use client';
 
 import { useActionState } from 'react';
-import { gerarRascunho, RASCUNHO_INICIAL } from '@/app/acoes/investigacoes';
+import { gerarRascunho } from '@/app/acoes/investigacoes';
+import { RASCUNHO_INICIAL } from '@/app/acoes/estados';
 import { Aviso, Selo } from './ui';
 
 /**

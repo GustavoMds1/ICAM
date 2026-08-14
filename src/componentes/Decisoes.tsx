@@ -2,11 +2,11 @@
 
 import { useActionState } from 'react';
 import {
-  DECISAO_INICIAL,
   decidirClassificacao,
   decidirFato,
   decidirRecomendacao,
 } from '@/app/acoes/investigacoes';
+import { DECISAO_INICIAL } from '@/app/acoes/estados';
 import { NATUREZAS_FATOR, type NaturezaFator } from '@/domain/enumeracoes';
 import { Aviso } from './ui';
 

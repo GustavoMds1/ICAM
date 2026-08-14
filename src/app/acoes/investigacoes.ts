@@ -20,13 +20,21 @@ import {
 import { agora } from '@/domain/tempo/relogio';
 import { autorizar, type Acao, type Ator } from '@/seguranca/rbac';
 import type { InvestigacaoCompleta, Repositorio } from '@/servidor/repositorio';
-import { montarRascunho, type ResumoRascunho } from '@/servidor/rascunho';
+import { montarRascunho } from '@/servidor/rascunho';
 import {
   exigirAtor,
   obterContextoRequisicao,
   obterRepositorioBanco,
   obterUsuarioAtual,
 } from '@/servidor/sessao';
+// Os estados iniciais vêm de fora deste arquivo por exigência do Next: módulo
+// `'use server'` só exporta função assíncrona. Ver `estados.ts`.
+import {
+  RASCUNHO_INICIAL,
+  type EstadoDecisao,
+  type EstadoInvestigacao,
+  type EstadoRascunho,
+} from './estados';
 
 /**
  * Escrita de investigações.
@@ -38,11 +46,6 @@ import {
  * O Next.js protege Server Actions contra CSRF verificando a origem da
  * requisição; somado ao cookie `sameSite=lax`, cobre o vetor clássico.
  */
-
-export interface EstadoInvestigacao {
-  erro: string | null;
-  problemas?: string[];
-}
 
 const esquemaAbertura = z.object({
   titulo: z
@@ -278,13 +281,6 @@ function revalidarInvestigacao(id: string): void {
   revalidatePath('/');
 }
 
-export interface EstadoRascunho extends EstadoInvestigacao {
-  resumo: ResumoRascunho | null;
-  avisos: string[];
-}
-
-export const RASCUNHO_INICIAL: EstadoRascunho = { erro: null, resumo: null, avisos: [] };
-
 /**
  * Gera o rascunho assistido a partir do relato inicial.
  *
@@ -336,14 +332,6 @@ export async function gerarRascunho(
   revalidarInvestigacao(investigacaoId);
   return { erro: null, resumo: resultado.resumo, avisos: resultado.avisos };
 }
-
-export interface EstadoDecisao {
-  erro: string | null;
-  bloqueios?: string[];
-  mensagem?: string | null;
-}
-
-export const DECISAO_INICIAL: EstadoDecisao = { erro: null, mensagem: null };
 
 /**
  * Aceita ou recusa um fato proposto pela IA.

@@ -11,13 +11,12 @@ import {
   ROTULOS_PRECISAO_TEMPORAL,
   ROTULOS_SEVERIDADE,
 } from '@/domain/enumeracoes';
-import { abrirInvestigacao, type EstadoInvestigacao } from '@/app/acoes/investigacoes';
+import { abrirInvestigacao } from '@/app/acoes/investigacoes';
+import { INVESTIGACAO_INICIAL } from '@/app/acoes/estados';
 import { Aviso, Cartao } from '@/componentes/ui';
 
-const INICIAL: EstadoInvestigacao = { erro: null };
-
 export function FormularioAbertura() {
-  const [estado, acao, pendente] = useActionState(abrirInvestigacao, INICIAL);
+  const [estado, acao, pendente] = useActionState(abrirInvestigacao, INVESTIGACAO_INICIAL);
 
   return (
     <form action={acao} className="space-y-6">

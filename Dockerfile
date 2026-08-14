@@ -15,6 +15,8 @@ WORKDIR /app
 COPY --from=dependencias /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+# Liga o empacotamento autocontido, que só a imagem Docker usa.
+ENV DOCKER_BUILD=true
 # O catálogo é validado no build: catálogo inconsistente reprova a imagem.
 RUN npx tsx scripts/validar-taxonomia.ts && npm run build
 
