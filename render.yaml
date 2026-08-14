@@ -85,3 +85,33 @@ services:
       # Vazio usa o modelo padrão do provedor.
       - key: MODELO_IA
         sync: false
+
+  # ---------------------------------------------------------------------------
+  # Coleta de Dados ICAM — aplicativo separado, na subpasta `coleta`.
+  #
+  # Importa o PowerPoint da investigação, associa os códigos ICAM com apoio do
+  # Gemini e gera o slide de classificação. Não tem banco nem login: o arquivo
+  # entra, é processado em memória e sai como .pptx.
+  #
+  # Sem GEMINI_API_KEY o aplicativo continua funcionando, com associação local
+  # por palavras — mais fraca, e a interface avisa isso a quem usa.
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: icam-coleta
+    runtime: node
+    plan: free
+    region: virginia
+    branch: main
+    rootDir: coleta
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      # Vazio usa o modelo padrão. Preencha se o Google recusar o padrão por
+      # nome de modelo inexistente.
+      - key: MODELO_IA
+        sync: false

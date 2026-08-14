@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+body {
+  @apply bg-zinc-50 text-texto antialiased;
+}
+
+@layer components {
+  .cartao { @apply rounded-lg border border-borda bg-white p-5; }
+  .rotulo { @apply block text-sm font-medium text-sutil; }
+  .campo { @apply mt-1 w-full rounded-md border border-borda bg-white px-3 py-2 text-sm text-texto; }
+  .botao { @apply inline-flex items-center gap-2 rounded-md border border-borda bg-white px-3 py-2 text-sm font-medium text-texto hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50; }
+  .botao-primario { @apply inline-flex items-center gap-2 rounded-md bg-zinc-900 px-3 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50; }
+  .selo { @apply inline-flex items-center rounded border px-2 py-0.5 text-xs font-medium; }
+}
