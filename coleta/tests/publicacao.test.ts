@@ -54,6 +54,33 @@ describe('o que o Render precisa encontrar no repositório', () => {
     );
   });
 
+  /**
+   * O segundo deploy falhou aqui: o lockfile existia, mas tinha sido gerado
+   * com `npm install --package-lock-only`, que resolve só as dependências
+   * opcionais da plataforma de quem gerou. O npm do servidor cobra as outras
+   * ("Missing: @img/sharp-darwin-arm64 from lock file") e recusa o `npm ci`.
+   *
+   * Um lockfile completo traz as variantes de todos os sistemas, marcadas com
+   * o campo `os`. Poucas dessas entradas significa lockfile podado.
+   */
+  it('o lockfile foi gerado completo, com as variantes de todos os sistemas', () => {
+    const trava = lerJson<{ packages?: Record<string, { os?: string[] }> }>('package-lock.json');
+    const pacotes = Object.entries(trava.packages ?? {});
+    const comRestricaoDeSo = pacotes.filter(([, v]) => Array.isArray(v?.os));
+
+    expect(
+      comRestricaoDeSo.length,
+      'O lockfile parece podado. Apague-o, rode "npm install" (sem --package-lock-only) e faça commit do arquivo novo.',
+    ).toBeGreaterThan(50);
+
+    for (const sistema of ['darwin', 'win32']) {
+      expect(
+        comRestricaoDeSo.some(([, v]) => v.os?.includes(sistema)),
+        `Nenhum pacote para "${sistema}" no lockfile: ele foi gerado só para a plataforma de quem rodou.`,
+      ).toBe(true);
+    }
+  });
+
   it('os comandos que o render.yaml chama existem', () => {
     const pacote = lerJson<Pacote>('package.json');
     for (const comando of ['build', 'start']) {
