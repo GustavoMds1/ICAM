@@ -68,11 +68,20 @@ services:
       - key: USUARIOS_INICIAIS
         sync: false
 
+      # deterministico (padrão, gratuito, nada sai daqui) | anthropic | openai | gemini
       - key: PROVEDOR_IA
         value: deterministico
       - key: IA_ENVIO_EXTERNO_AUTORIZADO
         value: "false"
       - key: IA_RESIDENCIA_DADOS
         value: nao_definida
+      # Preencha apenas a chave do provedor escolhido.
       - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      # Vazio usa o modelo padrão do provedor.
+      - key: MODELO_IA
         sync: false

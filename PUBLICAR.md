@@ -227,21 +227,34 @@ fica marcado como demonstração na trilha de auditoria — nunca o confunda com
 
 ## Ativar o modelo externo (opcional)
 
-O padrão é o provedor **determinístico**: heurísticas locais, nada sai do ambiente. Para usar a API
-da Anthropic:
+O padrão é o provedor **determinístico**: heurísticas locais, nada sai do ambiente, custo zero. Ele
+já produz o rascunho completo — só que com sugestões limitadas a padrões de texto.
 
-```bash
-npm install @anthropic-ai/sdk   # e faça commit da alteração
+Para usar um modelo de verdade, escolha **um** fornecedor. Não é preciso instalar pacote nenhum: os
+três falam HTTP direto.
+
+No painel do Render, em **Environment**:
+
 ```
-
-E no painel do Render, em **Environment**:
-
-```
-PROVEDOR_IA=anthropic
-ANTHROPIC_API_KEY=sua-chave
+PROVEDOR_IA=anthropic          # ou openai, ou gemini
+ANTHROPIC_API_KEY=sua-chave    # OPENAI_API_KEY / GEMINI_API_KEY conforme o escolhido
 IA_ENVIO_EXTERNO_AUTORIZADO=true
 IA_RESIDENCIA_DADOS=us
 ```
+
+| Fornecedor | `PROVEDOR_IA` | Variável da chave | Onde obter |
+| --- | --- | --- | --- |
+| Anthropic | `anthropic` | `ANTHROPIC_API_KEY` | <https://console.anthropic.com> |
+| OpenAI | `openai` | `OPENAI_API_KEY` | <https://platform.openai.com/api-keys> |
+| Google Gemini | `gemini` | `GEMINI_API_KEY` | <https://aistudio.google.com/apikey> |
+
+Cada fornecedor tem um modelo padrão. Nomes de modelo mudam com frequência — se a chamada for
+recusada por modelo inexistente, defina `MODELO_IA` com o nome atual do fornecedor. **Nada quebra
+enquanto isso:** o agente cai para a heurística local e o erro fica registrado na trilha de
+auditoria e na aba Agentes.
+
+`IA_ENVIO_EXTERNO_AUTORIZADO=false` bloqueia qualquer chamada externa mesmo com chave configurada.
+É a trava para o caso de a chave entrar antes da decisão sobre enviar dados para fora.
 
 Antes de ativar, considere: conteúdo de investigação de incidente costuma conter dado pessoal e
 informação sensível de operação. Verifique se o envio a um provedor externo é compatível com a

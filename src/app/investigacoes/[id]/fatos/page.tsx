@@ -1,5 +1,8 @@
 import { carregarInvestigacao } from '@/servidor/carregar';
+import { exigirAtor } from '@/servidor/sessao';
+import { autorizar } from '@/seguranca/rbac';
 import { Cartao, Citacao, EstadoVazio, Selo, Tabela } from '@/componentes/ui';
+import { DecisaoFato } from '@/componentes/Decisoes';
 import { TIPOS_ASSERCAO_NAO_FACTUAIS, type TipoAssercao } from '@/domain/enumeracoes';
 
 export const dynamic = 'force-dynamic';
@@ -19,18 +22,34 @@ const ROTULOS_TIPO: Record<TipoAssercao, string> = {
 export default async function PaginaFatos({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const inv = await carregarInvestigacao(id);
+  const ator = await exigirAtor(`/investigacoes/${id}/fatos`);
   const evidenciaPorId = new Map(inv.evidencias.map((e) => [e.id, e]));
+
+  const podeDecidir = autorizar(ator, 'fato.aprovar', {
+    organizacaoId: inv.metadados.organizacaoId,
+    investigacaoId: inv.investigacaoId,
+    confidencialidade: inv.metadados.confidencialidade as 'interna',
+  }).permitido;
+
+  const pendentes = inv.fatos.filter((f) => !f.aprovadoPorHumano).length;
 
   return (
     <div className="space-y-6">
       <Cartao
         titulo="Livro de fatos"
         descricao="Cada registro é uma proposição atômica com tipo de asserção explícito e evidências dos dois lados."
+        acao={
+          pendentes > 0 ? (
+            <Selo tom="alerta">{pendentes} aguardando decisão</Selo>
+          ) : inv.fatos.length > 0 ? (
+            <Selo tom="ok">todos decididos</Selo>
+          ) : undefined
+        }
       >
         {inv.fatos.length === 0 ? (
           <EstadoVazio
             titulo="Nenhum registro no livro de fatos"
-            descricao="Extraia proposições das evidências importadas. Toda proposição nasce como candidata e exige decisão humana."
+            descricao="Gere o rascunho assistido na visão geral para extrair proposições do relato inicial. Toda proposição nasce como candidata e exige decisão humana."
           />
         ) : (
           <ul className="space-y-4">
@@ -88,6 +107,13 @@ export default async function PaginaFatos({ params }: { params: Promise<{ id: st
                       </ul>
                     </div>
                   </div>
+
+                  <DecisaoFato
+                    investigacaoId={inv.investigacaoId}
+                    fatoId={f.id}
+                    aprovado={f.aprovadoPorHumano}
+                    podeDecidir={podeDecidir}
+                  />
                 </li>
               );
             })}

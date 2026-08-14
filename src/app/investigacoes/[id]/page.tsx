@@ -2,15 +2,32 @@ import { carregarInvestigacao } from '@/servidor/carregar';
 import { reconciliarContagens, verificarQualidade } from '@/domain/qualidade/verificar';
 import { ROTULOS_PEEPO, type DimensaoPeepo, DIMENSOES_PEEPO } from '@/domain/enumeracoes';
 import { Aviso, Cartao, CampoLeitura, ListaDefinicoes, Metrica, Selo, Tabela } from '@/componentes/ui';
+import { PainelRascunho } from '@/componentes/PainelRascunho';
+import { lerConfiguracaoIa } from '@/agentes/provedor';
+import { exigirAtor } from '@/servidor/sessao';
+import { autorizar } from '@/seguranca/rbac';
 
 export const dynamic = 'force-dynamic';
 
 export default async function PaginaVisaoGeral({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const inv = await carregarInvestigacao(id);
+  const ator = await exigirAtor(`/investigacoes/${id}`);
   const m = inv.metadados;
   const contagens = reconciliarContagens(inv);
   const qualidade = verificarQualidade(inv);
+
+  const configuracaoIa = lerConfiguracaoIa();
+  const podeExecutarIa = autorizar(ator, 'ia.executar', {
+    organizacaoId: m.organizacaoId,
+    investigacaoId: inv.investigacaoId,
+    confidencialidade: m.confidencialidade as 'interna',
+  }).permitido;
+
+  const pendentes =
+    inv.fatos.filter((f) => !f.aprovadoPorHumano).length +
+    inv.classificacoes.filter((c) => c.decisaoHumana === 'pendente' && c.estado !== 'rejeitado').length +
+    inv.recomendacoes.filter((r) => r.status === 'proposta').length;
 
   return (
     <div className="space-y-6">
@@ -27,6 +44,21 @@ export default async function PaginaVisaoGeral({ params }: { params: Promise<{ i
         <Metrica rotulo="Ações no plano" valor={contagens.recomendacoes} />
         <Metrica rotulo="Pendências" valor={contagens.conflitosAbertos + contagens.lacunasAbertas} detalhe={`${contagens.conflitosAbertos} contradição(ões), ${contagens.lacunasAbertas} lacuna(s)`} />
       </dl>
+
+      <Cartao
+        titulo="Rascunho assistido por IA"
+        descricao="A partir do relato inicial, os agentes propõem fatos com citação, cronologia, classificação ICAM, ligações causais e plano de ação. Toda proposta entra pendente."
+        acao={pendentes > 0 ? <Selo tom="alerta">{pendentes} item(ns) aguardando você</Selo> : undefined}
+      >
+        <PainelRascunho
+          investigacaoId={inv.investigacaoId}
+          provedor={configuracaoIa.rotulo}
+          modelo={configuracaoIa.modelo}
+          enviaParaFora={configuracaoIa.provedor !== 'deterministico'}
+          podeExecutar={podeExecutarIa}
+          jaTemPropostas={inv.fatos.length > 0 || inv.classificacoes.length > 0}
+        />
+      </Cartao>
 
       <Cartao titulo="Notificação inicial" descricao="Registro da triagem que abriu a investigação.">
         <p className="mb-4 max-w-prose text-sm text-texto">{m.descricaoInicial}</p>

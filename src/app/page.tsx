@@ -3,6 +3,7 @@ import { exigirAtor, obterRepositorioBanco } from '@/servidor/sessao';
 import { reconciliarContagens, verificarQualidade } from '@/domain/qualidade/verificar';
 import { conferirCatalogo } from '@/domain/taxonomia/catalogo';
 import { ROTULOS_FASE, type FaseInvestigacao } from '@/domain/enumeracoes';
+import { autorizar } from '@/seguranca/rbac';
 import { Aviso, Cartao, EstadoVazio, Metrica, Selo, Tabela } from '@/componentes/ui';
 
 export const dynamic = 'force-dynamic';
@@ -12,14 +13,24 @@ export default async function PaginaPortfolio() {
   const repo = await obterRepositorioBanco();
   const investigacoes = await repo.listarInvestigacoes(ator.organizacaoId);
   const catalogo = conferirCatalogo();
+  const podeCriar = autorizar(ator, 'investigacao.criar', {
+    organizacaoId: ator.organizacaoId,
+  }).permitido;
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold text-texto">Portfólio de investigações</h1>
-        <p className="mt-1 text-sm text-texto-sutil">
-          Acompanhamento de prazos, fase e bloqueios de qualidade por investigação.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold text-texto">Portfólio de investigações</h1>
+          <p className="mt-1 text-sm text-texto-sutil">
+            Acompanhamento de prazos, fase e bloqueios de qualidade por investigação.
+          </p>
+        </div>
+        {podeCriar && (
+          <Link href="/investigacoes/nova" className="botao-primario">
+            Nova investigação
+          </Link>
+        )}
       </div>
 
       {!catalogo.conforme ? (
@@ -42,7 +53,18 @@ export default async function PaginaPortfolio() {
       {investigacoes.length === 0 ? (
         <EstadoVazio
           titulo="Nenhuma investigação registrada"
-          descricao="Execute a semeadura de demonstração com o comando npm run db:seed para carregar o caso anonimizado, ou crie uma investigação a partir da notificação inicial."
+          descricao={
+            podeCriar
+              ? 'Abra a primeira investigação pela notificação inicial. Com o relato do evento, a IA propõe cronologia, fatos, classificação ICAM, causas e recomendações — e você aprova item a item.'
+              : 'Seu papel não permite abrir investigação. Procure um administrador se precisar deste acesso.'
+          }
+          acao={
+            podeCriar ? (
+              <Link href="/investigacoes/nova" className="botao-primario">
+                Abrir a primeira investigação
+              </Link>
+            ) : undefined
+          }
         />
       ) : (
         <>

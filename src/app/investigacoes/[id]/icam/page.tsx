@@ -4,14 +4,29 @@ import { obterCodigo } from '@/domain/taxonomia/catalogo';
 import { RELACOES_NAO_CAUSAIS } from '@/domain/enumeracoes';
 import { Aviso, Cartao, EstadoVazio, Selo, Tabela } from '@/componentes/ui';
 import { PainelClassificador } from '@/componentes/PainelClassificador';
+import { DecisaoClassificacao } from '@/componentes/Decisoes';
+import { exigirAtor } from '@/servidor/sessao';
+import { autorizar } from '@/seguranca/rbac';
 
 export const dynamic = 'force-dynamic';
 
 export default async function PaginaIcam({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const inv = await carregarInvestigacao(id);
+  const ator = await exigirAtor(`/investigacoes/${id}/icam`);
   const mapa = montarMapaCausal(inv);
   const fatorPorId = new Map(inv.classificacoes.map((c) => [c.id, c]));
+
+  const podeDecidir = autorizar(ator, 'classificacao.confirmar', {
+    organizacaoId: inv.metadados.organizacaoId,
+    investigacaoId: inv.investigacaoId,
+    confidencialidade: inv.metadados.confidencialidade as 'interna',
+  }).permitido;
+
+  const fatoPorId = new Map(inv.fatos.map((f) => [f.id, f]));
+  const pendentes = inv.classificacoes.filter(
+    (c) => c.decisaoHumana === 'pendente' && c.estado !== 'rejeitado',
+  );
 
   const avisosContrafactual = inv.classificacoes
     .filter((c) => c.estado === 'confirmado')
@@ -37,6 +52,78 @@ export default async function PaginaIcam({ params }: { params: Promise<{ id: str
             ))}
           </ul>
         </Aviso>
+      )}
+
+      {pendentes.length > 0 && (
+        <Cartao
+          titulo="Classificações aguardando decisão"
+          descricao="Propostas do rascunho assistido. Confirmar exige mecanismo descrito e evidência favorável — a plataforma barra o que não tiver."
+          acao={<Selo tom="alerta">{pendentes.length} pendente(s)</Selo>}
+        >
+          <ul className="space-y-4">
+            {pendentes.map((c) => {
+              const catalogo = obterCodigo(c.codigo);
+              const sustentacoes = c.sustentacoes
+                .map((s) => fatoPorId.get(s.fatoId))
+                .filter((f) => f !== undefined);
+              const temFonteObjetiva = sustentacoes.some(
+                (f) => f.tipoAssercao === 'fato_confirmado' || f.tipoAssercao === 'medicao_ou_registro',
+              );
+
+              return (
+                <li key={c.id} className="rounded border border-borda p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <span className="font-mono text-sm font-semibold">{c.identificador}</span>
+                    <span className="font-mono text-sm text-marca">{c.codigo}</span>
+                  </div>
+                  <p className="mt-1 text-sm text-texto-sutil">{catalogo?.titulo}</p>
+                  <p className="mt-2 max-w-prose text-sm">{c.descricaoContextual}</p>
+
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    <Selo tom="ia">proposta da IA</Selo>
+                    <Selo tom="alerta">confiança {c.confianca}</Selo>
+                    {catalogo?.codigoGenerico && <Selo tom="alerta">código genérico</Selo>}
+                    {!temFonteObjetiva && (
+                      <Selo tom="erro">sem fonte objetiva — só relato não confirma</Selo>
+                    )}
+                  </div>
+
+                  {sustentacoes.length > 0 && (
+                    <p className="mt-2 text-xs text-texto-fraco">
+                      Sustentada por: {sustentacoes.map((f) => f.identificador).join(', ')}
+                    </p>
+                  )}
+
+                  {c.codigosSecundarios.length > 0 && (
+                    <details className="mt-2">
+                      <summary className="cursor-pointer text-xs text-texto-sutil">
+                        Alternativas descartadas pela IA ({c.codigosSecundarios.length})
+                      </summary>
+                      <ul className="mt-1 space-y-1 pl-4 text-xs text-texto-fraco">
+                        {c.codigosSecundarios.map((s) => (
+                          <li key={s.codigo}>
+                            <span className="font-mono">{s.codigo}</span> — {s.justificativa}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+
+                  <DecisaoClassificacao
+                    investigacaoId={inv.investigacaoId}
+                    classificacaoId={c.id}
+                    mecanismo={c.mecanismo}
+                    natureza={c.natureza}
+                    justificativaGenerico={c.justificativaGenerico}
+                    codigoGenerico={catalogo?.codigoGenerico ?? false}
+                    decidida={false}
+                    podeDecidir={podeDecidir}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </Cartao>
       )}
 
       <Cartao

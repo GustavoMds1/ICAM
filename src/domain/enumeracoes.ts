@@ -198,6 +198,45 @@ export const NIVEIS_CONFIDENCIALIDADE = [
 ] as const;
 export type NivelConfidencialidade = (typeof NIVEIS_CONFIDENCIALIDADE)[number];
 
+export const ROTULOS_CONFIDENCIALIDADE: Record<NivelConfidencialidade, string> = {
+  publica: 'Pública',
+  interna: 'Interna',
+  restrita: 'Restrita — só a equipe da investigação',
+  confidencial: 'Confidencial — só a equipe, com registro de acesso',
+};
+
+/**
+ * Profundidade da investigação, definida na triagem.
+ *
+ * `nao_definido` é o estado honesto na abertura: o nível costuma ser decidido
+ * depois da primeira avaliação de severidade, e forçar a escolha na
+ * notificação inicial produz classificação de fachada.
+ */
+export const NIVEIS_INVESTIGACAO = ['nao_definido', 'simplificado', 'completo'] as const;
+export type NivelInvestigacao = (typeof NIVEIS_INVESTIGACAO)[number];
+
+export const ROTULOS_NIVEL_INVESTIGACAO: Record<NivelInvestigacao, string> = {
+  nao_definido: 'A definir na triagem',
+  simplificado: 'Simplificado',
+  completo: 'Completo',
+};
+
+export const ROTULOS_SEVERIDADE: Record<NivelSeveridade, string> = {
+  nao_classificada: 'Não classificada',
+  insignificante: 'Insignificante',
+  menor: 'Menor',
+  moderada: 'Moderada',
+  maior: 'Maior',
+  catastrofica: 'Catastrófica',
+};
+
+export const ROTULOS_PRECISAO_TEMPORAL: Record<PrecisaoTemporal, string> = {
+  exato: 'Exato',
+  aproximado: 'Aproximado',
+  intervalo: 'Intervalo',
+  desconhecido: 'Desconhecido',
+};
+
 export const PAPEIS_GLOBAIS = [
   'administrador',
   'gestor',

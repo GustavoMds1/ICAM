@@ -269,20 +269,26 @@ desempenho.
 ## Ativar o modelo externo (opcional)
 
 O padrão é o provedor **determinístico**: heurísticas locais e auditáveis, sem enviar nada para
-fora. Para usar a API da Anthropic:
+fora. Para usar um modelo de verdade, escolha um dos três fornecedores. Nenhum pacote precisa ser
+instalado.
 
-```powershell
-npm install @anthropic-ai/sdk
-```
-
-E no arquivo `.env`:
+No arquivo `.env`:
 
 ```
-PROVEDOR_IA=anthropic
-ANTHROPIC_API_KEY=sua-chave-aqui
+PROVEDOR_IA=anthropic          # ou openai, ou gemini
+ANTHROPIC_API_KEY=sua-chave    # OPENAI_API_KEY / GEMINI_API_KEY conforme o escolhido
 IA_ENVIO_EXTERNO_AUTORIZADO=true
 IA_RESIDENCIA_DADOS=us
 ```
+
+| Fornecedor | `PROVEDOR_IA` | Variável da chave |
+| --- | --- | --- |
+| Anthropic | `anthropic` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai` | `OPENAI_API_KEY` |
+| Google Gemini | `gemini` | `GEMINI_API_KEY` |
+
+Se o fornecedor recusar o modelo padrão por nome inexistente, defina `MODELO_IA`. A investigação
+não para: o agente cai para a heurística local e o motivo fica registrado.
 
 Reinicie a aplicação (`Ctrl + C`, depois `npm run dev`).
 

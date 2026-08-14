@@ -46,6 +46,10 @@
     @apply block text-sm font-medium text-texto-sutil;
   }
 
+  .campo {
+    @apply mt-1 w-full rounded-md border border-borda-forte bg-superficie px-3 py-2 text-sm text-texto;
+  }
+
   .botao {
     @apply inline-flex items-center gap-2 rounded-md border border-borda-forte bg-superficie px-3 py-2 text-sm font-medium text-texto hover:bg-superficie-forte disabled:cursor-not-allowed disabled:opacity-50;
   }

@@ -3,13 +3,22 @@ import { perfilarPlano, desafiarEscolha } from '@/domain/recomendacoes/hierarqui
 import { ROTULOS_HIERARQUIA as R } from '@/domain/enumeracoes';
 import { verificarQualidade } from '@/domain/qualidade/verificar';
 import { Aviso, Cartao, EstadoVazio, Selo, Tabela } from '@/componentes/ui';
+import { DecisaoRecomendacao } from '@/componentes/Decisoes';
+import { exigirAtor } from '@/servidor/sessao';
+import { autorizar } from '@/seguranca/rbac';
 
 export const dynamic = 'force-dynamic';
 
 export default async function PaginaRecomendacoes({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const inv = await carregarInvestigacao(id);
+  const ator = await exigirAtor(`/investigacoes/${id}/recomendacoes`);
   const fatorPorId = new Map(inv.classificacoes.map((c) => [c.id, c]));
+  const podeDecidir = autorizar(ator, 'recomendacao.aprovar', {
+    organizacaoId: inv.metadados.organizacaoId,
+    investigacaoId: inv.investigacaoId,
+    confidencialidade: inv.metadados.confidencialidade as 'interna',
+  }).permitido;
   const ativas = inv.recomendacoes.filter((x) => x.status !== 'cancelada');
   const perfil = perfilarPlano(ativas.map((x) => x.hierarquiaControle));
 
@@ -147,6 +156,15 @@ export default async function PaginaRecomendacoes({ params }: { params: Promise<
                   ))}
                 </ul>
               )}
+
+              <DecisaoRecomendacao
+                investigacaoId={inv.investigacaoId}
+                recomendacaoId={r.id}
+                responsavel={r.responsavel}
+                prazo={r.prazo}
+                decidida={r.status !== 'proposta'}
+                podeDecidir={podeDecidir}
+              />
             </Cartao>
           );
         })
