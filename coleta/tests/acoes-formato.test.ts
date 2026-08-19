@@ -19,9 +19,9 @@ const ACHADO = {
   constatacao: 'A interjornada do motorista foi menor que a prevista na norma.',
 };
 
-describe('proposta de ações sem chave de API', () => {
+describe('proposta de ações no modo local, pedido explicitamente', () => {
   it('devolve uma ação por achado, com prazo e hierarquia válidos', async () => {
-    const r = await proporAcoes([ACHADO], { hoje: new Date('2026-08-14T00:00:00Z') });
+    const r = await proporAcoes([ACHADO], { permitirLocal: true, hoje: new Date('2026-08-14T00:00:00Z') });
 
     expect(r.acoes).toHaveLength(1);
     expect(r.origem).toBe('local');
@@ -30,18 +30,18 @@ describe('proposta de ações sem chave de API', () => {
   });
 
   it('não inventa executante nem matrícula', async () => {
-    const r = await proporAcoes([ACHADO]);
+    const r = await proporAcoes([ACHADO], { permitirLocal: true });
     expect(r.acoes[0]!.executante).toBe('');
     expect(r.acoes[0]!.matricula).toBe('');
   });
 
   it('avisa que o rascunho local não é análise', async () => {
-    const r = await proporAcoes([ACHADO]);
-    expect(r.avisos.join(' ')).toContain('rascunho');
+    const r = await proporAcoes([ACHADO], { permitirLocal: true });
+    expect(r.avisos.join(' ')).toContain('estrutura da ação');
   });
 
   it('a causa padrão carrega código, título e constatação, como no modelo', async () => {
-    const r = await proporAcoes([ACHADO]);
+    const r = await proporAcoes([ACHADO], { permitirLocal: true });
     expect(r.acoes[0]!.causaPadrao).toContain('HF21');
     expect(r.acoes[0]!.causaPadrao).toContain('Padrões de turno');
     expect(r.acoes[0]!.causaPadrao).toContain('interjornada');
@@ -66,7 +66,7 @@ describe('arquivo gerado com plano de ação', () => {
   };
 
   it('inclui a página do plano quando há ações', async () => {
-    const acoes = (await proporAcoes([ACHADO])).acoes;
+    const acoes = (await proporAcoes([ACHADO], { permitirLocal: true })).acoes;
     const comPlano = await gerarSlide({ cartoes: [cartao], evento: EVENTO, acoes });
     const semPlano = await gerarSlide({ cartoes: [cartao], evento: EVENTO });
 
@@ -74,13 +74,13 @@ describe('arquivo gerado com plano de ação', () => {
   });
 
   it('avisa quando a ação vai para o slide sem dono', async () => {
-    const acoes = (await proporAcoes([ACHADO])).acoes;
+    const acoes = (await proporAcoes([ACHADO], { permitirLocal: true })).acoes;
     const r = await gerarSlide({ cartoes: [cartao], evento: EVENTO, acoes });
     expect(r.avisos.join(' ')).toContain('sem executante');
   });
 
   it('não avisa quando o executante foi preenchido', async () => {
-    const acoes = (await proporAcoes([ACHADO])).acoes.map((a) => ({ ...a, executante: 'Maria Silva' }));
+    const acoes = (await proporAcoes([ACHADO], { permitirLocal: true })).acoes.map((a) => ({ ...a, executante: 'Maria Silva' }));
     const r = await gerarSlide({ cartoes: [cartao], evento: EVENTO, acoes });
     expect(r.avisos.join(' ')).not.toContain('sem executante');
   });

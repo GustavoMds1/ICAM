@@ -15,17 +15,18 @@ import type { Sugestao } from '@/lib/classificacao';
 import type { AcaoProposta } from '@/lib/acoes';
 
 /**
- * Quatro passos: importar, classificar, planejar ações, gerar.
+ * Cinco passos: importar, classificar, revisar, planejar ações, gerar.
  *
- * Duas regras da metodologia estão embutidas na interface, não no texto de
- * ajuda:
+ * Três regras estão embutidas na interface, não no texto de ajuda:
  *
  *   - causa raiz não aparece como opção. Ela sai da análise causal com a
  *     equipe, depois. Ter o botão aqui convidaria a eleger causa raiz durante
  *     a digitação;
- *   - o que é só fato, sem nada a corrigir, entra desmarcado. Slide de
- *     classificação existe para sustentar plano de ação, não para listar tudo
- *     que foi visto.
+ *   - "exige ação" nasce marcado em todos os itens. Quem tira é a pessoa, item
+ *     a item. Deixar a IA desmarcar sozinha faria achado sumir do slide sem
+ *     ninguém perceber;
+ *   - falha da IA aparece como erro com o que fazer. O modo local existe, mas
+ *     só entra quando pedido no botão — nunca no lugar da análise, calado.
  */
 
 interface Decisao {
@@ -42,7 +43,7 @@ const NIVEL_ESTILO: Record<NivelIcam, string> = {
 
 export default function PaginaColeta() {
   const [carregando, setCarregando] = useState<string | null>(null);
-  const [erro, setErro] = useState<string | null>(null);
+  const [erro, setErro] = useState<{ mensagem: string; codigo?: string; passo?: 'codigos' | 'acoes' } | null>(null);
   const [avisos, setAvisos] = useState<string[]>([]);
 
   const [itens, setItens] = useState<ItemColetado[]>([]);
@@ -89,13 +90,13 @@ export default function PaginaColeta() {
       setEvento(corpo.evento);
       setAvisos(corpo.avisos ?? []);
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível importar o arquivo.');
+      setErro({ mensagem: e instanceof Error ? e.message : 'Não foi possível importar o arquivo.' });
     } finally {
       setCarregando(null);
     }
   }
 
-  async function classificar() {
+  async function classificar(permitirLocal = false) {
     setCarregando('Associando os códigos ICAM…');
     setErro(null);
 
@@ -103,10 +104,13 @@ export default function PaginaColeta() {
       const r = await fetch('/api/classificar', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ itens, contexto }),
+        body: JSON.stringify({ itens, contexto, permitirLocal }),
       });
       const corpo = await r.json();
-      if (!r.ok) throw new Error(corpo.erro ?? 'falha ao classificar');
+      if (!r.ok) {
+        setErro({ mensagem: corpo.erro ?? 'falha ao classificar', codigo: corpo.codigo, passo: 'codigos' });
+        return;
+      }
 
       setSugestoes(corpo.sugestoes);
       setOrigem(corpo.origem);
@@ -117,24 +121,25 @@ export default function PaginaColeta() {
           (corpo.sugestoes as Sugestao[]).map((s) => [
             s.itemId,
             {
-              // Fator contribuinte entra sempre; fato constatado só entra se
-              // houver algo a corrigir.
-              incluir: s.nivel === 'contribuinte' || s.exigeAcao,
+              // A caixa "exige ação" nasce marcada para todo mundo: quem tira
+              // é a pessoa, item a item. Deixar a IA desmarcar sozinha faria
+              // achado sumir do slide sem ninguém perceber.
+              incluir: true,
               codigo: s.codigo,
               nivel: s.nivel,
-              exigeAcao: s.exigeAcao,
+              exigeAcao: true,
             },
           ]),
         ),
       );
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível classificar.');
+      setErro({ mensagem: e instanceof Error ? e.message : 'Não foi possível classificar.', passo: 'codigos' });
     } finally {
       setCarregando(null);
     }
   }
 
-  async function gerarAcoes() {
+  async function gerarAcoes(permitirLocal = false) {
     setCarregando('Propondo as ações…');
     setErro(null);
 
@@ -152,16 +157,19 @@ export default function PaginaColeta() {
       const r = await fetch('/api/acoes', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ achados, contexto }),
+        body: JSON.stringify({ achados, contexto, permitirLocal }),
       });
       const corpo = await r.json();
-      if (!r.ok) throw new Error(corpo.erro ?? 'falha ao propor ações');
+      if (!r.ok) {
+        setErro({ mensagem: corpo.erro ?? 'falha ao propor ações', codigo: corpo.codigo, passo: 'acoes' });
+        return;
+      }
 
       setAcoes(corpo.acoes);
       setOrigemAcoes(corpo.origem);
       setAvisos(corpo.avisos ?? []);
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível propor as ações.');
+      setErro({ mensagem: e instanceof Error ? e.message : 'Não foi possível propor as ações.', passo: 'acoes' });
     } finally {
       setCarregando(null);
     }
@@ -201,7 +209,7 @@ export default function PaginaColeta() {
       link.click();
       URL.revokeObjectURL(url);
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível gerar o arquivo.');
+      setErro({ mensagem: e instanceof Error ? e.message : 'Não foi possível gerar o arquivo.' });
     } finally {
       setCarregando(null);
     }
@@ -232,7 +240,25 @@ export default function PaginaColeta() {
     <div className="space-y-8">
       {erro && (
         <div role="alert" className="rounded-md border-l-4 border-red-600 bg-red-50 p-4 text-sm">
-          {erro}
+          <p>{erro.mensagem}</p>
+          {(erro.codigo === 'SEM_CHAVE' || erro.codigo === 'FALHA_GEMINI') && erro.passo && (
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                className="botao"
+                onClick={() =>
+                  void (erro.passo === 'codigos' ? classificar(true) : gerarAcoes(true))
+                }
+                disabled={carregando !== null}
+              >
+                Seguir sem IA, no modo local
+              </button>
+              <span className="text-xs text-sutil">
+                O modo local associa por semelhança de palavras. Serve para não travar o trabalho,
+                não para substituir a análise.
+              </span>
+            </div>
+          )}
         </div>
       )}
 
@@ -290,7 +316,7 @@ export default function PaginaColeta() {
             <button
               type="button"
               className="botao-primario"
-              onClick={() => void classificar()}
+              onClick={() => void classificar(false)}
               disabled={carregando !== null}
             >
               {carregando ?? (sugestoes.length > 0 ? 'Classificar de novo' : 'Associar códigos com IA')}
@@ -315,7 +341,7 @@ export default function PaginaColeta() {
               <h2 className="text-base font-semibold">3. Revisar item a item</h2>
               <p className="mt-1 text-sm text-sutil">
                 {noSlide.length} de {sugestoes.length} vão para o slide · {paraTratar.length} exigem ação.
-                O que é só fato, sem nada a corrigir, fica de fora.
+                Todos entram marcados: desmarque o que for só fato, sem nada a corrigir.
               </p>
             </div>
           </div>
@@ -351,6 +377,11 @@ export default function PaginaColeta() {
                   </div>
 
                   {s.justificativa && <p className="mt-2 text-xs text-sutil">{s.justificativa}</p>}
+                  {!s.exigeAcao && decisao.exigeAcao && (
+                    <p className="mt-1 text-xs text-amber-700">
+                      A IA considerou que este item não exige ação. Se concordar, desmarque a caixa.
+                    </p>
+                  )}
 
                   <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_auto_auto]">
                     <div>
@@ -454,7 +485,7 @@ export default function PaginaColeta() {
                 responde.
               </p>
             </div>
-            <button type="button" className="botao-primario" onClick={() => void gerarAcoes()} disabled={carregando !== null}>
+            <button type="button" className="botao-primario" onClick={() => void gerarAcoes(false)} disabled={carregando !== null}>
               {acoes.length > 0 ? 'Propor de novo' : 'Propor ações com IA'}
             </button>
           </div>

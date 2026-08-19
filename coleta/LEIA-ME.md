@@ -36,9 +36,12 @@ A classificação desta etapa tem **dois** níveis: fato constatado e fator cont
 sai da análise causal, depois, com a equipe reunida — oferecer o rótulo aqui convidaria a eleger
 causa raiz durante a digitação da coleta, que é como se fecha investigação no primeiro suspeito.
 
-**O que é só fato, sem nada a corrigir, não vai para o slide.** Fator contribuinte entra sempre;
-fato constatado entra apenas quando marcado como "exige ação". O slide de classificação existe para
-sustentar o plano de ação, não para listar tudo que foi visto.
+**A caixa "exige ação" nasce marcada em todos os itens** e quem desmarca é você, item a item. O que
+ficar desmarcado sai do slide: classificação existe para sustentar plano de ação, não para listar
+tudo que foi visto.
+
+A escolha de deixar marcado por padrão é proposital. Se a IA desmarcasse sozinha, um achado sumiria
+do slide sem ninguém perceber — e o erro de omissão é o mais difícil de notar numa revisão.
 
 ---
 
@@ -60,24 +63,37 @@ título curto com responsável. Escreva como frase e reimporte.
 
 ---
 
-## Sobre a IA
+## A IA é obrigatória
 
-**Com `GEMINI_API_KEY` configurada**, o Gemini recebe o catálogo inteiro dos 101 códigos e devolve,
-para cada constatação, um código, um nível e uma justificativa. Código que não existir no catálogo é
-descartado — nunca aproximado para o mais parecido.
+A associação dos códigos e a redação das ações usam a **API do Gemini**, com a chave em
+`GEMINI_API_KEY` no ambiente do servidor. No Render: serviço `icam-coleta` → **Environment** →
+`GEMINI_API_KEY`. A chave fica no servidor e nunca chega ao navegador de quem usa.
 
-**Sem a chave**, o aplicativo continua funcionando com associação local por palavras em comum com o
-título e a definição do código. É fraca, serve como ponto de partida, e a interface diz isso
-claramente em vez de fingir que é a mesma coisa.
+**Sem a chave, o passo para e diz o que fazer** — não cai em silêncio para um modo mais fraco.
+Aplicativo que degrada calado produz slide de investigação com cara de análise que ninguém fez.
 
-Em qualquer um dos dois modos, **nada vai para o slide sem passar pela sua revisão**. O nível
-proposto é sempre "fato constatado" no modo local: promover um achado a causa raiz é conclusão de
-análise, e o custo de errar para cima é um plano de ação atacando o alvo errado.
+O Gemini recebe o catálogo inteiro dos 101 códigos. Código que não existir no catálogo é descartado,
+nunca aproximado para o mais parecido.
+
+**Se o nome do modelo estiver errado**, o aplicativo pergunta à própria API quais modelos existem na
+sua conta, usa o primeiro adequado e avisa qual foi — assim uma troca de nome pelo Google não vira
+um beco sem saída. Para fixar a escolha, defina `MODELO_IA` no Render.
+
+### Modo local, só a pedido
+
+Quando a chamada falha, a tela oferece o botão **"Seguir sem IA, no modo local"**, que associa por
+semelhança de palavras. Serve para não travar o trabalho num dia de instabilidade, não para
+substituir a análise — e só roda quando você clica.
+
+### O que a IA nunca decide sozinha
+
+- **Causa raiz** não existe nesta etapa
+- **Executante e matrícula** saem em branco: a IA não inventa nome de pessoa
+- **Nada vai para o slide sem passar pela sua revisão**
 
 ### Obter a chave
 
-<https://aistudio.google.com/apikey>. No Render: painel do serviço `icam-coleta` → **Environment** →
-`GEMINI_API_KEY`.
+<https://aistudio.google.com/apikey>
 
 ---
 

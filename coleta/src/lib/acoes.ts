@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { HIERARQUIAS, type Hierarquia } from './codigos';
-import { extrairJson, MODELO_PADRAO_GEMINI } from './classificacao';
+import { extrairJson, gerarJson, obterChave } from './gemini';
 
 /**
  * Proposta de ações para os achados que exigem tratamento.
@@ -89,6 +89,8 @@ export interface OpcoesAcoes {
   tempoLimiteMs?: number;
   /** Data base do prazo. Explícita para o teste não depender do relógio. */
   hoje?: Date;
+  /** Autoriza o rascunho local. Só quando a pessoa pedir, sabendo o que é. */
+  permitirLocal?: boolean;
 }
 
 export async function proporAcoes(
@@ -99,39 +101,19 @@ export async function proporAcoes(
     return { acoes: [], origem: 'local', modelo: null, avisos: ['Nenhum achado exige ação.'] };
   }
 
-  const chave = opcoes.chaveApi ?? process.env.GEMINI_API_KEY ?? '';
-  if (!chave) {
+  if (opcoes.permitirLocal && !(opcoes.chaveApi ?? process.env.GEMINI_API_KEY)) {
     return {
       acoes: achados.map((a) => acaoLocal(a, opcoes.hoje)),
       origem: 'local',
       modelo: null,
       avisos: [
-        'GEMINI_API_KEY não configurada: as ações abaixo são apenas um rascunho de estrutura, sem análise. Reescreva cada uma.',
+        'Modo local, a pedido: o que sai é a estrutura da ação, não a ação. Reescreva cada linha.',
       ],
     };
   }
 
-  try {
-    return await chamarGemini(achados, chave, opcoes);
-  } catch (e) {
-    return {
-      acoes: achados.map((a) => acaoLocal(a, opcoes.hoje)),
-      origem: 'local',
-      modelo: null,
-      avisos: [
-        `A chamada ao Gemini falhou (${e instanceof Error ? e.message : 'erro desconhecido'}). As ações abaixo são rascunho local.`,
-      ],
-    };
-  }
-}
-
-async function chamarGemini(
-  achados: AchadoParaTratar[],
-  chaveApi: string,
-  opcoes: OpcoesAcoes,
-): Promise<ResultadoAcoes> {
-  const modelo = opcoes.modelo ?? process.env.MODELO_IA ?? MODELO_PADRAO_GEMINI;
-  const limite = opcoes.tempoLimiteMs ?? 90_000;
+  // Sem chave, lança. Quem chama transforma em mensagem com o que fazer.
+  const chave = obterChave(opcoes.chaveApi);
 
   const tarefa = [
     opcoes.contexto ? `CONTEXTO DO EVENTO:\n${opcoes.contexto}\n` : '',
@@ -139,69 +121,48 @@ async function chamarGemini(
     ...achados.map((a) => `${a.itemId} | ${a.codigo} – ${a.titulo} | ${a.constatacao}`),
   ].join('\n');
 
-  const abortador = new AbortController();
-  const relogio = setTimeout(() => abortador.abort(), limite);
+  const resposta = await gerarJson({
+    chaveApi: chave,
+    instrucao: INSTRUCAO,
+    formato: FORMATO,
+    tarefa,
+    modelo: opcoes.modelo,
+    tempoLimiteMs: opcoes.tempoLimiteMs,
+  });
 
-  try {
-    const resposta = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelo)}:generateContent`,
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-goog-api-key': chaveApi },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: `${INSTRUCAO}\n\nFORMATO ESPERADO:\n${FORMATO}` }] },
-          contents: [{ role: 'user', parts: [{ text: tarefa }] }],
-          generationConfig: { responseMimeType: 'application/json', temperature: 0, maxOutputTokens: 8192 },
-        }),
-        signal: abortador.signal,
-      },
-    );
-
-    if (!resposta.ok) {
-      const detalhe = (await resposta.text().catch(() => '')).slice(0, 300);
-      throw new Error(`HTTP ${resposta.status}${detalhe ? `: ${detalhe}` : ''}`);
-    }
-
-    const corpo = (await resposta.json()) as Record<string, unknown>;
-    const candidatos = Array.isArray(corpo.candidates) ? (corpo.candidates as Record<string, unknown>[]) : [];
-    const conteudo = (candidatos[0]?.content ?? {}) as Record<string, unknown>;
-    const partes = Array.isArray(conteudo.parts) ? (conteudo.parts as Record<string, unknown>[]) : [];
-    const bruto = partes.map((p) => (typeof p.text === 'string' ? p.text : '')).join('');
-
-    const analise = respostaAcoes.safeParse(extrairJson(bruto));
-    if (!analise.success) throw new Error('a resposta não veio no formato combinado');
-
-    const avisos: string[] = [];
-    const porId = new Map(achados.map((a) => [a.itemId, a]));
-    const acoes: AcaoProposta[] = [];
-
-    for (const proposta of analise.data.acoes) {
-      const achado = porId.get(proposta.id);
-      if (!achado) continue;
-      acoes.push({
-        itemId: achado.itemId,
-        causaPadrao: `${achado.codigo} – ${achado.titulo} - ${achado.constatacao}`,
-        acao: proposta.acao.trim(),
-        hierarquia: normalizarHierarquia(proposta.hierarquia),
-        justificativa: proposta.justificativa.trim(),
-        executante: '',
-        matricula: '',
-        prazo: emDias(proposta.prazoDias, opcoes.hoje),
-        origem: 'gemini',
-      });
-    }
-
-    for (const achado of achados) {
-      if (!acoes.some((a) => a.itemId === achado.itemId)) {
-        acoes.push(acaoLocal(achado, opcoes.hoje));
-        avisos.push(`O modelo não propôs ação para ${achado.codigo}; ficou o rascunho local.`);
-      }
-    }
-
-    return { acoes, origem: 'gemini', modelo, avisos };
-  } finally {
-    clearTimeout(relogio);
+  const analise = respostaAcoes.safeParse(extrairJson(resposta.texto));
+  if (!analise.success) {
+    throw new Error('O Gemini respondeu fora do formato combinado. Tente de novo.');
   }
+
+  const avisos = [...resposta.avisos];
+  const porId = new Map(achados.map((a) => [a.itemId, a]));
+  const acoes: AcaoProposta[] = [];
+
+  for (const proposta of analise.data.acoes) {
+    const achado = porId.get(proposta.id);
+    if (!achado) continue;
+    acoes.push({
+      itemId: achado.itemId,
+      causaPadrao: `${achado.codigo} – ${achado.titulo} - ${achado.constatacao}`,
+      acao: proposta.acao.trim(),
+      hierarquia: normalizarHierarquia(proposta.hierarquia),
+      justificativa: proposta.justificativa.trim(),
+      executante: '',
+      matricula: '',
+      prazo: emDias(proposta.prazoDias, opcoes.hoje),
+      origem: 'gemini',
+    });
+  }
+
+  for (const achado of achados) {
+    if (!acoes.some((a) => a.itemId === achado.itemId)) {
+      acoes.push(acaoLocal(achado, opcoes.hoje));
+      avisos.push(`O modelo não propôs ação para ${achado.codigo}; ficou o rascunho local.`);
+    }
+  }
+
+  return { acoes, origem: 'gemini', modelo: resposta.modelo, avisos };
 }
 
 function normalizarHierarquia(valor: string): Hierarquia {

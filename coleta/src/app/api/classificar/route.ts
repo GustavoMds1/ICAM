@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { classificar } from '@/lib/classificacao';
+import { responderErro } from '@/lib/respostaErro';
 import { CATEGORIAS_PEEPO } from '@/lib/pptxLeitura';
 
 export const dynamic = 'force-dynamic';
@@ -21,18 +22,23 @@ const corpo = z.object({
     .min(1, 'Nenhum item para classificar.')
     .max(300, 'São no máximo 300 itens por vez.'),
   contexto: z.string().max(4000).optional(),
+  permitirLocal: z.boolean().optional(),
 });
 
 export async function POST(requisicao: Request) {
   const bruto: unknown = await requisicao.json().catch(() => null);
   const pedido = corpo.safeParse(bruto);
   if (!pedido.success) {
-    return NextResponse.json(
-      { erro: pedido.error.issues.map((i) => i.message).join(' ') },
-      { status: 400 },
-    );
+    return NextResponse.json({ erro: pedido.error.issues.map((i) => i.message).join(' ') }, { status: 400 });
   }
 
-  const resultado = await classificar(pedido.data.itens, { contexto: pedido.data.contexto });
-  return NextResponse.json(resultado);
+  try {
+    const resultado = await classificar(pedido.data.itens, {
+      contexto: pedido.data.contexto,
+      permitirLocal: pedido.data.permitirLocal,
+    });
+    return NextResponse.json(resultado);
+  } catch (e) {
+    return responderErro(e);
+  }
 }

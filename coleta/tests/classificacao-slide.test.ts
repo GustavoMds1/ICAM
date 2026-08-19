@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { classificar, classificarLocalmente, extrairJson } from '@/lib/classificacao';
+import { proporAcoes } from '@/lib/acoes';
 import { CODIGOS, NIVEIS, obterCodigo, ORDEM_COLUNAS, normalizarCodigo } from '@/lib/codigos';
 import { gerarSlide } from '@/lib/pptxEscrita';
 import type { ItemColetado } from '@/lib/pptxLeitura';
@@ -39,16 +40,30 @@ describe('catálogo', () => {
   });
 });
 
-describe('classificação sem chave de API', () => {
-  it('só classifica constatação, nunca tarefa de coleta', async () => {
-    const r = await classificar([
-      item('a', 'O trecho não dispõe de sinalização vertical regulamentadora'),
-      item('b', 'Telemetria do veículo', 'evidencia'),
-    ]);
+describe('a IA é obrigatória', () => {
+  it('sem GEMINI_API_KEY, o passo para e diz o que fazer', async () => {
+    // Antes o aplicativo caía calado no modo local e devolvia algo com cara de
+    // análise. Slide de investigação montado assim é pior do que erro visível.
+    await expect(classificar([item('a', 'O trecho não dispõe de sinalização vertical')])).rejects.toThrow(
+      /GEMINI_API_KEY/,
+    );
+    await expect(
+      proporAcoes([{ itemId: 'a', codigo: 'HF21', titulo: 'x', constatacao: 'y' }]),
+    ).rejects.toThrow(/GEMINI_API_KEY/);
+  });
+
+  it('o modo local só roda quando pedido explicitamente', async () => {
+    const r = await classificar(
+      [
+        item('a', 'O trecho não dispõe de sinalização vertical regulamentadora'),
+        item('b', 'Telemetria do veículo', 'evidencia'),
+      ],
+      { permitirLocal: true },
+    );
 
     expect(r.sugestoes.map((s) => s.itemId)).toEqual(['a']);
     expect(r.origem).toBe('local');
-    expect(r.avisos.join(' ')).toContain('GEMINI_API_KEY');
+    expect(r.avisos.join(' ')).toContain('a pedido');
   });
 
   it('devolve sempre um código que existe no catálogo', () => {
@@ -56,14 +71,15 @@ describe('classificação sem chave de API', () => {
     expect(obterCodigo(s.codigo)).not.toBeNull();
   });
 
-  it('não propõe fator contribuinte nem ação por conta própria', () => {
+  it('não propõe fator contribuinte por conta própria, mas marca a caixa de ação', () => {
     const s = classificarLocalmente(item('a', 'Falha sistêmica de gestão de manutenção da frota'));
     expect(s.nivel).toBe('constatado');
-    expect(s.exigeAcao).toBe(false);
+    // A caixa nasce marcada; quem tira é a pessoa.
+    expect(s.exigeAcao).toBe(true);
     expect(s.confianca).toBe('baixa');
   });
 
-  it('lista vazia não quebra', async () => {
+  it('lista vazia não quebra nem exige chave', async () => {
     const r = await classificar([]);
     expect(r.sugestoes).toEqual([]);
   });
