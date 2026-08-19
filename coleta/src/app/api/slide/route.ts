@@ -25,6 +25,21 @@ const corpo = z.object({
     consequenciaPotencial: z.string().nullable(),
   }),
   tituloInvestigacao: z.string().max(200).optional(),
+  acoes: z
+    .array(
+      z.object({
+        itemId: z.string(),
+        causaPadrao: z.string(),
+        acao: z.string(),
+        hierarquia: z.string(),
+        justificativa: z.string().default(''),
+        executante: z.string().default(''),
+        matricula: z.string().default(''),
+        prazo: z.string().default(''),
+        origem: z.enum(['gemini', 'local']).default('local'),
+      }),
+    )
+    .optional(),
 });
 
 export async function POST(requisicao: Request) {
@@ -37,7 +52,7 @@ export async function POST(requisicao: Request) {
   const { arquivo, avisos } = await gerarSlide({
     cartoes: pedido.data.cartoes as never,
     evento: pedido.data.evento,
-    tituloInvestigacao: pedido.data.tituloInvestigacao,
+    acoes: pedido.data.acoes as never,
   });
 
   return new Response(new Uint8Array(arquivo), {

@@ -31,6 +31,14 @@ export interface Sugestao {
   codigo: string;
   titulo: string;
   nivel: NivelIcam;
+  /**
+   * Se o achado pede ação corretiva.
+   *
+   * É o que decide o que entra no slide: fator contribuinte sempre entra;
+   * fato constatado só entra quando exige ação. Constatação que não pede nada
+   * de ninguém é registro da investigação, não conteúdo de apresentação.
+   */
+  exigeAcao: boolean;
   justificativa: string;
   confianca: 'baixa' | 'media' | 'alta';
   /** Códigos próximos que o classificador considerou e descartou. */
@@ -53,6 +61,7 @@ const respostaGemini = z.object({
       id: z.string(),
       codigo: z.string(),
       nivel: z.string(),
+      exigeAcao: z.boolean().default(false),
       justificativa: z.string().default(''),
       confianca: z.string().default('media'),
       alternativas: z.array(z.string()).default([]),
@@ -69,12 +78,16 @@ const INSTRUCAO = [
   '   mecanismo pelo qual aquilo contribuiu para o evento.',
   '3. Não atribua culpa a pessoa. Não infira fadiga, uso de substância, condição de saúde',
   '   ou problema pessoal a partir de comportamento, linguagem ou aparência.',
-  '4. Nível: use "raiz" apenas para falha sistêmica da organização que, removida, teria',
-  '   evitado o evento; "contribuinte" para o que aumentou a chance ou a gravidade;',
-  '   "constatado" para fato verificado sem juízo causal. Na dúvida, use "constatado".',
-  '5. Se nenhum código descrever bem a constatação, use o código genérico "Outro fator" do',
+  '4. Nível: use "contribuinte" para o que aumentou a chance de o evento ocorrer ou a',
+  '   sua gravidade; "constatado" para fato verificado sem juízo causal. Na dúvida,',
+  '   use "constatado". NÃO existe nível de causa raiz nesta etapa: ela é decidida',
+  '   depois, na análise causal com a equipe.',
+  '5. exigeAcao: verdadeiro quando o achado pede ação corretiva ou preventiva de',
+  '   alguém. Fator contribuinte quase sempre exige. Fato que apenas descreve algo',
+  '   conforme, sem nada a corrigir, não exige.',
+  '6. Se nenhum código descrever bem a constatação, use o código genérico "Outro fator" do',
   '   grupo mais próximo e explique na justificativa.',
-  '6. Responda SOMENTE com JSON válido, sem texto antes ou depois e sem cercas de código.',
+  '7. Responda SOMENTE com JSON válido, sem texto antes ou depois e sem cercas de código.',
 ].join('\n');
 
 const FORMATO = `{
@@ -82,7 +95,8 @@ const FORMATO = `{
     {
       "id": "<id do item, exatamente como recebido>",
       "codigo": "<código do catálogo, ex.: HF21>",
-      "nivel": "raiz | contribuinte | constatado",
+      "nivel": "contribuinte | constatado",
+      "exigeAcao": true,
       "justificativa": "<uma frase ligando a constatação ao código>",
       "confianca": "baixa | media | alta",
       "alternativas": ["<código descartado>", "<outro>"]
@@ -208,6 +222,8 @@ async function chamarGemini(
         codigo: codigo.codigo,
         titulo: codigo.titulo,
         nivel: normalizarNivel(c.nivel),
+        // Fator contribuinte sem ação é contradição: se contribuiu, há o que tratar.
+        exigeAcao: c.exigeAcao || normalizarNivel(c.nivel) === 'contribuinte',
         justificativa: c.justificativa.trim(),
         confianca: normalizarConfianca(c.confianca),
         alternativas: c.alternativas
@@ -309,6 +325,7 @@ export function classificarLocalmente(item: ItemColetado): Sugestao {
     codigo: melhor.codigo,
     titulo: melhor.titulo,
     nivel: 'constatado',
+    exigeAcao: false,
     justificativa:
       notas.length > 0
         ? 'Associação local por termos em comum com o título e a definição do código. Confira o mecanismo antes de aceitar.'

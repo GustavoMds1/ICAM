@@ -29,10 +29,13 @@ describe('catálogo', () => {
     expect(obterCodigo('XX99')).toBeNull();
   });
 
-  it('as cores são exatamente as do modelo enviado', () => {
-    expect(NIVEIS.raiz.cor).toBe('FF0000');
+  it('só existem os dois níveis desta etapa, com as cores do modelo', () => {
+    // Causa raiz sai da análise causal, depois. Oferecer aqui convidaria a
+    // eleger causa raiz durante a digitação da coleta.
+    expect(Object.keys(NIVEIS).sort()).toEqual(['constatado', 'contribuinte']);
     expect(NIVEIS.contribuinte.cor).toBe('FFFF00');
-    expect(NIVEIS.constatado.cor).toBe('FFFFFF');
+    // Fato constatado é cartão transparente no original, não branco pintado.
+    expect(NIVEIS.constatado.cor).toBeNull();
   });
 });
 
@@ -53,9 +56,10 @@ describe('classificação sem chave de API', () => {
     expect(obterCodigo(s.codigo)).not.toBeNull();
   });
 
-  it('nunca propõe causa raiz por conta própria', () => {
+  it('não propõe fator contribuinte nem ação por conta própria', () => {
     const s = classificarLocalmente(item('a', 'Falha sistêmica de gestão de manutenção da frota'));
     expect(s.nivel).toBe('constatado');
+    expect(s.exigeAcao).toBe(false);
     expect(s.confianca).toBe('baixa');
   });
 
@@ -78,7 +82,7 @@ describe('extração de JSON da resposta do modelo', () => {
 });
 
 describe('geração do slide', () => {
-  const cartao = (codigo: string, nivel: 'raiz' | 'contribuinte' | 'constatado') => ({
+  const cartao = (codigo: string, nivel: 'contribuinte' | 'constatado') => ({
     codigo,
     titulo: obterCodigo(codigo)!.titulo,
     constatacao: 'Constatação de teste com tamanho suficiente para ocupar duas linhas do cartão.',
@@ -87,7 +91,7 @@ describe('geração do slide', () => {
 
   it('gera um único slide quando os cartões cabem', async () => {
     const r = await gerarSlide({
-      cartoes: [cartao('MS', 'raiz'), cartao('HF21', 'contribuinte'), cartao('DF03', 'constatado')],
+      cartoes: [cartao('MS', 'contribuinte'), cartao('HF21', 'constatado'), cartao('DF03', 'constatado')],
       evento: EVENTO,
     });
 

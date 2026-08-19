@@ -32,20 +32,36 @@ export const ROTULOS_COLUNA: Record<ColunaIcam, string> = {
 export const ORDEM_COLUNAS: ColunaIcam[] = ['organizacionais', 'condicoes', 'acoes', 'defesas'];
 
 /**
- * Níveis da legenda do slide 13, com as cores exatas do modelo.
+ * Níveis atribuídos nesta etapa, com o preenchimento medido no slide original.
  *
- * `constatado` é o padrão. Promover um achado a causa raiz é conclusão de
- * análise, e o custo de errar para cima é alto: causa raiz errada leva a plano
- * de ação errado.
+ * São só dois. **Causa raiz não se define aqui**: ela sai da análise causal,
+ * depois, com a equipe reunida. Oferecer o rótulo neste ponto convidaria a
+ * eleger causa raiz durante a digitação da coleta, que é exatamente como se
+ * fecha investigação no primeiro suspeito.
+ *
+ * No modelo, fator contribuinte é preenchimento amarelo sólido e fato
+ * constatado é cartão transparente — só a borda pontilhada.
  */
 export const NIVEIS = {
-  constatado: { rotulo: 'Fato constatado', cor: 'FFFFFF', textoEscuro: true },
-  contribuinte: { rotulo: 'Fator contribuinte', cor: 'FFFF00', textoEscuro: true },
-  raiz: { rotulo: 'Causa raiz', cor: 'FF0000', textoEscuro: false },
+  constatado: { rotulo: 'Fatos Constatados', cor: null, textoEscuro: true },
+  contribuinte: { rotulo: 'Fatores contribuintes', cor: 'FFFF00', textoEscuro: true },
 } as const;
 
 export type NivelIcam = keyof typeof NIVEIS;
 export const NIVEIS_VALIDOS = Object.keys(NIVEIS) as NivelIcam[];
+
+/**
+ * Hierarquia de controle, na ordem de força. É a coluna "Hierarquia de
+ * Controle" do plano de recomendações do modelo.
+ */
+export const HIERARQUIAS = [
+  'Eliminação',
+  'Substituição',
+  'Engenharia',
+  'Administrativo',
+  'EPI',
+] as const;
+export type Hierarquia = (typeof HIERARQUIAS)[number];
 
 const PORCODIGO = new Map(CODIGOS.map((c) => [normalizarCodigo(c.codigo), c]));
 

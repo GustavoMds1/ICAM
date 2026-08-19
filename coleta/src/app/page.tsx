@@ -1,27 +1,41 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { CODIGOS, NIVEIS, obterCodigo, ORDEM_COLUNAS, ROTULOS_COLUNA, type NivelIcam } from '@/lib/codigos';
+import {
+  CODIGOS,
+  HIERARQUIAS,
+  NIVEIS,
+  obterCodigo,
+  ORDEM_COLUNAS,
+  ROTULOS_COLUNA,
+  type NivelIcam,
+} from '@/lib/codigos';
 import { ROTULOS_PEEPO, type ItemColetado, type DadosEvento, type CategoriaPeepo } from '@/lib/pptxLeitura';
 import type { Sugestao } from '@/lib/classificacao';
+import type { AcaoProposta } from '@/lib/acoes';
 
 /**
- * Fluxo em três passos: importar, revisar, gerar.
+ * Quatro passos: importar, classificar, planejar ações, gerar.
  *
- * A revisão é o coração da ferramenta. Por isso ela mostra, em cada linha, de
- * onde veio a sugestão (modelo ou associação local) e qual a confiança — sem
- * isso a pessoa aceita tudo no automático, que é o oposto do que a metodologia
- * pede.
+ * Duas regras da metodologia estão embutidas na interface, não no texto de
+ * ajuda:
+ *
+ *   - causa raiz não aparece como opção. Ela sai da análise causal com a
+ *     equipe, depois. Ter o botão aqui convidaria a eleger causa raiz durante
+ *     a digitação;
+ *   - o que é só fato, sem nada a corrigir, entra desmarcado. Slide de
+ *     classificação existe para sustentar plano de ação, não para listar tudo
+ *     que foi visto.
  */
 
 interface Decisao {
   incluir: boolean;
   codigo: string;
   nivel: NivelIcam;
+  exigeAcao: boolean;
 }
 
 const NIVEL_ESTILO: Record<NivelIcam, string> = {
-  raiz: 'bg-raiz text-white border-red-700',
   contribuinte: 'bg-contribuinte text-texto border-yellow-600',
   constatado: 'bg-white text-texto border-borda',
 };
@@ -33,19 +47,28 @@ export default function PaginaColeta() {
 
   const [itens, setItens] = useState<ItemColetado[]>([]);
   const [evento, setEvento] = useState<DadosEvento | null>(null);
-  const [titulo, setTitulo] = useState('');
   const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
   const [origem, setOrigem] = useState<'gemini' | 'local' | null>(null);
   const [decisoes, setDecisoes] = useState<Record<string, Decisao>>({});
+  const [acoes, setAcoes] = useState<AcaoProposta[]>([]);
+  const [origemAcoes, setOrigemAcoes] = useState<'gemini' | 'local' | null>(null);
 
   const constatacoes = useMemo(() => itens.filter((i) => i.tipo === 'constatacao'), [itens]);
   const evidencias = useMemo(() => itens.filter((i) => i.tipo === 'evidencia'), [itens]);
   const itemPorId = useMemo(() => new Map(itens.map((i) => [i.id, i])), [itens]);
 
-  const aprovados = useMemo(
-    () => sugestoes.filter((s) => decisoes[s.itemId]?.incluir !== false),
+  const noSlide = useMemo(
+    () => sugestoes.filter((s) => decisoes[s.itemId]?.incluir),
     [sugestoes, decisoes],
   );
+  const paraTratar = useMemo(
+    () => noSlide.filter((s) => decisoes[s.itemId]?.exigeAcao),
+    [noSlide, decisoes],
+  );
+
+  const contexto = evento
+    ? [evento.oQueAconteceu, evento.ondeAconteceu, evento.quandoAconteceu].filter(Boolean).join(' | ')
+    : undefined;
 
   async function importar(arquivo: File) {
     setCarregando('Lendo o PowerPoint…');
@@ -53,6 +76,7 @@ export default function PaginaColeta() {
     setAvisos([]);
     setSugestoes([]);
     setDecisoes({});
+    setAcoes([]);
 
     try {
       const dados = new FormData();
@@ -64,7 +88,6 @@ export default function PaginaColeta() {
       setItens(corpo.itens);
       setEvento(corpo.evento);
       setAvisos(corpo.avisos ?? []);
-      setTitulo(arquivo.name.replace(/\.pptx$/i, ''));
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não foi possível importar o arquivo.');
     } finally {
@@ -77,9 +100,6 @@ export default function PaginaColeta() {
     setErro(null);
 
     try {
-      const contexto = evento
-        ? [evento.oQueAconteceu, evento.ondeAconteceu, evento.quandoAconteceu].filter(Boolean).join(' | ')
-        : undefined;
       const r = await fetch('/api/classificar', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -91,11 +111,19 @@ export default function PaginaColeta() {
       setSugestoes(corpo.sugestoes);
       setOrigem(corpo.origem);
       setAvisos(corpo.avisos ?? []);
+      setAcoes([]);
       setDecisoes(
         Object.fromEntries(
           (corpo.sugestoes as Sugestao[]).map((s) => [
             s.itemId,
-            { incluir: true, codigo: s.codigo, nivel: s.nivel },
+            {
+              // Fator contribuinte entra sempre; fato constatado só entra se
+              // houver algo a corrigir.
+              incluir: s.nivel === 'contribuinte' || s.exigeAcao,
+              codigo: s.codigo,
+              nivel: s.nivel,
+              exigeAcao: s.exigeAcao,
+            },
           ]),
         ),
       );
@@ -106,12 +134,45 @@ export default function PaginaColeta() {
     }
   }
 
-  async function gerar() {
-    setCarregando('Montando o slide…');
+  async function gerarAcoes() {
+    setCarregando('Propondo as ações…');
     setErro(null);
 
     try {
-      const cartoes = aprovados.map((s) => {
+      const achados = paraTratar.map((s) => {
+        const codigo = obterCodigo(decisoes[s.itemId]?.codigo ?? s.codigo);
+        return {
+          itemId: s.itemId,
+          codigo: codigo?.codigo ?? s.codigo,
+          titulo: codigo?.titulo ?? s.titulo,
+          constatacao: itemPorId.get(s.itemId)?.texto ?? '',
+        };
+      });
+
+      const r = await fetch('/api/acoes', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ achados, contexto }),
+      });
+      const corpo = await r.json();
+      if (!r.ok) throw new Error(corpo.erro ?? 'falha ao propor ações');
+
+      setAcoes(corpo.acoes);
+      setOrigemAcoes(corpo.origem);
+      setAvisos(corpo.avisos ?? []);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não foi possível propor as ações.');
+    } finally {
+      setCarregando(null);
+    }
+  }
+
+  async function gerar() {
+    setCarregando('Montando o arquivo…');
+    setErro(null);
+
+    try {
+      const cartoes = noSlide.map((s) => {
         const decisao = decisoes[s.itemId];
         const codigo = obterCodigo(decisao?.codigo ?? s.codigo);
         return {
@@ -125,32 +186,46 @@ export default function PaginaColeta() {
       const r = await fetch('/api/slide', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ cartoes, evento, tituloInvestigacao: titulo }),
+        body: JSON.stringify({ cartoes, evento, acoes: acoes.length > 0 ? acoes : undefined }),
       });
       if (!r.ok) throw new Error((await r.json()).erro ?? 'falha ao gerar');
 
-      const avisosCabecalho = r.headers.get('x-avisos');
-      if (avisosCabecalho) setAvisos(JSON.parse(decodeURIComponent(avisosCabecalho)));
+      const cabecalho = r.headers.get('x-avisos');
+      if (cabecalho) setAvisos(JSON.parse(decodeURIComponent(cabecalho)));
 
       const blob = await r.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `classificacao-icam-${titulo || 'investigacao'}.pptx`;
+      link.download = 'classificacao-icam.pptx';
       link.click();
       URL.revokeObjectURL(url);
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível gerar o slide.');
+      setErro(e instanceof Error ? e.message : 'Não foi possível gerar o arquivo.');
     } finally {
       setCarregando(null);
     }
   }
 
   function alterar(itemId: string, mudanca: Partial<Decisao>) {
-    setDecisoes((atual) => ({
-      ...atual,
-      [itemId]: { ...(atual[itemId] ?? { incluir: true, codigo: '', nivel: 'constatado' }), ...mudanca },
-    }));
+    setDecisoes((atual) => {
+      const anterior = atual[itemId] ?? {
+        incluir: true,
+        codigo: '',
+        nivel: 'constatado' as NivelIcam,
+        exigeAcao: false,
+      };
+      const novo = { ...anterior, ...mudanca };
+      // Marcar que exige ação recoloca o item no slide: o que vai virar ação
+      // precisa aparecer na classificação que a sustenta.
+      if (mudanca.exigeAcao === true) novo.incluir = true;
+      if (mudanca.nivel === 'contribuinte') novo.incluir = true;
+      return { ...atual, [itemId]: novo };
+    });
+  }
+
+  function alterarAcao(itemId: string, mudanca: Partial<AcaoProposta>) {
+    setAcoes((atual) => atual.map((a) => (a.itemId === itemId ? { ...a, ...mudanca } : a)));
   }
 
   return (
@@ -171,13 +246,12 @@ export default function PaginaColeta() {
         </div>
       )}
 
-      {/* Passo 1 — importar */}
+      {/* 1 — importar */}
       <section className="cartao">
         <h2 className="text-base font-semibold">1. Importar a investigação</h2>
         <p className="mt-1 max-w-prose text-sm text-sutil">
           Envie o .pptx da investigação. São lidos os slides com o título &quot;Coleta de Dados&quot;,
-          separando por PEEPO — Pessoas, Equipamento, Ambiente, Procedimentos e Organização — junto com a
-          caixa do evento.
+          separando por PEEPO, junto com a caixa do evento.
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -199,31 +273,18 @@ export default function PaginaColeta() {
             </span>
           )}
         </div>
-
-        {itens.length > 0 && (
-          <div className="mt-4">
-            <label className="rotulo" htmlFor="titulo">
-              Título que aparece no slide
-            </label>
-            <input
-              id="titulo"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-              className="campo sm:max-w-lg"
-            />
-          </div>
-        )}
       </section>
 
-      {/* Passo 2 — classificar */}
+      {/* 2 — classificar */}
       {constatacoes.length > 0 && (
         <section className="cartao">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h2 className="text-base font-semibold">2. Associar os códigos ICAM</h2>
               <p className="mt-1 max-w-prose text-sm text-sutil">
-                A IA propõe um código e um nível para cada constatação. Tudo entra como proposta: o slide
-                só usa o que você mantiver.
+                A IA propõe o código, se é fato constatado ou fator contribuinte, e se aquilo exige
+                ação. <strong>Causa raiz não é definida aqui</strong> — ela sai da análise causal,
+                depois, com a equipe.
               </p>
             </div>
             <button
@@ -240,37 +301,40 @@ export default function PaginaColeta() {
             <p className="mt-3 text-xs text-sutil">
               {origem === 'gemini'
                 ? 'Sugestões vindas do Gemini. Confira o mecanismo de cada código antes de aceitar.'
-                : 'Sem chave do Gemini configurada: as sugestões vieram da associação local por palavras, que é fraca. Trate cada linha como ponto de partida.'}
+                : 'Sem chave do Gemini: as sugestões vieram da associação local por palavras, que é fraca. Trate cada linha como ponto de partida.'}
             </p>
           )}
         </section>
       )}
 
-      {/* Passo 3 — revisar */}
+      {/* 3 — revisar */}
       {sugestoes.length > 0 && (
         <section className="cartao">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h2 className="text-base font-semibold">3. Revisar item a item</h2>
               <p className="mt-1 text-sm text-sutil">
-                {aprovados.length} de {sugestoes.length} cartões vão para o slide.
+                {noSlide.length} de {sugestoes.length} vão para o slide · {paraTratar.length} exigem ação.
+                O que é só fato, sem nada a corrigir, fica de fora.
               </p>
             </div>
-            <button type="button" className="botao-primario" onClick={() => void gerar()} disabled={carregando !== null || aprovados.length === 0}>
-              Gerar slide (.pptx)
-            </button>
           </div>
 
           <ul className="mt-5 space-y-4">
             {sugestoes.map((s) => {
               const item = itemPorId.get(s.itemId);
-              const decisao = decisoes[s.itemId] ?? { incluir: true, codigo: s.codigo, nivel: s.nivel };
+              const decisao = decisoes[s.itemId] ?? {
+                incluir: true,
+                codigo: s.codigo,
+                nivel: s.nivel,
+                exigeAcao: s.exigeAcao,
+              };
               const codigo = obterCodigo(decisao.codigo);
 
               return (
                 <li
                   key={s.itemId}
-                  className={`rounded border p-4 ${decisao.incluir ? 'border-borda' : 'border-dashed border-borda opacity-50'}`}
+                  className={`rounded border p-4 ${decisao.incluir ? 'border-borda' : 'border-dashed border-borda opacity-60'}`}
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <p className="max-w-3xl text-sm">{item?.texto}</p>
@@ -288,7 +352,7 @@ export default function PaginaColeta() {
 
                   {s.justificativa && <p className="mt-2 text-xs text-sutil">{s.justificativa}</p>}
 
-                  <div className="mt-3 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
+                  <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_auto_auto]">
                     <div>
                       <label className="rotulo" htmlFor={`codigo-${s.itemId}`}>
                         Código ICAM
@@ -310,15 +374,12 @@ export default function PaginaColeta() {
                         ))}
                       </select>
                       {codigo && (
-                        <p className="mt-1 text-xs text-sutil">
-                          Coluna: {ROTULOS_COLUNA[codigo.coluna]}
-                          {codigo.generico && ' · código genérico, justifique no slide'}
-                        </p>
+                        <p className="mt-1 text-xs text-sutil">Coluna: {ROTULOS_COLUNA[codigo.coluna]}</p>
                       )}
                     </div>
 
                     <div>
-                      <span className="rotulo">Nível</span>
+                      <span className="rotulo">Classificação</span>
                       <div className="mt-1 flex gap-1">
                         {(Object.keys(NIVEIS) as NivelIcam[]).map((nivel) => (
                           <button
@@ -335,13 +396,21 @@ export default function PaginaColeta() {
                       </div>
                     </div>
 
-                    <div className="flex items-end">
+                    <div className="flex flex-col justify-end gap-2">
+                      <label className="flex items-center gap-2 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={decisao.exigeAcao}
+                          onChange={(e) => alterar(s.itemId, { exigeAcao: e.target.checked })}
+                        />
+                        Exige ação
+                      </label>
                       <button
                         type="button"
                         className="botao"
                         onClick={() => alterar(s.itemId, { incluir: !decisao.incluir })}
                       >
-                        {decisao.incluir ? 'Tirar do slide' : 'Devolver ao slide'}
+                        {decisao.incluir ? 'Tirar do slide' : 'Pôr no slide'}
                       </button>
                     </div>
                   </div>
@@ -373,13 +442,134 @@ export default function PaginaColeta() {
         </section>
       )}
 
-      {/* Evidências de coleta, só para conferência */}
+      {/* 4 — ações */}
+      {paraTratar.length > 0 && (
+        <section className="cartao">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="text-base font-semibold">4. Plano de ação</h2>
+              <p className="mt-1 max-w-prose text-sm text-sutil">
+                Uma ação para cada um dos {paraTratar.length} achados que exigem tratamento. A IA
+                escreve o rascunho e escolhe a hierarquia de controle; você ajusta e define quem
+                responde.
+              </p>
+            </div>
+            <button type="button" className="botao-primario" onClick={() => void gerarAcoes()} disabled={carregando !== null}>
+              {acoes.length > 0 ? 'Propor de novo' : 'Propor ações com IA'}
+            </button>
+          </div>
+
+          {origemAcoes === 'local' && (
+            <p className="mt-3 text-xs text-sutil">
+              Sem chave do Gemini, o que sai é a estrutura da ação, não a ação. Reescreva cada linha.
+            </p>
+          )}
+
+          {acoes.length > 0 && (
+            <ul className="mt-5 space-y-4">
+              {acoes.map((a) => (
+                <li key={a.itemId} className="rounded border border-borda p-4">
+                  <p className="text-xs text-sutil">{a.causaPadrao}</p>
+
+                  <div className="mt-3">
+                    <label className="rotulo" htmlFor={`acao-${a.itemId}`}>
+                      Descrição da ação
+                    </label>
+                    <textarea
+                      id={`acao-${a.itemId}`}
+                      value={a.acao}
+                      rows={2}
+                      onChange={(e) => alterarAcao(a.itemId, { acao: e.target.value })}
+                      className="campo"
+                    />
+                  </div>
+
+                  {a.justificativa && <p className="mt-1 text-xs text-sutil">{a.justificativa}</p>}
+
+                  <div className="mt-3 grid gap-3 sm:grid-cols-4">
+                    <div>
+                      <label className="rotulo" htmlFor={`hier-${a.itemId}`}>
+                        Hierarquia de controle
+                      </label>
+                      <select
+                        id={`hier-${a.itemId}`}
+                        value={a.hierarquia}
+                        onChange={(e) => alterarAcao(a.itemId, { hierarquia: e.target.value as AcaoProposta['hierarquia'] })}
+                        className="campo"
+                      >
+                        {HIERARQUIAS.map((h) => (
+                          <option key={h} value={h}>
+                            {h}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="rotulo" htmlFor={`exec-${a.itemId}`}>
+                        Executante
+                      </label>
+                      <input
+                        id={`exec-${a.itemId}`}
+                        value={a.executante}
+                        onChange={(e) => alterarAcao(a.itemId, { executante: e.target.value })}
+                        className="campo"
+                      />
+                    </div>
+                    <div>
+                      <label className="rotulo" htmlFor={`mat-${a.itemId}`}>
+                        Matrícula
+                      </label>
+                      <input
+                        id={`mat-${a.itemId}`}
+                        value={a.matricula}
+                        onChange={(e) => alterarAcao(a.itemId, { matricula: e.target.value })}
+                        className="campo"
+                      />
+                    </div>
+                    <div>
+                      <label className="rotulo" htmlFor={`prazo-${a.itemId}`}>
+                        Prazo
+                      </label>
+                      <input
+                        id={`prazo-${a.itemId}`}
+                        type="date"
+                        value={a.prazo}
+                        onChange={(e) => alterarAcao(a.itemId, { prazo: e.target.value })}
+                        className="campo"
+                      />
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
+      {/* 5 — gerar */}
+      {noSlide.length > 0 && (
+        <section className="cartao">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-base font-semibold">5. Gerar o PowerPoint</h2>
+              <p className="mt-1 text-sm text-sutil">
+                {noSlide.length} cartão(ões) na classificação
+                {acoes.length > 0 ? ` e ${acoes.length} ação(ões) no plano` : ', sem plano de ação'}.
+              </p>
+            </div>
+            <button type="button" className="botao-primario" onClick={() => void gerar()} disabled={carregando !== null}>
+              Baixar .pptx
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Evidências de coleta */}
       {evidencias.length > 0 && (
         <section className="cartao">
           <h2 className="text-base font-semibold">Evidências de coleta ({evidencias.length})</h2>
           <p className="mt-1 max-w-prose text-sm text-sutil">
-            Itens lidos como tarefa de coleta, não como achado — por isso não recebem código. Se algum
-            aqui for uma constatação, ele precisa estar escrito como frase no PowerPoint.
+            Itens lidos como tarefa de coleta, não como achado — por isso não recebem código.
           </p>
           <ul className="mt-3 grid gap-1 text-sm sm:grid-cols-2">
             {evidencias.map((e) => (

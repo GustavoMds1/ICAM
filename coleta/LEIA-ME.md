@@ -16,13 +16,29 @@ Não tem banco de dados nem login. O arquivo entra, é processado na memória do
    Organização) e lendo a caixa do evento (o quê, quem, onde, quando, consequências).
 
 2. **Associar** — clique em *Associar códigos com IA*. Cada constatação recebe um código do
-   catálogo dos 101, um nível (causa raiz, fator contribuinte, fato constatado) e uma justificativa.
+   catálogo dos 101, a classificação (fato constatado ou fator contribuinte) e a indicação de se
+   exige ação.
 
-3. **Revisar** — item a item: trocar o código, mudar o nível ou tirar do slide. É aqui que a
-   investigação acontece; o resto é digitação.
+3. **Revisar** — item a item: trocar o código, mudar a classificação, marcar se exige ação ou tirar
+   do slide. É aqui que a investigação acontece; o resto é digitação.
 
-4. **Gerar** — sai um `.pptx` com as quatro colunas ICAM, os cartões coloridos por nível, a caixa do
-   evento e a legenda. Abra e cole na apresentação.
+4. **Planejar as ações** — para cada achado que exige tratamento, a IA redige a ação e escolhe a
+   hierarquia de controle. Você ajusta o texto e define executante, matrícula e prazo.
+
+5. **Gerar** — sai um `.pptx` com a página de classificação no formato do modelo e a página do plano
+   de recomendações. Abra e cole na apresentação.
+
+---
+
+## Causa raiz não se define aqui
+
+A classificação desta etapa tem **dois** níveis: fato constatado e fator contribuinte. Causa raiz
+sai da análise causal, depois, com a equipe reunida — oferecer o rótulo aqui convidaria a eleger
+causa raiz durante a digitação da coleta, que é como se fecha investigação no primeiro suspeito.
+
+**O que é só fato, sem nada a corrigir, não vai para o slide.** Fator contribuinte entra sempre;
+fato constatado entra apenas quando marcado como "exige ação". O slide de classificação existe para
+sustentar o plano de ação, não para listar tudo que foi visto.
 
 ---
 
@@ -62,6 +78,27 @@ análise, e o custo de errar para cima é um plano de ação atacando o alvo err
 
 <https://aistudio.google.com/apikey>. No Render: painel do serviço `icam-coleta` → **Environment** →
 `GEMINI_API_KEY`.
+
+---
+
+## O formato do slide
+
+O gerador reproduz o slide do modelo medida por medida, extraídas do arquivo da investigação:
+
+| Elemento | Formato |
+| --- | --- |
+| Cartão | Retângulo arredondado, 2,544" de largura, borda pontilhada de 0,75 pt em cinza |
+| Fato constatado | Cartão **transparente** — só a borda |
+| Fator contribuinte | Preenchimento **amarelo FFFF00** sólido |
+| Texto | 9 pt: "CÓDIGO – Título- " em negrito, constatação em cinza |
+| Colunas | x = 0,090" · 2,756" · 5,396" · 8,058", na sequência ICAM |
+| Caixa do evento | À direita, transparente, rótulos em negrito |
+
+O slide do modelo não tem título nem cabeçalho de coluna, e o gerado também não. Acrescentar
+enfeite que o original não usa é o que faz o slide parecer de outro lugar no meio da apresentação.
+
+O plano de recomendações sai na tabela de seis colunas do modelo: Causa Padrão, Descrição da Ação,
+Hierarquia de Controle, Executante, Matrícula e Prazo.
 
 ---
 
