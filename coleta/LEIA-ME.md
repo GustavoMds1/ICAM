@@ -79,6 +79,19 @@ nunca aproximado para o mais parecido.
 sua conta, usa o primeiro adequado e avisa qual foi — assim uma troca de nome pelo Google não vira
 um beco sem saída. Para fixar a escolha, defina `MODELO_IA` no Render.
 
+### Quando o Gemini está sobrecarregado
+
+`HTTP 503 — This model is currently experiencing high demand` é comum em horário de pico e não tem
+nada de errado com a sua configuração. O aplicativo trata sozinho:
+
+1. tenta de novo, esperando 2 e depois 6 segundos;
+2. se insistir não resolver, pergunta à API quais modelos existem na sua conta e tenta outros dois,
+   avisando qual acabou usando;
+3. só então devolve o erro, dizendo que é temporário.
+
+O pior caso leva cerca de meio minuto. Se quiser fixar um modelo específico, defina `MODELO_IA` no
+Render.
+
 ### Modo local, só a pedido
 
 Quando a chamada falha, a tela oferece o botão **"Seguir sem IA, no modo local"**, que associa por

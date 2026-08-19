@@ -323,6 +323,13 @@ export default function PaginaColeta() {
             </button>
           </div>
 
+          {carregando !== null && (
+            <p className="mt-3 text-xs text-sutil">
+              Se o modelo estiver congestionado, o aplicativo espera e tenta de novo sozinho. Pode levar
+              até meio minuto.
+            </p>
+          )}
+
           {origem && (
             <p className="mt-3 text-xs text-sutil">
               {origem === 'gemini'
