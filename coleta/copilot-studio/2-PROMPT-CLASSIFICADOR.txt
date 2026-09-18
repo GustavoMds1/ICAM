@@ -1,0 +1,130 @@
+Classifique cada item da lista abaixo segundo a metodologia ICAM, escolhendo um código da tabela dos 101.
+
+=== ITENS A CLASSIFICAR ===
+
+{{ITENS}}
+
+=== OS 101 CÓDIGOS ICAM ===
+
+DF01 Conscientização – Identificação de perigo
+DF02 Comunicação de conscientização
+DF03 Consciência e competência/conhecimento
+DF04 Supervisão de conscientização
+DF05 Instrução/Procedimentos de trabalho de conscientização
+DF06 Sistemas de alerta de detecção visual
+DF07 Sistemas de alerta sonoro de detecção
+DF08 Detecção – Detectores de velocidade/movimento
+DF09 Vigilância de detecção/Fadiga
+DF10 Detecção de gás/substância
+DF11 Procedimentos de controle e recuperação
+DF12 Válvulas de desvio/circuitos de controle e recuperação
+DF13 Desligamento de emergência para controle e recuperação
+DF14 EPI de proteção e contenção
+DF15 Combate a incêndio para proteção e contenção
+DF16 Resposta a derramamentos para proteção e contenção
+DF17 Zonas de proteção e contenção/Barricadas/Exclusão
+DF18 Acesso/saída segura para fuga e resgate
+DF19 Planejamento/resposta a emergências para fuga e resgate
+DF20 Comunicação de emergência para fuga e resgate
+DF21 Outro
+IT01 Supervisão
+IT02 Autoridade operacional
+IT03 Velocidade de operação
+IT04 Uso do equipamento
+IT05 Uso de EPI
+IT06 Conformidade processual
+IT07 Gestão de mudanças
+IT08 Erro ou violação de equipamento/manuseio de materiais
+IT09 Brincadeiras
+IT10 Reconhecimento/percepção de perigo
+IT11 Erro ou violação de gerenciamento de riscos
+IT12 Erro ou violação do método de trabalho
+IT13 Práticas de higiene ocupacional
+IT14 Outro
+TE01 Planejamento de tarefas/Preparação/Pessoal
+TE02 Análise de perigos/Análise de segurança no trabalho/Tomada 5
+TE03 Disponibilidade e adequação dos procedimentos de trabalho
+TE04 Disponibilidade e adequação da permissão de trabalho
+TE05 Situação/condição operacional anormal
+TE06 Ferramentas/condição/disponibilidade do equipamento
+TE07 Disponibilidade e adequação de materiais
+TE08 Integridade do equipamento
+TE09 Serviço de limpeza
+TE10 Condições do tempo
+TE11 Congestionamento/restrição/acesso
+TE12 Tarefa rotineira/não rotineira
+TE13 Perigo de incêndio e/ou explosão
+TE14 Iluminação
+TE15 Equipamento/temperatura/condições do material
+TE16 Barulho
+TE17 Ventilação
+TE18 Gás, poeira ou fumaça
+TE19 Radiação
+TE20 Produto químico
+TE21 Animais
+TE22 Condições/gradiente da superfície
+TE23 Visibilidade reduzida/restrita
+TE24 Outro fator
+HF01 Complacência/motivação/dessensibilização ao perigo
+HF02 Drogas/influência do álcool
+HF03 Familiaridade com a tarefa
+HF04 Fadiga
+HF05 Consciência situacional
+HF06 Pressões de tempo/produtividade
+HF07 Pressão dos colegas/exemplo de supervisão
+HF08 Capacidades físicas
+HF09 Capacidades mentais
+HF10 Estresse físico
+HF11 Estresse mental
+HF12 Nível de confiança
+HF13 Objetivos secundários
+HF14 Problemas pessoais
+HF15 Distração/pré-ocupação
+HF16 Experiência/Conhecimento/Habilidade para a tarefa
+HF17 Competência
+HF18 Crenças comportamentais (ganhos > riscos)
+HF19 Personalidade/atitude
+HF20 Comunicações deficientes
+HF21 Padrões de turno ruins e horas extras
+HF22 Tolerância passiva de violações
+HF23 Licença percebida para quebrar regras
+HF24 Mudança de rotina
+HF25 Confiança em conhecimento não documentado
+HF26 Outro fator
+CM Gestão de Empreiteiros
+CO Comunicação
+DE Design
+HW Hardware
+IG Metas incompatíveis
+MC Gestão de mudanças
+MM Gestão de manutenção
+MS Sistemas de gestão
+OC Cultura organizacional
+OL Aprendizagem organizacional
+OR Organização
+PR Procedimentos
+RI Influência regulatória
+RM Gestão de riscos
+TR Treinamento
+VW Gestão de veículos
+
+=== COLUNA DO SLIDE, POR PREFIXO ===
+
+DF... = Defesas Ausentes ou Falhas
+IT... = Ações Individuais e de Equipe
+TE... e HF... = Atividade e Condições Ambientais
+Qualquer outro prefixo = Fatores Organizacionais
+
+=== COMO RESPONDER ===
+
+Uma linha por item, nesta ordem exata, sem cabeçalho:
+
+NÚMERO | CÓDIGO | NÍVEL | CONFIANÇA | ALTERNATIVA | justificativa
+
+NÍVEL: constatado ou contribuinte. Nunca causa raiz.
+CONFIANÇA: alta, media ou baixa.
+ALTERNATIVA: o segundo código mais plausível, ou "-".
+
+Só use códigos da tabela acima. Se nenhum servir, escreva "sem código adequado" no lugar do código.
+
+Lembre: quando o texto cita check list, procedimento, norma, folha de ponto ou telemetria, isso é a FONTE do achado e quase nunca o assunto dele. Classifique o que está sendo afirmado.

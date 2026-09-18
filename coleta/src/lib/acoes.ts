@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { HIERARQUIAS, type Hierarquia } from './codigos';
+import { HIERARQUIAS, obterCodigo, type Hierarquia } from './codigos';
+import { geminiLigado } from './classificacao';
 import { extrairJson, gerarJson, obterChave } from './gemini';
 
 /**
@@ -89,8 +90,8 @@ export interface OpcoesAcoes {
   tempoLimiteMs?: number;
   /** Data base do prazo. Explícita para o teste não depender do relógio. */
   hoje?: Date;
-  /** Autoriza o rascunho local. Só quando a pessoa pedir, sabendo o que é. */
-  permitirLocal?: boolean;
+  /** Força o Gemini mesmo com ele em espera. */
+  usarGemini?: boolean;
 }
 
 export async function proporAcoes(
@@ -101,13 +102,13 @@ export async function proporAcoes(
     return { acoes: [], origem: 'local', modelo: null, avisos: ['Nenhum achado exige ação.'] };
   }
 
-  if (opcoes.permitirLocal && !(opcoes.chaveApi ?? process.env.GEMINI_API_KEY)) {
+  if (!geminiLigado(opcoes)) {
     return {
       acoes: achados.map((a) => acaoLocal(a, opcoes.hoje)),
       origem: 'local',
-      modelo: null,
+      modelo: 'rascunho local',
       avisos: [
-        'Modo local, a pedido: o que sai é a estrutura da ação, não a ação. Reescreva cada linha.',
+        'Com o Gemini em espera, o que sai aqui é o esqueleto da ação — o verbo e a hierarquia vêm do tipo do achado, não de análise. Reescreva cada linha antes de apresentar.',
       ],
     };
   }
@@ -190,19 +191,49 @@ export function emDias(dias: number, hoje = new Date()): string {
 }
 
 /**
- * Rascunho local: estrutura, não análise.
+ * Esqueleto da ação por tipo de achado.
  *
- * Não tenta escrever a ação — escreve o que precisa ser decidido. Frase
- * plausível gerada por casamento de palavras seria pior do que campo em
- * branco, porque parece pronta.
+ * O verbo e o ponto de partida da hierarquia saem da coluna ICAM do código —
+ * barreira que falhou pede restabelecer a barreira; fator organizacional pede
+ * mexer no sistema de gestão. É orientação de forma, não análise, e o texto
+ * diz isso a quem for editar.
+ *
+ * Não se tenta redigir a ação por casamento de palavras. Frase plausível e
+ * vazia é pior do que campo à espera, porque parece pronta e passa.
  */
+const MOLDE_POR_COLUNA: Record<string, { verbo: string; hierarquia: Hierarquia; nota: string }> = {
+  defesas: {
+    verbo: 'Restabelecer e verificar a barreira que falhou em',
+    hierarquia: 'Engenharia',
+    nota: 'Barreira ausente ou falha costuma pedir controle de engenharia. Só desça para administrativo se a barreira física for inviável, e registre por quê.',
+  },
+  acoes: {
+    verbo: 'Tratar a condição que levou à decisão em',
+    hierarquia: 'Engenharia',
+    nota: 'Ação individual quase nunca se corrige com aviso. Procure o que tornou a decisão possível ou provável.',
+  },
+  condicoes: {
+    verbo: 'Corrigir a condição de',
+    hierarquia: 'Engenharia',
+    nota: 'Condição de tarefa ou ambiente é o terreno natural da eliminação e da engenharia.',
+  },
+  organizacionais: {
+    verbo: 'Revisar o processo de gestão de',
+    hierarquia: 'Administrativo',
+    nota: 'Fator organizacional se trata mudando o sistema de gestão; administrativo aqui é o nível certo, não o atalho.',
+  },
+};
+
 function acaoLocal(achado: AchadoParaTratar, hoje?: Date): AcaoProposta {
+  const coluna = obterCodigo(achado.codigo)?.coluna ?? 'organizacionais';
+  const molde = MOLDE_POR_COLUNA[coluna] ?? MOLDE_POR_COLUNA.organizacionais!;
+
   return {
     itemId: achado.itemId,
     causaPadrao: `${achado.codigo} – ${achado.titulo} - ${achado.constatacao}`,
-    acao: `Definir a ação que corrige: ${achado.titulo.toLowerCase()}`,
-    hierarquia: 'Administrativo',
-    justificativa: 'Rascunho sem análise. Avalie se um controle de engenharia resolve antes de manter administrativo.',
+    acao: `${molde.verbo} ${achado.titulo.toLowerCase()} — descreva aqui a ação concreta e verificável`,
+    hierarquia: molde.hierarquia,
+    justificativa: `Esqueleto por tipo de achado, não análise. ${molde.nota}`,
     executante: '',
     matricula: '',
     prazo: emDias(60, hoje),

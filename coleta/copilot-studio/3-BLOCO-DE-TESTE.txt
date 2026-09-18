@@ -1,0 +1,32 @@
+Cole o bloco abaixo no agente, de uma vez só.
+
+São os mesmos 17 casos que medem o aplicativo, com nomes removidos. Os códigos
+que a equipe de investigação atribuiu de fato estão guardados e NÃO aparecem
+aqui de propósito: se você colar o gabarito junto, não mede nada.
+
+Depois que o agente responder, copie a resposta inteira, salve em
+copilot-studio/resposta-do-agente.txt e dê um duplo clique em MEDIR-COPILOT.bat.
+
+------------------------------ COPIE DAQUI ------------------------------
+
+Classifique os itens abaixo:
+
+1. O procedimento de condução de ônibus e vans existe, porém não foi apresentada a evidência de que o colaborador foi treinado.
+2. No dia do evento o colaborador não realizou o etiloteste. O exame toxicológico está aguardando resultado.
+3. Identificado na folha de ponto que a interjornada durante este trajeto é menor do que a estabelecida na norma, com intervalo de 8 a 9 horas de descanso.
+4. O motorista realizou ultrapassagem em faixa contínua.
+5. Após a ocorrência do abalroamento, o motorista não interrompeu a viagem para avaliar os danos e as possíveis consequências do evento, prosseguindo o trajeto em desacordo com o procedimento.
+6. De acordo com o procedimento, item 7.2.3, é proibido o uso do banheiro durante o percurso, sendo necessário o acionamento do botão de emergência.
+7. Não foi realizado simulado de ocorrência de emergência com o ônibus de viagens intermunicipais.
+8. Diálogos diários de segurança e campanhas foram apresentados, há registro com o tema sobre condução e percepção de risco. Entretanto o condutor não participou da maioria deles.
+9. No check list, a avaria é informada apenas no dia em que foi identificada a existência dela.
+10. Não existe evidência de que esse motorista realiza ginástica laboral.
+11. Na ficha de inspeção sensitiva não consta nenhum dano na carroceria do ônibus após o evento.
+12. No check list do veículo consta que o motorista pegou o veículo às 05:30 e o entregou às 18:10, entretanto às 08:00 e às 09:30 o veículo estava na oficina.
+13. Existe uma movimentação registrada entre dois dias seguidos, porém não existe no check list o dado de quem estava na condução.
+14. Não foi descrito na parte diária as avarias ocorridas no veículo.
+15. O trecho da via não possuía sinalização vertical de advertência ou regulamentação, apresentando apenas sinalização horizontal com faixa longitudinal contínua de proibição de ultrapassagem.
+16. Não tem placa no local determinando a velocidade.
+17. Não tem placa no local determinando a velocidade.
+
+------------------------------ ATÉ AQUI ------------------------------

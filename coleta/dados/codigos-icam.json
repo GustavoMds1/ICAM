@@ -9,7 +9,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "o processo usado para avaliar se alguma situação, item, condição etc. em particular pode ter o potencial de causar dano, prejuízo ou outro resultado negativo. Os exemplos incluem, mas não estão limitados a: Take 5 (Parar, Olhar, Avaliar, Controlar e Monitorar), PARE, Dê um passo para trás, SLAM (Pare, Olhe, Analise, Gerencie, na sigla em inglês) e Avaliação de Risco. Por exemplo, nenhuma análise d"
+   "definicao": "o processo usado para avaliar se alguma situação, item, condição etc. em particular pode ter o potencial de causar dano, prejuízo ou outro resultado negativo. Os exemplos incluem, mas não estão limitados a: Take 5 (Parar, Olhar, Avaliar, Controlar e Monitorar), PARE, Dê um passo para trás, SLAM (Pare, Olhe, Analise, Gerencie, na sigla em inglês) e Avaliação de Risco. Por exemplo, nenhuma análise de segurança do trabalho concluída antes de iniciar a tarefa (ausência) ou a análise de segurança do trabalho falhou em identificar o perigo presente no local de trabalho (falha).",
+   "termos": "Os exemplos incluem, mas não estão limitados a: Take 5 (Parar, Olhar, Avaliar, Controlar e Monitorar), PARE, Dê um passo para trás, SLAM (Pare, Olhe, Analise, Gerencie, na sigla em inglês) e Avaliação de Risco. Por exemplo, nenhuma análise de segurança do trabalho concluída antes de iniciar a tarefa (ausência) ou a análise de segurança do trabalho falhou em identificar o perigo presente no local de trabalho (falha). conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF02",
@@ -17,7 +19,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a transmissão ou troca de informações falando, escrevendo ou usando algum outro meio. Pode incluir a falha na comunicação eficaz devido à falta de recursos (por exemplo, rádio, telefone, etc.) ou à falta de protocolos de comunicação (por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.). Por exemplo, o rádio bidirecional usado pelo observador não estava funcionando."
+   "definicao": "a transmissão ou troca de informações falando, escrevendo ou usando algum outro meio. Pode incluir a falha na comunicação eficaz devido à falta de recursos (por exemplo, rádio, telefone, etc.) ou à falta de protocolos de comunicação (por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.). Por exemplo, o rádio bidirecional usado pelo observador não estava funcionando.",
+   "termos": "por exemplo, rádio, telefone, etc.) ou à falta de protocolos de comunicação (por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.). por exemplo, pontos de chamada definidos ou cronograma de relatórios, etc.). Por exemplo, o rádio bidirecional usado pelo observador não estava funcionando. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF03",
@@ -25,7 +29,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a capacidade de fazer algo com sucesso ou eficiência – fatos, informações e habilidades adquiridas por meio de experiência ou formação, a compreensão teórica ou prática de um assunto. Este fator contribuinte está normalmente associado a uma falha em treinar efetivamente ou a uma falha em verificar se o indivíduo ou a equipe é competente. Por exemplo, o operador não tinha a habilidade ou capacidade"
+   "definicao": "a capacidade de fazer algo com sucesso ou eficiência – fatos, informações e habilidades adquiridas por meio de experiência ou formação, a compreensão teórica ou prática de um assunto. Este fator contribuinte está normalmente associado a uma falha em treinar efetivamente ou a uma falha em verificar se o indivíduo ou a equipe é competente. Por exemplo, o operador não tinha a habilidade ou capacidade necessária para usar a empilhadeira de maneira segura e eficaz.",
+   "termos": "Por exemplo, o operador não tinha a habilidade ou capacidade necessária para usar a empilhadeira de maneira segura e eficaz. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF04",
@@ -33,7 +39,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "ação de supervisionar alguém ou algo. As falhas de supervisão podem ser diretas, como quando o supervisor direto não estava presente quando deveria estar ou, apesar de estar presente, não executou sua supervisão de forma eficaz ou indireta, quando o supervisor não forneceu efetivamente supervisão remota da tarefa que estava sendo realizada. Por exemplo, não houve supervisão ativa da equipe de trab"
+   "definicao": "ação de supervisionar alguém ou algo. As falhas de supervisão podem ser diretas, como quando o supervisor direto não estava presente quando deveria estar ou, apesar de estar presente, não executou sua supervisão de forma eficaz ou indireta, quando o supervisor não forneceu efetivamente supervisão remota da tarefa que estava sendo realizada. Por exemplo, não houve supervisão ativa da equipe de trabalho no dia.",
+   "termos": "Por exemplo, não houve supervisão ativa da equipe de trabalho no dia. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF05",
@@ -41,7 +49,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "um guia passo a passo para realizar uma atividade, uma maneira estabelecida ou oficial de fazer algo. Controles processuais dessa natureza possuem dois elementos; o procedimento em si e a execução do procedimento. Se a instrução/procedimento de trabalho estiver mal escrita ou faltarem etapas, o projeto do próprio procedimento pode ser o ponto de falha. Se o procedimento for bem elaborado, mas o in"
+   "definicao": "um guia passo a passo para realizar uma atividade, uma maneira estabelecida ou oficial de fazer algo. Controles processuais dessa natureza possuem dois elementos; o procedimento em si e a execução do procedimento. Se a instrução/procedimento de trabalho estiver mal escrita ou faltarem etapas, o projeto do próprio procedimento pode ser o ponto de falha. Se o procedimento for bem elaborado, mas o individuo ou a equipe que o executa não o seguir, o procedimento ainda não conseguiu gerenciar o risco. Por exemplo, não havia instrução de trabalho sobre como operar o equipamento com segurança.",
+   "termos": "Por exemplo, não havia instrução de trabalho sobre como operar o equipamento com segurança. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF06",
@@ -49,7 +59,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a identificação visual de qualquer sistema de natureza biológica ou técnica implantado por um indivíduo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, a luz estroboscópica não estava funcionando no veículo."
+   "definicao": "a identificação visual de qualquer sistema de natureza biológica ou técnica implantado por um indivíduo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, a luz estroboscópica não estava funcionando no veículo.",
+   "termos": "Por exemplo, a luz estroboscópica não estava funcionando no veículo. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF07",
@@ -57,7 +69,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "ouvir qualquer sistema de natureza biológica ou técnica implantado por um individuo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, o alarme de ré em um veículo não estava funcionando ou um alarme de aviso de 5 segundos não foi ativado antes da inicialização do transportador."
+   "definicao": "ouvir qualquer sistema de natureza biológica ou técnica implantado por um individuo ou grupo para informar sobre um perigo futuro para alcançar o resultado desejado. Por exemplo, o alarme de ré em um veículo não estava funcionando ou um alarme de aviso de 5 segundos não foi ativado antes da inicialização do transportador.",
+   "termos": "Por exemplo, o alarme de ré em um veículo não estava funcionando ou um alarme de aviso de 5 segundos não foi ativado antes da inicialização do transportador. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF08",
@@ -65,7 +79,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a taxa na qual alguém ou algo se move ou opera, pode mover ou operar/dispositivos que utilizam um sensor para detectar movimento próximo. Os exemplos incluem, mas não estão limitados a: acelerômetros, telemática de veículos, alarmes de excesso de velocidade, sensores de vibração, detectores de movimento infravermelho etc. Por exemplo, o velocímetro do veículo não estava funcionando."
+   "definicao": "a taxa na qual alguém ou algo se move ou opera, pode mover ou operar/dispositivos que utilizam um sensor para detectar movimento próximo. Os exemplos incluem, mas não estão limitados a: acelerômetros, telemática de veículos, alarmes de excesso de velocidade, sensores de vibração, detectores de movimento infravermelho etc. Por exemplo, o velocímetro do veículo não estava funcionando.",
+   "termos": "Os exemplos incluem, mas não estão limitados a: acelerômetros, telemática de veículos, alarmes de excesso de velocidade, sensores de vibração, detectores de movimento infravermelho etc. Por exemplo, o velocímetro do veículo não estava funcionando. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF09",
@@ -73,7 +89,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "o estado de estar constantemente atento e responsivo a sinais de oportunidade, atividade ou perigo. Fadiga uma sensação de cansaço e exaustão física e mental causada por esforço ou doença. A fadiga se enquadra em duas grandes categorias: aguda e crônica. A fadiga aguda geralmente está associada a uma falta imediata de descanso (por exemplo, sono ruim imediatamente antes da tarefa) ou fadiga crônic"
+   "definicao": "o estado de estar constantemente atento e responsivo a sinais de oportunidade, atividade ou perigo. Fadiga uma sensação de cansaço e exaustão física e mental causada por esforço ou doença. A fadiga se enquadra em duas grandes categorias: aguda e crônica. A fadiga aguda geralmente está associada a uma falta imediata de descanso (por exemplo, sono ruim imediatamente antes da tarefa) ou fadiga crônica durante um longo período de tempo (por exemplo, vários turnos consecutivos trabalhando horas extras). Os exemplos incluem dispositivos de vigilância de veículos, procedimentos de contramedidas de fadiga, escala de trabalho, etc., por exemplo, o sistema de vigilância do motorista pôde ser contornad",
+   "termos": "por exemplo, sono ruim imediatamente antes da tarefa) ou fadiga crônica durante um longo período de tempo (por exemplo, vários turnos consecutivos trabalhando horas extras). por exemplo, vários turnos consecutivos trabalhando horas extras). Os exemplos incluem dispositivos de vigilância de veículos, procedimentos de contramedidas de fadiga, escala de trabalho, etc., por exemplo, o sistema de vigilância do motorista pôde ser contornado. por exemplo, o sistema de vigilância do motorista pôde ser contornado. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF10",
@@ -81,7 +99,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "um sistema de detecção de natureza biológica ou técnica usado para detectar uma substância gasosa em um local onde pode ser perigoso para o sistema em uso. Este fator de contribuição está normalmente associado a ocasiões em que um sistema de detecção de gás falha ao registrar uma atmosfera ou ambiente operacional inseguro para o sistema em uso. Por exemplo, o detector de gás estava com defeito e n"
+   "definicao": "um sistema de detecção de natureza biológica ou técnica usado para detectar uma substância gasosa em um local onde pode ser perigoso para o sistema em uso. Este fator de contribuição está normalmente associado a ocasiões em que um sistema de detecção de gás falha ao registrar uma atmosfera ou ambiente operacional inseguro para o sistema em uso. Por exemplo, o detector de gás estava com defeito e não alertou o trabalhador sobre um vazamento de gás.",
+   "termos": "Por exemplo, o detector de gás estava com defeito e não alertou o trabalhador sobre um vazamento de gás. conscientizacao deteccao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF11",
@@ -89,7 +109,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "uma série estabelecida de etapas projetadas para gerenciar um sistema ou processo que excedeu ou está em uma trajetória para exceder um limite definido. Os exemplos incluem listas de verificação de emergência de aeronaves, listas de verificação de código médico vermelho/preto/azul etc., por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito."
+   "definicao": "uma série estabelecida de etapas projetadas para gerenciar um sistema ou processo que excedeu ou está em uma trajetória para exceder um limite definido. Os exemplos incluem listas de verificação de emergência de aeronaves, listas de verificação de código médico vermelho/preto/azul etc., por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito.",
+   "termos": "Os exemplos incluem listas de verificação de emergência de aeronaves, listas de verificação de código médico vermelho/preto/azul etc., por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito. por exemplo, não há nenhum procedimento escrito sobre como controlar um guindaste com defeito. controle recuperacao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF12",
@@ -97,7 +119,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "um dispositivo de reserva (válvula) em uma linha para permitir operação contínua em caso de falha. Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de reserva etc. Por exemplo, a válvula de reserva não funcionou conforme projetado."
+   "definicao": "um dispositivo de reserva (válvula) em uma linha para permitir operação contínua em caso de falha. Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de reserva etc. Por exemplo, a válvula de reserva não funcionou conforme projetado.",
+   "termos": "Os exemplos incluem geradores de emergência, desvios de filtro, bombas hidráulicas de reserva etc. Por exemplo, a válvula de reserva não funcionou conforme projetado. controle recuperacao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF13",
@@ -105,7 +129,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "sistemas de segurança que compreendem detecção, sinalização, controle lógico, válvulas e atuadores, que podem, em conjunto com mecanismos de alarme e controle direto, permitir o desligamento seguro e eficaz de instalações e máquinas de maneira controlada. Os exemplos incluem dispositivos de proteção contra sobretensão e sobrecorrente em circuitos elétricos, sensores de sobrepressão em sistemas hid"
+   "definicao": "sistemas de segurança que compreendem detecção, sinalização, controle lógico, válvulas e atuadores, que podem, em conjunto com mecanismos de alarme e controle direto, permitir o desligamento seguro e eficaz de instalações e máquinas de maneira controlada. Os exemplos incluem dispositivos de proteção contra sobretensão e sobrecorrente em circuitos elétricos, sensores de sobrepressão em sistemas hidráulicos e painéis de explosão. Por exemplo, o botão de parada de emergência não conseguiu parar o motor.",
+   "termos": "Os exemplos incluem dispositivos de proteção contra sobretensão e sobrecorrente em circuitos elétricos, sensores de sobrepressão em sistemas hidráulicos e painéis de explosão. Por exemplo, o botão de parada de emergência não conseguiu parar o motor. controle recuperacao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF14",
@@ -113,7 +139,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "dispositivos usados para proteger as pessoas contra perigos ou instalados em equipamentos para proteger os usuários, por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airbags, sistema de proteção contra capotamento, etc., por exemplo, Um capacete não foi usado durante a realização da tarefa."
+   "definicao": "dispositivos usados para proteger as pessoas contra perigos ou instalados em equipamentos para proteger os usuários, por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airbags, sistema de proteção contra capotamento, etc., por exemplo, Um capacete não foi usado durante a realização da tarefa.",
+   "termos": "por exemplo, óculos de segurança, botas com proteção de aço, luvas, cintos de segurança, airbags, sistema de proteção contra capotamento, etc., por exemplo, Um capacete não foi usado durante a realização da tarefa. por exemplo, Um capacete não foi usado durante a realização da tarefa. protecao contencao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF15",
@@ -121,7 +149,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a ação ou processo de extinguir incêndios. Pode ser automático (por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, manta antichama etc). Por exemplo, os sistemas de sprinklers não foram ativados automaticamente."
+   "definicao": "a ação ou processo de extinguir incêndios. Pode ser automático (por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, manta antichama etc). Por exemplo, os sistemas de sprinklers não foram ativados automaticamente.",
+   "termos": "por exemplo, sistemas de sprinklers, sistemas de liberação de espuma/gás, etc.) ou manual (por exemplo, extintores de incêndio, manta antichama etc). por exemplo, extintores de incêndio, manta antichama etc). Por exemplo, os sistemas de sprinklers não foram ativados automaticamente. protecao contencao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF16",
@@ -129,7 +159,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a ação para controlar uma liberação não intencional de uma substância (normalmente um líquido). Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por exemplo, não havia nenhum kit de derramamento disponível no local."
+   "definicao": "a ação para controlar uma liberação não intencional de uma substância (normalmente um líquido). Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por exemplo, não havia nenhum kit de derramamento disponível no local.",
+   "termos": "Os exemplos incluem kits de derramamento, linhas de embornal, sistemas de drenagem etc., por exemplo, não havia nenhum kit de derramamento disponível no local. por exemplo, não havia nenhum kit de derramamento disponível no local. protecao contencao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF17",
@@ -137,7 +169,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "Fazer a contenção da área dentro de uma estrutura projetada para evitar inundações ou brechas de vários tipos após a falha do reservatório primário de contenção. A capacidade de contenção deve ser de pelo menos 110% do volume do reservatório primário. Barricada para bloquear o fechamento/cercamento interno da vedação. Usado para impedir a entrada em áreas designadas. Por exemplo, as barreiras não "
+   "definicao": "Fazer a contenção da área dentro de uma estrutura projetada para evitar inundações ou brechas de vários tipos após a falha do reservatório primário de contenção. A capacidade de contenção deve ser de pelo menos 110% do volume do reservatório primário. Barricada para bloquear o fechamento/cercamento interno da vedação. Usado para impedir a entrada em áreas designadas. Por exemplo, as barreiras não impediram a entrada de um veículo no canteiro de obras. Zonas de exclusão: uma área em que a entrada é proibida. As zonas de exclusão normalmente devem ser bem marcadas e sinalizadas para fornecer ao pessoal um nível de conscientização sobre a área excluída. Por exemplo, não havia zonas de exclusão ",
+   "termos": "Por exemplo, as barreiras não impediram a entrada de um veículo no canteiro de obras. Por exemplo, não havia zonas de exclusão claramente marcadas no local de trabalho. protecao contencao",
+   "exclusoes": ""
   },
   {
    "codigo": "DF18",
@@ -145,7 +179,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "o meio seguro de entrada ou saída para um local seguro. Inclui caminhos, corredores, portas, escadas, degraus, etc., por exemplo, a saída de emergência estava bloqueada com móveis."
+   "definicao": "o meio seguro de entrada ou saída para um local seguro. Inclui caminhos, corredores, portas, escadas, degraus, etc., por exemplo, a saída de emergência estava bloqueada com móveis.",
+   "termos": "por exemplo, a saída de emergência estava bloqueada com móveis. fuga resgate",
+   "exclusoes": ""
   },
   {
    "codigo": "DF19",
@@ -153,7 +189,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "a resposta pretendida a uma ocorrência inesperada, grave e perigosa que deve fazer parte do Sistema de Gestão de Segurança de uma organização. Os planos de resposta a emergências devem fazer parte do programa de indução de uma organização e devem ser exercidos regularmente para confirmar a eficácia do plano. Por exemplo, o plano de resposta a emergências não identificou o risco de explosão."
+   "definicao": "a resposta pretendida a uma ocorrência inesperada, grave e perigosa que deve fazer parte do Sistema de Gestão de Segurança de uma organização. Os planos de resposta a emergências devem fazer parte do programa de indução de uma organização e devem ser exercidos regularmente para confirmar a eficácia do plano. Por exemplo, o plano de resposta a emergências não identificou o risco de explosão.",
+   "termos": "Por exemplo, o plano de resposta a emergências não identificou o risco de explosão. fuga resgate",
+   "exclusoes": ""
   },
   {
    "codigo": "DF20",
@@ -161,7 +199,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": false,
-   "definicao": "um recurso e um protocolo de comunicação de emergência fornecem um meio de comunicação com pessoas e grupos antes, durante e após uma crise, fornecendo diretrizes passo a passo para superar incidentes. Por exemplo, o chefe dos bombeiros não tinha um método de comunicação com outros bombeiros."
+   "definicao": "um recurso e um protocolo de comunicação de emergência fornecem um meio de comunicação com pessoas e grupos antes, durante e após uma crise, fornecendo diretrizes passo a passo para superar incidentes. Por exemplo, o chefe dos bombeiros não tinha um método de comunicação com outros bombeiros.",
+   "termos": "Por exemplo, o chefe dos bombeiros não tinha um método de comunicação com outros bombeiros. fuga resgate",
+   "exclusoes": ""
   },
   {
    "codigo": "DF21",
@@ -169,7 +209,9 @@
    "grupo": "defesas_ausentes_ou_falhas",
    "coluna": "defesas",
    "generico": true,
-   "definicao": "adicione uma defesa se não for encontrada acima."
+   "definicao": "adicione uma defesa se não for encontrada acima.",
+   "termos": "outro",
+   "exclusoes": ""
   },
   {
    "codigo": "IT01",
@@ -177,7 +219,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "significa que o supervisor encarregado e responsável por dirigir e coordenar a operação do sistema, equipamento, pessoas comete um erro ou comete uma violação. Por exemplo, o supervisor forneceu instruções inadequadas para realizar a tarefa com segurança."
+   "definicao": "significa que o supervisor encarregado e responsável por dirigir e coordenar a operação do sistema, equipamento, pessoas comete um erro ou comete uma violação. Por exemplo, o supervisor forneceu instruções inadequadas para realizar a tarefa com segurança.",
+   "termos": "Por exemplo, o supervisor forneceu instruções inadequadas para realizar a tarefa com segurança. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT02",
@@ -185,7 +229,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "os limites de uso autorizado de um equipamento ou aplicação de um procedimento. Por exemplo, o operador usou um equipamento que não estava autorizado a operar."
+   "definicao": "os limites de uso autorizado de um equipamento ou aplicação de um procedimento. Por exemplo, o operador usou um equipamento que não estava autorizado a operar.",
+   "termos": "Por exemplo, o operador usou um equipamento que não estava autorizado a operar. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT03",
@@ -193,7 +239,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "a velocidade com que uma pessoa opera um equipamento. Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via."
+   "definicao": "a velocidade com que uma pessoa opera um equipamento. Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via.",
+   "termos": "Por exemplo, o operador conduziu o trem a 15 km/h acima do limite de velocidade da via. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT04",
@@ -201,7 +249,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "o uso inadequado de equipamentos para uma finalidade específica. Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa."
+   "definicao": "o uso inadequado de equipamentos para uma finalidade específica. Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa.",
+   "termos": "Por exemplo, o operador usou um alicate para retirar a porca, não uma chave inglesa. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT05",
@@ -209,7 +259,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "dispositivos usados para proteção contra perigos. Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla."
+   "definicao": "dispositivos usados para proteção contra perigos. Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla.",
+   "termos": "Por exemplo, o operador completou a tarefa usando apenas óculos de segurança em vez de um protetor facial para dar proteção dupla. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT06",
@@ -217,7 +269,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "seguir uma maneira estabelecida ou oficial de fazer algo. Por exemplo, o operador desviou-se da lista de verificação publicada."
+   "definicao": "seguir uma maneira estabelecida ou oficial de fazer algo. Por exemplo, o operador desviou-se da lista de verificação publicada.",
+   "termos": "Por exemplo, o operador desviou-se da lista de verificação publicada. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT07",
@@ -225,7 +279,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "as etapas necessárias para preparar, apoiar e ajudar indivíduos, equipes e organizações a fazer mudanças organizacionais. Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou um buraco próximo à área de trabalho, resultando na escavação alojada no buraco."
+   "definicao": "as etapas necessárias para preparar, apoiar e ajudar indivíduos, equipes e organizações a fazer mudanças organizacionais. Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou um buraco próximo à área de trabalho, resultando na escavação alojada no buraco.",
+   "termos": "Por exemplo, a equipe de trabalho não interrompeu o trabalho e continuou a escavar quando observou um buraco próximo à área de trabalho, resultando na escavação alojada no buraco. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT08",
@@ -233,7 +289,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "uma falha no método ou equipamento utilizado para movimentação, armazenamento, controle e proteção de materiais, mercadorias, produtos e pessoas. Por exemplo, o operador girou a caçamba da escavadeira sem permitir folga adequada sobre o caminhão."
+   "definicao": "uma falha no método ou equipamento utilizado para movimentação, armazenamento, controle e proteção de materiais, mercadorias, produtos e pessoas. Por exemplo, o operador girou a caçamba da escavadeira sem permitir folga adequada sobre o caminhão.",
+   "termos": "Por exemplo, o operador girou a caçamba da escavadeira sem permitir folga adequada sobre o caminhão. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT09",
@@ -241,7 +299,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "ações tolas ou comportamento fora das regras conhecidas. Busca de emoção: participação em atividades emocionantes que envolvam risco físico. Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle."
+   "definicao": "ações tolas ou comportamento fora das regras conhecidas. Busca de emoção: participação em atividades emocionantes que envolvam risco físico. Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle.",
+   "termos": "Por exemplo, o piloto realizou um sobrevoo não autorizado pela torre de controle. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT10",
@@ -249,7 +309,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "o reconhecimento de perigos faz parte da avaliação de riscos na qual os perigos são identificados para investigação posterior. A percepção é a capacidade de ver, ouvir ou tomar consciência de algo através dos sentidos. Por exemplo, o operador líder não avaliou efetivamente o risco representado pelas linhas de alta tensão suspensas no local de trabalho."
+   "definicao": "o reconhecimento de perigos faz parte da avaliação de riscos na qual os perigos são identificados para investigação posterior. A percepção é a capacidade de ver, ouvir ou tomar consciência de algo através dos sentidos. Por exemplo, o operador líder não avaliou efetivamente o risco representado pelas linhas de alta tensão suspensas no local de trabalho.",
+   "termos": "Por exemplo, o operador líder não avaliou efetivamente o risco representado pelas linhas de alta tensão suspensas no local de trabalho. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT11",
@@ -257,7 +319,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "gestão de perigos que são situações, processos ou itens dentro do local de trabalho ou do ambiente operacional, que têm o potencial de causar danos ou perturbações às pessoas, ao ambiente, à imagem corporativa e às operações comerciais. Por exemplo, o operador não dirigiu nas condições corretas na superfície da estrada não pavimentada, molhada e escorregadia."
+   "definicao": "gestão de perigos que são situações, processos ou itens dentro do local de trabalho ou do ambiente operacional, que têm o potencial de causar danos ou perturbações às pessoas, ao ambiente, à imagem corporativa e às operações comerciais. Por exemplo, o operador não dirigiu nas condições corretas na superfície da estrada não pavimentada, molhada e escorregadia.",
+   "termos": "Por exemplo, o operador não dirigiu nas condições corretas na superfície da estrada não pavimentada, molhada e escorregadia. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT12",
@@ -265,7 +329,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "um procedimento, técnica ou maneira de fazer algo, de acordo com um plano definido ou guia passo a passo para realizar uma atividade. Por exemplo, o operador não seguiu as instruções do supervisor e inseriu o pino antes de girar a luva de travamento para a posição encaixada."
+   "definicao": "um procedimento, técnica ou maneira de fazer algo, de acordo com um plano definido ou guia passo a passo para realizar uma atividade. Por exemplo, o operador não seguiu as instruções do supervisor e inseriu o pino antes de girar a luva de travamento para a posição encaixada.",
+   "termos": "Por exemplo, o operador não seguiu as instruções do supervisor e inseriu o pino antes de girar a luva de travamento para a posição encaixada. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT13",
@@ -273,7 +339,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": false,
-   "definicao": "a disciplina de antecipar, reconhecer, avaliar e controlar os perigos para a saúde no ambiente de trabalho. Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção respiratória com base nas amostras de poeira que foram avaliadas quanto a partículas de sílica."
+   "definicao": "a disciplina de antecipar, reconhecer, avaliar e controlar os perigos para a saúde no ambiente de trabalho. Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção respiratória com base nas amostras de poeira que foram avaliadas quanto a partículas de sílica.",
+   "termos": "Por exemplo, o Técnico de Saúde e Higiene não determinou corretamente a necessidade de proteção respiratória com base nas amostras de poeira que foram avaliadas quanto a partículas de sílica. acao",
+   "exclusoes": ""
   },
   {
    "codigo": "IT14",
@@ -281,7 +349,9 @@
    "grupo": "acoes_individuais_ou_equipe",
    "coluna": "acoes",
    "generico": true,
-   "definicao": "adicione uma ação individual ou de equipe se não for encontrada acima."
+   "definicao": "adicione uma ação individual ou de equipe se não for encontrada acima.",
+   "termos": "outro",
+   "exclusoes": ""
   },
   {
    "codigo": "TE01",
@@ -289,7 +359,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o processo de planejamento e avaliação de recursos e requisitos de pessoal para concluir uma tarefa com segurança e eficiência. Por exemplo, a organização planejou mal o trabalho, resultando em recursos insuficientes disponíveis para concluir a tarefa no prazo"
+   "definicao": "o processo de planejamento e avaliação de recursos e requisitos de pessoal para concluir uma tarefa com segurança e eficiência. Por exemplo, a organização planejou mal o trabalho, resultando em recursos insuficientes disponíveis para concluir a tarefa no prazo",
+   "termos": "Por exemplo, a organização planejou mal o trabalho, resultando em recursos insuficientes disponíveis para concluir a tarefa no prazo condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE02",
@@ -297,7 +369,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "um processo documentado que divide cada tarefa em suas etapas básicas, bem como identifica e controla os perigos potenciais para garantir a conclusão segura da tarefa. Por exemplo, a Segurança do Trabalho e Análise Ambiental (JSEA) foi aplicada de forma inconsistente em todo o escopo do trabalho."
+   "definicao": "um processo documentado que divide cada tarefa em suas etapas básicas, bem como identifica e controla os perigos potenciais para garantir a conclusão segura da tarefa. Por exemplo, a Segurança do Trabalho e Análise Ambiental (JSEA) foi aplicada de forma inconsistente em todo o escopo do trabalho.",
+   "termos": "Por exemplo, a Segurança do Trabalho e Análise Ambiental (JSEA) foi aplicada de forma inconsistente em todo o escopo do trabalho. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE03",
@@ -305,7 +379,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "os procedimentos são fornecidos para tarefas específicas, são relevantes para essas tarefas e estão prontamente disponíveis para os trabalhadores. Por exemplo, não havia nenhum procedimento publicado para a tarefa."
+   "definicao": "os procedimentos são fornecidos para tarefas específicas, são relevantes para essas tarefas e estão prontamente disponíveis para os trabalhadores. Por exemplo, não havia nenhum procedimento publicado para a tarefa.",
+   "termos": "Por exemplo, não havia nenhum procedimento publicado para a tarefa. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE04",
@@ -313,7 +389,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "autorização formal por escrito para pessoa(s) devidamente qualificada(s) para realizar uma tarefa considerada de alto risco. A permissão de trabalho adequada identifica os perigos e os controles necessários para garantir que o trabalho seja concluído com segurança e eficiência. Por exemplo, uma permissão de trabalho foi usada no dia, mas não abrangeu todo o escopo da atividade que estava sendo rea"
+   "definicao": "autorização formal por escrito para pessoa(s) devidamente qualificada(s) para realizar uma tarefa considerada de alto risco. A permissão de trabalho adequada identifica os perigos e os controles necessários para garantir que o trabalho seja concluído com segurança e eficiência. Por exemplo, uma permissão de trabalho foi usada no dia, mas não abrangeu todo o escopo da atividade que estava sendo realizada",
+   "termos": "Por exemplo, uma permissão de trabalho foi usada no dia, mas não abrangeu todo o escopo da atividade que estava sendo realizada condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE05",
@@ -321,7 +399,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "situação em que o funcionamento do equipamento é inconsistente com a configuração normal ou uma condição identificada que pode indicar mau funcionamento de um componente ou desvio das condições normais de operação. Por exemplo, a máquina estava operando na capacidade máxima por longos períodos de tempo fora do uso recomendado."
+   "definicao": "situação em que o funcionamento do equipamento é inconsistente com a configuração normal ou uma condição identificada que pode indicar mau funcionamento de um componente ou desvio das condições normais de operação. Por exemplo, a máquina estava operando na capacidade máxima por longos períodos de tempo fora do uso recomendado.",
+   "termos": "Por exemplo, a máquina estava operando na capacidade máxima por longos períodos de tempo fora do uso recomendado. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE06",
@@ -329,7 +409,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "ferramentas e equipamentos corretos são fornecidos para a tarefa, o equipamento está em boas condições operacionais (mantido de acordo com o padrão exigido). Por exemplo, o moedor não tinha uma proteção instalada"
+   "definicao": "ferramentas e equipamentos corretos são fornecidos para a tarefa, o equipamento está em boas condições operacionais (mantido de acordo com o padrão exigido). Por exemplo, o moedor não tinha uma proteção instalada",
+   "termos": "Por exemplo, o moedor não tinha uma proteção instalada condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE07",
@@ -337,7 +419,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "ter o tipo, quantidade e qualidade apropriados de um determinado material para concluir um trabalho no padrão exigido. Por exemplo, a especificação errada de madeira estava sendo usada para suportar o muro de contenção."
+   "definicao": "ter o tipo, quantidade e qualidade apropriados de um determinado material para concluir um trabalho no padrão exigido. Por exemplo, a especificação errada de madeira estava sendo usada para suportar o muro de contenção.",
+   "termos": "Por exemplo, a especificação errada de madeira estava sendo usada para suportar o muro de contenção. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE08",
@@ -345,7 +429,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o gerenciamento de equipamentos para garantir que eles sejam projetados e instalados corretamente, e que operem e sejam mantidos corretamente. Por exemplo, os freios do caminhão estavam com defeito e fora da vida útil."
+   "definicao": "o gerenciamento de equipamentos para garantir que eles sejam projetados e instalados corretamente, e que operem e sejam mantidos corretamente. Por exemplo, os freios do caminhão estavam com defeito e fora da vida útil.",
+   "termos": "Por exemplo, os freios do caminhão estavam com defeito e fora da vida útil. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE09",
@@ -353,7 +439,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a rotina de limpeza e organização de um local de trabalho para garantir que as áreas de trabalho estejam organizadas, livres de riscos de escorregar, tropeçar e cair, livres de riscos de incêndio etc., por exemplo, o chão estava cheio de produtos de construção, criando riscos de tropeçar."
+   "definicao": "a rotina de limpeza e organização de um local de trabalho para garantir que as áreas de trabalho estejam organizadas, livres de riscos de escorregar, tropeçar e cair, livres de riscos de incêndio etc., por exemplo, o chão estava cheio de produtos de construção, criando riscos de tropeçar.",
+   "termos": "por exemplo, o chão estava cheio de produtos de construção, criando riscos de tropeçar. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE10",
@@ -361,7 +449,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "refere-se às condições meteorológicas que influenciaram a tarefa e/ou comportamentos que levaram ao resultado adverso, como o grau em que está quente ou frio, úmido ou seco, calmo ou tempestuoso, claro ou nublado. Ventos fortes colocaram carga no poste de luz, fazendo-o cair no chão."
+   "definicao": "refere-se às condições meteorológicas que influenciaram a tarefa e/ou comportamentos que levaram ao resultado adverso, como o grau em que está quente ou frio, úmido ou seco, calmo ou tempestuoso, claro ou nublado. Ventos fortes colocaram carga no poste de luz, fazendo-o cair no chão.",
+   "termos": "condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE11",
@@ -369,7 +459,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "uma área que pode estar bloqueada ou lotada (desordenada) que pode restringir o acesso a determinados equipamentos ou materiais e pode afetar o acesso, as operações de entrada e saída de um local de trabalho. Por exemplo, o operador estava trabalhando em um espaço apertado e não tinha espaço para manobrar o equipamento na orientação desejada."
+   "definicao": "uma área que pode estar bloqueada ou lotada (desordenada) que pode restringir o acesso a determinados equipamentos ou materiais e pode afetar o acesso, as operações de entrada e saída de um local de trabalho. Por exemplo, o operador estava trabalhando em um espaço apertado e não tinha espaço para manobrar o equipamento na orientação desejada.",
+   "termos": "Por exemplo, o operador estava trabalhando em um espaço apertado e não tinha espaço para manobrar o equipamento na orientação desejada. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE12",
@@ -377,7 +469,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "repetição de uma ou mais tarefas em intervalos regulares/tarefas executadas com pouca frequência que os detalhes da tarefa em si, os perigos e controles podem não ser totalmente desenvolvidos e/ou compreendidos por aqueles que executam a tarefa. Por exemplo, usar uma britadeira não é uma tarefa rotineira para o operador."
+   "definicao": "repetição de uma ou mais tarefas em intervalos regulares/tarefas executadas com pouca frequência que os detalhes da tarefa em si, os perigos e controles podem não ser totalmente desenvolvidos e/ou compreendidos por aqueles que executam a tarefa. Por exemplo, usar uma britadeira não é uma tarefa rotineira para o operador.",
+   "termos": "Por exemplo, usar uma britadeira não é uma tarefa rotineira para o operador. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE13",
@@ -385,7 +479,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "líquidos e substâncias combustíveis e inflamáveis presentes no ambiente de trabalho ou causados pela tarefa executada (por exemplo, trabalho a quente). Por exemplo, o operador trabalhava com produtos explosivos (gasolina)."
+   "definicao": "líquidos e substâncias combustíveis e inflamáveis presentes no ambiente de trabalho ou causados pela tarefa executada (por exemplo, trabalho a quente). Por exemplo, o operador trabalhava com produtos explosivos (gasolina).",
+   "termos": "por exemplo, trabalho a quente). Por exemplo, o operador trabalhava com produtos explosivos (gasolina). condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE14",
@@ -393,7 +489,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a quantidade de luz disponível no local de trabalho/área de trabalho para garantir iluminação ou visibilidade apropriada. Refere-se tanto a fontes naturais quanto artificiais. Por exemplo, as luzes do armazém não estavam funcionando naquele dia."
+   "definicao": "a quantidade de luz disponível no local de trabalho/área de trabalho para garantir iluminação ou visibilidade apropriada. Refere-se tanto a fontes naturais quanto artificiais. Por exemplo, as luzes do armazém não estavam funcionando naquele dia.",
+   "termos": "Por exemplo, as luzes do armazém não estavam funcionando naquele dia. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE15",
@@ -401,7 +499,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a temperatura do ambiente operacional ou do equipamento que está sendo usado no momento. Por exemplo, o operador estava trabalhando com metal quente."
+   "definicao": "a temperatura do ambiente operacional ou do equipamento que está sendo usado no momento. Por exemplo, o operador estava trabalhando com metal quente.",
+   "termos": "Por exemplo, o operador estava trabalhando com metal quente. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE16",
@@ -409,7 +509,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "som indesejado, especialmente som alto ou desagradável e que pode causar perturbação ou distração. Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava."
+   "definicao": "som indesejado, especialmente som alto ou desagradável e que pode causar perturbação ou distração. Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava.",
+   "termos": "Por exemplo, o ruído do tráfego ao redor dificultou ouvir que a escavadeira se aproximava. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE17",
@@ -417,7 +519,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o fornecimento de ar fresco a um edifício, sala, local de trabalho etc., por exemplo, não há ar fresco entrando no prédio."
+   "definicao": "o fornecimento de ar fresco a um edifício, sala, local de trabalho etc., por exemplo, não há ar fresco entrando no prédio.",
+   "termos": "por exemplo, não há ar fresco entrando no prédio. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE18",
@@ -425,7 +529,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a presença de contaminantes transportados pelo ar na área de trabalho que afetam a capacidade do operador de concluir a tarefa. Por exemplo, fumaça do cano de exaustão entrou no prédio."
+   "definicao": "a presença de contaminantes transportados pelo ar na área de trabalho que afetam a capacidade do operador de concluir a tarefa. Por exemplo, fumaça do cano de exaustão entrou no prédio.",
+   "termos": "Por exemplo, fumaça do cano de exaustão entrou no prédio. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE19",
@@ -433,7 +539,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a presença de partículas ionizantes ou não ionizantes que têm o potencial de causar danos. Por exemplo, a radiação da máquina de raios X estava vazando."
+   "definicao": "a presença de partículas ionizantes ou não ionizantes que têm o potencial de causar danos. Por exemplo, a radiação da máquina de raios X estava vazando.",
+   "termos": "Por exemplo, a radiação da máquina de raios X estava vazando. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE20",
@@ -441,7 +549,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "qualquer substância básica usada ou produzida por uma reação que envolva alterações em átomos ou moléculas; risco químico é o risco envolvido no uso de um produto químico e representa um risco ocupacional causado pela exposição ao produto químico. Por exemplo, um selante estava vazando do recipiente."
+   "definicao": "qualquer substância básica usada ou produzida por uma reação que envolva alterações em átomos ou moléculas; risco químico é o risco envolvido no uso de um produto químico e representa um risco ocupacional causado pela exposição ao produto químico. Por exemplo, um selante estava vazando do recipiente.",
+   "termos": "Por exemplo, um selante estava vazando do recipiente. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE21",
@@ -449,7 +559,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "presença de animais na área de trabalho que impactam na tarefa que está sendo realizada. Por exemplo, cangurus estavam presentes na área."
+   "definicao": "presença de animais na área de trabalho que impactam na tarefa que está sendo realizada. Por exemplo, cangurus estavam presentes na área.",
+   "termos": "Por exemplo, cangurus estavam presentes na área. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE22",
@@ -457,7 +569,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "gradiente da superfície é o grau em que uma superfície sobe e desce ao longo de seu comprimento; a condição da superfície refere-se à suavidade ou rugosidade de uma superfície. Por exemplo, a rampa íngreme sem tratamento de fricção tornava a caminhada escorregadia."
+   "definicao": "gradiente da superfície é o grau em que uma superfície sobe e desce ao longo de seu comprimento; a condição da superfície refere-se à suavidade ou rugosidade de uma superfície. Por exemplo, a rampa íngreme sem tratamento de fricção tornava a caminhada escorregadia.",
+   "termos": "Por exemplo, a rampa íngreme sem tratamento de fricção tornava a caminhada escorregadia. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE23",
@@ -465,7 +579,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "redução de quão longe se pode ver claramente em condições particulares de clima, luz ou ambiente/local de trabalho. Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro."
+   "definicao": "redução de quão longe se pode ver claramente em condições particulares de clima, luz ou ambiente/local de trabalho. Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro.",
+   "termos": "Por exemplo, a neblina dificultava a visão a mais de 20 metros à frente do carro. condicao",
+   "exclusoes": ""
   },
   {
    "codigo": "TE24",
@@ -473,7 +589,9 @@
    "grupo": "condicoes_tarefa_ambiente",
    "coluna": "condicoes",
    "generico": true,
-   "definicao": ""
+   "definicao": "",
+   "termos": "outro",
+   "exclusoes": ""
   },
   {
    "codigo": "HF01",
@@ -481,7 +599,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "desejo geral ou vontade de fazer algo/estar tão familiarizado ou ter exposição de longo prazo a um perigo que eles tenham uma resposta emocional decrescente a ele e percebam o risco como menor do que realmente é. Por exemplo, os trabalhadores têm uma atitude complacente em relação ao trabalho em eletricidade de alta tensão, pois o fazem o tempo todo."
+   "definicao": "desejo geral ou vontade de fazer algo/estar tão familiarizado ou ter exposição de longo prazo a um perigo que eles tenham uma resposta emocional decrescente a ele e percebam o risco como menor do que realmente é. Por exemplo, os trabalhadores têm uma atitude complacente em relação ao trabalho em eletricidade de alta tensão, pois o fazem o tempo todo.",
+   "termos": "Por exemplo, os trabalhadores têm uma atitude complacente em relação ao trabalho em eletricidade de alta tensão, pois o fazem o tempo todo. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF02",
@@ -489,7 +609,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "intoxicação causada pelo uso de álcool, drogas ou uma combinação de ambos. O termo drogas pode estar se referindo a medicamentos prescritos, bem como a substâncias ilícitas. Por exemplo, o trabalhador estava embriagado devido ao consumo de álcool."
+   "definicao": "intoxicação causada pelo uso de álcool, drogas ou uma combinação de ambos. O termo drogas pode estar se referindo a medicamentos prescritos, bem como a substâncias ilícitas. Por exemplo, o trabalhador estava embriagado devido ao consumo de álcool.",
+   "termos": "Por exemplo, o trabalhador estava embriagado devido ao consumo de álcool. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF03",
@@ -497,7 +619,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o estado de saber como concluir bem uma tarefa. Por exemplo, esta foi a primeira vez que o operador realizou a tarefa."
+   "definicao": "o estado de saber como concluir bem uma tarefa. Por exemplo, esta foi a primeira vez que o operador realizou a tarefa.",
+   "termos": "Por exemplo, esta foi a primeira vez que o operador realizou a tarefa. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF04",
@@ -505,7 +629,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "cansaço que resulta de esforço mental ou físico; ou cansaço provocado por falta de descanso/sono suficiente ou de qualidade. Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia."
+   "definicao": "cansaço que resulta de esforço mental ou físico; ou cansaço provocado por falta de descanso/sono suficiente ou de qualidade. Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia.",
+   "termos": "Por exemplo, o motorista trabalhava 17 horas por dia há 4 dias seguidos e adormeceu enquanto dirigia. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF05",
@@ -513,7 +639,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "conhecer e estar atento ao que se passa à nossa volta. Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras."
+   "definicao": "conhecer e estar atento ao que se passa à nossa volta. Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras.",
+   "termos": "Por exemplo, o operador desconhecia os riscos presentes no canteiro de obras. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF06",
@@ -521,7 +649,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "ser fornecido menos tempo do que o necessário/considerado necessário para concluir uma tarefa específica. Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h."
+   "definicao": "ser fornecido menos tempo do que o necessário/considerado necessário para concluir uma tarefa específica. Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h.",
+   "termos": "Por exemplo, o funcionário estava correndo para cumprir os prazos até 16h. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF07",
@@ -529,7 +659,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "esta é a influência direta dos colegas sobre o comportamento de alguém, como a mudança de atitudes e comportamentos para se adequar aos de seu colega ou supervisor. Por exemplo, o funcionário se sentiu pressionado pela atitude relaxada de seu gerente em relação à conformidade com os EPIs e, portanto, continuou a trabalhar sem óculos de segurança, seguindo o exemplo de seu gerente."
+   "definicao": "esta é a influência direta dos colegas sobre o comportamento de alguém, como a mudança de atitudes e comportamentos para se adequar aos de seu colega ou supervisor. Por exemplo, o funcionário se sentiu pressionado pela atitude relaxada de seu gerente em relação à conformidade com os EPIs e, portanto, continuou a trabalhar sem óculos de segurança, seguindo o exemplo de seu gerente.",
+   "termos": "Por exemplo, o funcionário se sentiu pressionado pela atitude relaxada de seu gerente em relação à conformidade com os EPIs e, portanto, continuou a trabalhar sem óculos de segurança, seguindo o exemplo de seu gerente. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF08",
@@ -537,7 +669,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa física. Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação."
+   "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa física. Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação.",
+   "termos": "Por exemplo, o funcionário estava tentando levantar uma caixa de 100 kg sem o auxílio de equipamento de elevação. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF09",
@@ -545,7 +679,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa mental, por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação."
+   "definicao": "o grau em que uma pessoa é capaz de realizar uma tarefa mental, por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação.",
+   "termos": "por exemplo, o funcionário não tinha capacidade mental para concluir a tarefa devido à falta de formação. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF10",
@@ -553,7 +689,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "o resultado da operação estendida sem tempo de recuperação apropriado sendo disponibilizado. Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo."
+   "definicao": "o resultado da operação estendida sem tempo de recuperação apropriado sendo disponibilizado. Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo.",
+   "termos": "Por exemplo, as pernas dos funcionários cansaram com o levantamento contínuo. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF11",
@@ -561,7 +699,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "as expectativas colocadas sobre um indivíduo para concluir uma tarefa. Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário."
+   "definicao": "as expectativas colocadas sobre um indivíduo para concluir uma tarefa. Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário.",
+   "termos": "Por exemplo, o gerente forneceu ao funcionário um prazo irreal para concluir a tarefa, resultando em um alto grau de pressão pessoal para o funcionário. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF12",
@@ -569,7 +709,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "crença nas próprias habilidades para realizar uma determinada tarefa, o sentimento de que se tem habilidade e experiência para realizar uma tarefa. Por exemplo, o nível de confiança do trabalhador superou em muito sua capacidade de concluir a tarefa adequadamente e, devido à falta de habilidade do trabalhador, resultou em um resultado adverso."
+   "definicao": "crença nas próprias habilidades para realizar uma determinada tarefa, o sentimento de que se tem habilidade e experiência para realizar uma tarefa. Por exemplo, o nível de confiança do trabalhador superou em muito sua capacidade de concluir a tarefa adequadamente e, devido à falta de habilidade do trabalhador, resultou em um resultado adverso.",
+   "termos": "Por exemplo, o nível de confiança do trabalhador superou em muito sua capacidade de concluir a tarefa adequadamente e, devido à falta de habilidade do trabalhador, resultou em um resultado adverso. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF13",
@@ -577,7 +719,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "outros objetivos que não fazem parte de um objetivo principal. Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário de atingir as metas de produção aconteceria se os sistemas e processos seguros estivessem operando com eficiência."
+   "definicao": "outros objetivos que não fazem parte de um objetivo principal. Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário de atingir as metas de produção aconteceria se os sistemas e processos seguros estivessem operando com eficiência.",
+   "termos": "Por exemplo, a organização sabia que estava colocando a segurança à frente da produção, mas acreditava que, com o passar do tempo, o objetivo secundário de atingir as metas de produção aconteceria se os sistemas e processos seguros estivessem operando com eficiência. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF14",
@@ -585,7 +729,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "eventos de natureza pessoal que podem causar distrações no local de trabalho. Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão."
+   "definicao": "eventos de natureza pessoal que podem causar distrações no local de trabalho. Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão.",
+   "termos": "Por exemplo, o funcionário estava se divorciando e tinha problemas pessoais em mente, resultando em falta de concentração na tarefa em questão. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF15",
@@ -593,7 +739,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "qualquer coisa que impeça alguém de dar toda a atenção à tarefa em questão. Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo."
+   "definicao": "qualquer coisa que impeça alguém de dar toda a atenção à tarefa em questão. Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo.",
+   "termos": "Por exemplo, o funcionário se distraiu com o grande volume de caminhões que entravam no local ao mesmo tempo. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF16",
@@ -601,7 +749,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "ter o nível exigido de experiência no local de trabalho (exposição)/conhecimento do que é necessário para executar uma tarefa específica (treinamento e formação)/habilidade é saber como executar a tarefa. Por exemplo, o funcionário tem apenas uma experiência limitada na condução deste tipo de caminhão."
+   "definicao": "ter o nível exigido de experiência no local de trabalho (exposição)/conhecimento do que é necessário para executar uma tarefa específica (treinamento e formação)/habilidade é saber como executar a tarefa. Por exemplo, o funcionário tem apenas uma experiência limitada na condução deste tipo de caminhão.",
+   "termos": "Por exemplo, o funcionário tem apenas uma experiência limitada na condução deste tipo de caminhão. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF17",
@@ -609,7 +759,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a capacidade de concluir uma tarefa com segurança, eficiência e no padrão exigido. Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira."
+   "definicao": "a capacidade de concluir uma tarefa com segurança, eficiência e no padrão exigido. Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira.",
+   "termos": "Por exemplo, o funcionário não tinha competência para dirigir a empilhadeira. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF18",
@@ -617,7 +769,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a crença de que um determinado comportamento produzirá um determinado resultado em que os ganhos de se engajar no comportamento superam os riscos envolvidos (por exemplo, fazer um atalho em um procedimento para economizar tempo). Por exemplo, o funcionário achou que não havia problema em lixar metal sem usar os óculos de segurança."
+   "definicao": "a crença de que um determinado comportamento produzirá um determinado resultado em que os ganhos de se engajar no comportamento superam os riscos envolvidos (por exemplo, fazer um atalho em um procedimento para economizar tempo). Por exemplo, o funcionário achou que não havia problema em lixar metal sem usar os óculos de segurança.",
+   "termos": "por exemplo, fazer um atalho em um procedimento para economizar tempo). Por exemplo, o funcionário achou que não havia problema em lixar metal sem usar os óculos de segurança. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF19",
@@ -625,7 +779,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a combinação de características ou qualidades que formam o caráter distintivo de um indivíduo/a maneira de pensar ou sentir de um indivíduo sobre algo. Por exemplo, a personalidade persuasiva do supervisor influenciou outros trabalhadores a seguir sua liderança, mesmo que não tenham seguido todas as etapas do procedimento."
+   "definicao": "a combinação de características ou qualidades que formam o caráter distintivo de um indivíduo/a maneira de pensar ou sentir de um indivíduo sobre algo. Por exemplo, a personalidade persuasiva do supervisor influenciou outros trabalhadores a seguir sua liderança, mesmo que não tenham seguido todas as etapas do procedimento.",
+   "termos": "Por exemplo, a personalidade persuasiva do supervisor influenciou outros trabalhadores a seguir sua liderança, mesmo que não tenham seguido todas as etapas do procedimento. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF20",
@@ -633,7 +789,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "é quando há uma discrepância entre o que é dito por uma pessoa e o que é ouvido por outra, ou seja, um mal-entendido da mensagem. Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à ré, pois nenhum padrão de comunicação havia sido estabelecido."
+   "definicao": "é quando há uma discrepância entre o que é dito por uma pessoa e o que é ouvido por outra, ou seja, um mal-entendido da mensagem. Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à ré, pois nenhum padrão de comunicação havia sido estabelecido.",
+   "termos": "Por exemplo, o motorista não ouviu a instrução do observador para parar a marcha à ré, pois nenhum padrão de comunicação havia sido estabelecido. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF21",
@@ -641,7 +799,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "expor ou exigir que os funcionários passem longos períodos de tempo no local de trabalho que são inadequados para gerenciar o risco de fadiga Por exemplo, o padrão de turno do funcionário não foi avaliado quanto ao risco de fadiga e resultou no estado de fadiga do trabalhador ao iniciar o dia 5 do padrão do turno."
+   "definicao": "expor ou exigir que os funcionários passem longos períodos de tempo no local de trabalho que são inadequados para gerenciar o risco de fadiga Por exemplo, o padrão de turno do funcionário não foi avaliado quanto ao risco de fadiga e resultou no estado de fadiga do trabalhador ao iniciar o dia 5 do padrão do turno.",
+   "termos": "Por exemplo, o padrão de turno do funcionário não foi avaliado quanto ao risco de fadiga e resultou no estado de fadiga do trabalhador ao iniciar o dia 5 do padrão do turno. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF22",
@@ -649,7 +809,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "aceitação de comportamento inseguro e condições inseguras por não denunciá-los verbalmente ou ativamente. Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas não fez nada a respeito."
+   "definicao": "aceitação de comportamento inseguro e condições inseguras por não denunciá-los verbalmente ou ativamente. Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas não fez nada a respeito.",
+   "termos": "Por exemplo, o gerente notou o eletricista trabalhando em um equipamento que não estava isolado, mas não fez nada a respeito. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF23",
@@ -657,7 +819,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "a crença de que alguém tem autoridade para não seguir implicitamente as regras, pois você acredita que a regra não é importante, que nenhum mal pode advir dela e que pode haver benefícios em fazer do seu jeito. Por exemplo, a organização não tinha um processo padrão para verificar o desempenho dos funcionários e permitia que eles trabalhassem da maneira que quisessem, desde que a tarefa fosse conc"
+   "definicao": "a crença de que alguém tem autoridade para não seguir implicitamente as regras, pois você acredita que a regra não é importante, que nenhum mal pode advir dela e que pode haver benefícios em fazer do seu jeito. Por exemplo, a organização não tinha um processo padrão para verificar o desempenho dos funcionários e permitia que eles trabalhassem da maneira que quisessem, desde que a tarefa fosse concluída no prazo e dentro do orçamento.",
+   "termos": "Por exemplo, a organização não tinha um processo padrão para verificar o desempenho dos funcionários e permitia que eles trabalhassem da maneira que quisessem, desde que a tarefa fosse concluída no prazo e dentro do orçamento. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF24",
@@ -665,7 +829,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "desvio do que seria considerado uma atividade normal ou prática normal e implicaria que a atividade ou processo não é familiar para a pessoa que o executa. Por exemplo, o motorista recebeu uma rota de entrega diferente da rota normal com a qual estava familiarizado e, posteriormente, se perdeu tentando encontrar o endereço correto."
+   "definicao": "desvio do que seria considerado uma atividade normal ou prática normal e implicaria que a atividade ou processo não é familiar para a pessoa que o executa. Por exemplo, o motorista recebeu uma rota de entrega diferente da rota normal com a qual estava familiarizado e, posteriormente, se perdeu tentando encontrar o endereço correto.",
+   "termos": "Por exemplo, o motorista recebeu uma rota de entrega diferente da rota normal com a qual estava familiarizado e, posteriormente, se perdeu tentando encontrar o endereço correto. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF25",
@@ -673,7 +839,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": false,
-   "definicao": "conhecimento e informações importantes sobre processos de negócios, práticas e sistemas complexos não são amplamente documentados, o que resulta em informações importantes sendo conhecidas por muito poucos indivíduos ou equipes e não estão disponíveis para outras pessoas por meio de procedimentos e treinamento formal. Por exemplo, sem procedimentos escritos para usar como referência, o trabalhador"
+   "definicao": "conhecimento e informações importantes sobre processos de negócios, práticas e sistemas complexos não são amplamente documentados, o que resulta em informações importantes sendo conhecidas por muito poucos indivíduos ou equipes e não estão disponíveis para outras pessoas por meio de procedimentos e treinamento formal. Por exemplo, sem procedimentos escritos para usar como referência, o trabalhador agiu de acordo com as instruções verbais de outro trabalhador.",
+   "termos": "Por exemplo, sem procedimentos escritos para usar como referência, o trabalhador agiu de acordo com as instruções verbais de outro trabalhador. fator humano",
+   "exclusoes": ""
   },
   {
    "codigo": "HF26",
@@ -681,7 +849,9 @@
    "grupo": "fatores_humanos",
    "coluna": "condicoes",
    "generico": true,
-   "definicao": ""
+   "definicao": "",
+   "termos": "outro",
+   "exclusoes": ""
   },
   {
    "codigo": "CM",
@@ -689,7 +859,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a avaliação, seleção e retenção de serviços contratados, equipamentos, pessoal e material para garantir que os riscos às pessoas, ambiente, equipamentos ou propriedades sejam reduzidos a um nível que seja tão baixo quanto razoavelmente praticável."
+   "definicao": "a avaliação, seleção e retenção de serviços contratados, equipamentos, pessoal e material para garantir que os riscos às pessoas, ambiente, equipamentos ou propriedades sejam reduzidos a um nível que seja tão baixo quanto razoavelmente praticável.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "CO",
@@ -697,7 +869,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "falhas na comunicação quando o alvo é conhecido, mas a mensagem falha ou está atrasada. Envolve hardware inadequado e incompreensão por parte dos envolvidos. Falha na validação da recepção."
+   "definicao": "falhas na comunicação quando o alvo é conhecido, mas a mensagem falha ou está atrasada. Envolve hardware inadequado e incompreensão por parte dos envolvidos. Falha na validação da recepção.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "DE",
@@ -705,7 +879,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a maneira como o equipamento é construído que dificulta certas operações ou permite o uso inesperado. Um design ruim pode exigir esforço extra e manutenção incomum. A capacidade de design inadequada pode levar à extensão do equipamento além dos limites. Muitas falhas de design resultam da separação física e profissional do designer e do usuário final."
+   "definicao": "a maneira como o equipamento é construído que dificulta certas operações ou permite o uso inesperado. Um design ruim pode exigir esforço extra e manutenção incomum. A capacidade de design inadequada pode levar à extensão do equipamento além dos limites. Muitas falhas de design resultam da separação física e profissional do designer e do usuário final.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "HW",
@@ -713,7 +889,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a qualidade, disponibilidade e posição no ciclo de vida de ferramentas, equipamentos e componentes. Diz respeito aos materiais selecionados, e não ao design ou à má manutenção do equipamento."
+   "definicao": "a qualidade, disponibilidade e posição no ciclo de vida de ferramentas, equipamentos e componentes. Diz respeito aos materiais selecionados, e não ao design ou à má manutenção do equipamento.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "IG",
@@ -721,7 +899,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a presença de conflitos entre produção, segurança, planejamento e metas econômicas, bem como conflitos entre pressões do grupo e dos colegas e metas pessoais. As metas incompatíveis tornam-se um problema quando a alta administração não dá diretrizes sobre prioridades."
+   "definicao": "a presença de conflitos entre produção, segurança, planejamento e metas econômicas, bem como conflitos entre pressões do grupo e dos colegas e metas pessoais. As metas incompatíveis tornam-se um problema quando a alta administração não dá diretrizes sobre prioridades.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "MC",
@@ -729,7 +909,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a avaliação sistemática de mudanças em operações, processos, equipamentos, serviços e pessoal para riscos potenciais e a aplicação de ações apropriadas para garantir que os níveis de desempenho existentes não sejam comprometidos."
+   "definicao": "a avaliação sistemática de mudanças em operações, processos, equipamentos, serviços e pessoal para riscos potenciais e a aplicação de ações apropriadas para garantir que os níveis de desempenho existentes não sejam comprometidos.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "MM",
@@ -737,7 +919,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a adequação da gestão do sistema de manutenção, envolvendo planejamento, recursos e tipo de manutenção, em vez da execução de trabalhos de manutenção. As más práticas envolvendo procedimentos, ferramentas e treinamento são abordadas em outro lugar."
+   "definicao": "a adequação da gestão do sistema de manutenção, envolvendo planejamento, recursos e tipo de manutenção, em vez da execução de trabalhos de manutenção. As más práticas envolvendo procedimentos, ferramentas e treinamento são abordadas em outro lugar.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "MS",
@@ -745,7 +929,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "um conjunto integrado de práticas de trabalho, crenças e procedimentos para monitorar e melhorar a segurança e saúde de todos os aspectos das operações. A aplicação ineficaz de Sistemas de Gestão de Segurança pode levar a deficiências de segurança e aumento de riscos. Inclui sistemas de garantia de segurança inadequados (investigação, auditoria etc.)."
+   "definicao": "um conjunto integrado de práticas de trabalho, crenças e procedimentos para monitorar e melhorar a segurança e saúde de todos os aspectos das operações. A aplicação ineficaz de Sistemas de Gestão de Segurança pode levar a deficiências de segurança e aumento de riscos. Inclui sistemas de garantia de segurança inadequados (investigação, auditoria etc.).",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "OC",
@@ -753,7 +939,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a cultura inclui o conjunto de crenças, valores (o que é importante), normas e pressupostos fundamentais (a forma como fazemos as coisas) que definem a organização. De fato, os valores e crenças compartilhados interagem com as estruturas e sistemas de controle de uma organização para produzir um conjunto de \"regras não escritas\" que regem as normas comportamentais."
+   "definicao": "a cultura inclui o conjunto de crenças, valores (o que é importante), normas e pressupostos fundamentais (a forma como fazemos as coisas) que definem a organização. De fato, os valores e crenças compartilhados interagem com as estruturas e sistemas de controle de uma organização para produzir um conjunto de \"regras não escritas\" que regem as normas comportamentais.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "OL",
@@ -761,7 +949,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "as estratégias que as organizações adotam para garantir que as lições sejam aprendidas com as investigações de ocorrências, implementação de ações corretivas, constatações de auditoria, processos e revisões de gerenciamento de riscos."
+   "definicao": "as estratégias que as organizações adotam para garantir que as lições sejam aprendidas com as investigações de ocorrências, implementação de ações corretivas, constatações de auditoria, processos e revisões de gerenciamento de riscos.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "OR",
@@ -769,7 +959,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "deficiências na estrutura de responsabilidade e prestação de contas que não são adequadas ao trabalho atual. Pode envolver coordenação, supervisão e fornecimento de comunicação e feedback, bem como falta de recursos adequados."
+   "definicao": "deficiências na estrutura de responsabilidade e prestação de contas que não são adequadas ao trabalho atual. Pode envolver coordenação, supervisão e fornecimento de comunicação e feedback, bem como falta de recursos adequados.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "PR",
@@ -777,7 +969,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a presença de procedimentos precisos e compreensíveis que são conhecidos e usados. Refere-se à forma como os procedimentos são escritos, testados, documentados e controlados."
+   "definicao": "a presença de procedimentos precisos e compreensíveis que são conhecidos e usados. Refere-se à forma como os procedimentos são escritos, testados, documentados e controlados.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "RI",
@@ -785,7 +979,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "o órgão regulador influencia a cultura de segurança ao definir e controlar a estrutura de segurança na qual a organização deve operar. A estrutura inclui: requisitos legislativos, documentação e práticas de segurança exigidas das organizações e supervisão regulatória."
+   "definicao": "o órgão regulador influencia a cultura de segurança ao definir e controlar a estrutura de segurança na qual a organização deve operar. A estrutura inclui: requisitos legislativos, documentação e práticas de segurança exigidas das organizações e supervisão regulatória.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "RM",
@@ -793,7 +989,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "a aplicação sistemática de políticas de gestão, processos e procedimentos para as tarefas de identificação, análise, avaliação de redução para tão baixo quanto razoavelmente praticável, e monitoramento contínuo de risco em sistemas homem-máquina que contêm um potencial para ter um efeito adverso nas pessoas, no ambiente, no equipamento, na propriedade ou na comunidade."
+   "definicao": "a aplicação sistemática de políticas de gestão, processos e procedimentos para as tarefas de identificação, análise, avaliação de redução para tão baixo quanto razoavelmente praticável, e monitoramento contínuo de risco em sistemas homem-máquina que contêm um potencial para ter um efeito adverso nas pessoas, no ambiente, no equipamento, na propriedade ou na comunidade.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "TR",
@@ -801,7 +999,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "o fornecimento de conhecimentos e habilidades corretas aos funcionários necessários para que eles façam o trabalho com segurança. As falhas podem envolver treinamento insuficiente, ineficaz ou excessivo, falta de recursos ou avaliação e incompatibilidade de habilidades com as tarefas."
+   "definicao": "o fornecimento de conhecimentos e habilidades corretas aos funcionários necessários para que eles façam o trabalho com segurança. As falhas podem envolver treinamento insuficiente, ineficaz ou excessivo, falta de recursos ou avaliação e incompatibilidade de habilidades com as tarefas.",
+   "termos": "organizacional",
+   "exclusoes": ""
   },
   {
    "codigo": "VW",
@@ -809,7 +1009,9 @@
    "grupo": "fatores_organizacionais",
    "coluna": "organizacionais",
    "generico": false,
-   "definicao": "um sistema para gerenciar a aquisição, manutenção e operação de veículos dentro de um ambiente/configuração de trabalho definido. Se o sistema for mal gerenciado, os veículos podem causar riscos desnecessários aos funcionários, contratados e clientes, além de afetar a produção e a eficiência organizacional."
+   "definicao": "um sistema para gerenciar a aquisição, manutenção e operação de veículos dentro de um ambiente/configuração de trabalho definido. Se o sistema for mal gerenciado, os veículos podem causar riscos desnecessários aos funcionários, contratados e clientes, além de afetar a produção e a eficiência organizacional.",
+   "termos": "organizacional",
+   "exclusoes": ""
   }
  ]
 }

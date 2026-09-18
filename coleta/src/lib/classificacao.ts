@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import {
   catalogoParaPrompt,
-  CODIGOS,
   NIVEIS_VALIDOS,
   normalizarCodigo,
   obterCodigo,
@@ -9,14 +8,18 @@ import {
   type NivelIcam,
 } from './codigos';
 import { extrairJson, gerarJson, obterChave } from './gemini';
+import { identificarCodigo } from './localIcam';
 import type { ItemColetado } from './pptxLeitura';
 
 /**
- * Associação de códigos ICAM às constatações, pela API do Gemini.
+ * Associação de códigos ICAM às constatações.
  *
- * O modo local por casamento de palavras continua no arquivo, mas só roda
- * quando pedido explicitamente (`permitirLocal`). Ele não é alternativa à IA:
- * é saída de emergência, e a interface diz isso.
+ * O caminho padrão é a **identificação local** (`localIcam.ts`): comparação
+ * contra os 101 códigos dentro do próprio servidor, sem rede, sem chave e sem
+ * custo por uso. Nenhum conteúdo de investigação sai daqui.
+ *
+ * A integração com o Gemini continua inteira, em espera, e volta com
+ * `USAR_GEMINI=true` no ambiente.
  *
  * Nível e ação são sempre proposta. Nada vai para o slide sem revisão.
  */
@@ -103,8 +106,20 @@ export interface OpcoesClassificacao {
   /** Contexto do evento, para o modelo não classificar frases soltas. */
   contexto?: string;
   tempoLimiteMs?: number;
-  /** Autoriza a associação local. Só quando a pessoa pedir, sabendo o que é. */
-  permitirLocal?: boolean;
+  /** Força o Gemini mesmo com ele em espera. */
+  usarGemini?: boolean;
+}
+
+/**
+ * O Gemini está em espera.
+ *
+ * O caminho padrão é a identificação local. O código do Gemini continua
+ * inteiro e volta ligando `USAR_GEMINI=true` no ambiente — nada foi apagado,
+ * só desligado.
+ */
+export function geminiLigado(opcoes: { usarGemini?: boolean } = {}): boolean {
+  if (opcoes.usarGemini !== undefined) return opcoes.usarGemini;
+  return process.env.USAR_GEMINI === 'true';
 }
 
 export async function classificar(
@@ -116,14 +131,19 @@ export async function classificar(
     return { sugestoes: [], origem: 'local', modelo: null, avisos: ['Nenhuma constatação para classificar.'] };
   }
 
-  if (opcoes.permitirLocal && !(opcoes.chaveApi ?? process.env.GEMINI_API_KEY)) {
+  if (!geminiLigado(opcoes)) {
+    const sugestoes = alvos.map(classificarLocalmente);
+    const altas = sugestoes.filter((s) => s.confianca === 'alta').length;
     return {
-      sugestoes: alvos.map(classificarLocalmente),
+      sugestoes,
       origem: 'local',
-      modelo: null,
-      avisos: [
-        'Modo local, a pedido: a associação veio de semelhança de palavras, não de análise. Confira cada código antes de usar.',
-      ],
+      modelo: 'identificação local',
+      avisos:
+        altas === sugestoes.length
+          ? []
+          : [
+              `${sugestoes.length - altas} de ${sugestoes.length} constatações ficaram sem confiança alta. Compare com as alternativas de cada uma antes de aceitar.`,
+            ],
     };
   }
 
@@ -212,68 +232,33 @@ function normalizarConfianca(valor: string): 'baixa' | 'media' | 'alta' {
 }
 
 // ---------------------------------------------------------------------------
-// Associação local — saída de emergência, não alternativa
+// Identificação local — o caminho padrão enquanto o Gemini está em espera
 // ---------------------------------------------------------------------------
 
-const IRRELEVANTES = new Set([
-  'para','com','que','dos','das','uma','não','nao','por','como','este','esta','isso','pelo','pela',
-  'foi','ser','são','sao','tem','tinha','está','esta','sobre','entre','após','apos','durante','onde',
-  'quando','mais','menos','muito','pouco','todo','toda','cada','seus','suas','nos','nas','ele','ela',
-  'the','and','of','no','na','do','da','de','em','um','os','as','ao','à','se','ou','é','e',
-]);
-
-function palavras(texto: string): string[] {
-  return texto
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter((p) => p.length > 3 && !IRRELEVANTES.has(p));
-}
-
+/**
+ * Compara a constatação com os 101 códigos e devolve o melhor, com a
+ * confiança que o método consegue sustentar.
+ *
+ * O trabalho pesado está em `localIcam.ts`; aqui só se traduz o resultado para
+ * o contrato da tela.
+ */
 export function classificarLocalmente(item: ItemColetado): Sugestao {
-  const alvo = new Set(palavras(item.texto));
-  const notas = CODIGOS.map((c) => {
-    const doTitulo = palavras(c.titulo).filter((p) => alvo.has(p)).length * 3;
-    const daDefinicao = palavras(c.definicao).filter((p) => alvo.has(p)).length;
-    return { codigo: c, nota: doTitulo + daDefinicao };
-  })
-    .filter((x) => x.nota > 0)
-    .sort((a, b) => b.nota - a.nota);
-
-  const melhor = notas[0]?.codigo ?? genericoDaCategoria(item);
+  const categoria = item.categoria === 'nao_classificado' ? undefined : item.categoria;
+  const r = identificarCodigo(item.texto, categoria);
 
   return {
     itemId: item.id,
-    codigo: melhor.codigo,
-    titulo: melhor.titulo,
+    codigo: r.melhor.codigo,
+    titulo: r.melhor.titulo,
+    // Fator contribuinte é juízo causal e sai da análise humana, não daqui.
     nivel: 'constatado',
     // A caixa nasce marcada na tela; quem tira é a pessoa.
     exigeAcao: true,
-    justificativa:
-      notas.length > 0
-        ? 'Associação local por termos em comum com o título e a definição do código. Confira o mecanismo antes de aceitar.'
-        : 'Nenhum código teve termo em comum com a constatação. Escolha o código à mão.',
-    confianca: 'baixa',
-    alternativas: notas.slice(1, 4).map((x) => ({ codigo: x.codigo.codigo, titulo: x.codigo.titulo })),
+    justificativa: r.explicacao,
+    confianca: r.confianca,
+    alternativas: r.alternativas.map((a) => ({ codigo: a.codigo.codigo, titulo: a.codigo.titulo })),
     origem: 'local',
   };
-}
-
-/** Código genérico da coluna correspondente à categoria PEEPO do item. */
-function genericoDaCategoria(item: ItemColetado): CodigoIcam {
-  const preferida =
-    item.categoria === 'procedimentos'
-      ? 'defesas'
-      : item.categoria === 'organizacao'
-        ? 'organizacionais'
-        : 'condicoes';
-
-  return (
-    CODIGOS.find((c) => c.generico && c.coluna === preferida) ??
-    CODIGOS.find((c) => c.generico) ??
-    CODIGOS[0]!
-  );
 }
 
 export { extrairJson, normalizarCodigo };

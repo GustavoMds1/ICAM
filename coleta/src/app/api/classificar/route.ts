@@ -22,7 +22,8 @@ const corpo = z.object({
     .min(1, 'Nenhum item para classificar.')
     .max(300, 'São no máximo 300 itens por vez.'),
   contexto: z.string().max(4000).optional(),
-  permitirLocal: z.boolean().optional(),
+  /** Reservado para quando o Gemini sair da espera. */
+  usarGemini: z.boolean().optional(),
 });
 
 export async function POST(requisicao: Request) {
@@ -35,7 +36,7 @@ export async function POST(requisicao: Request) {
   try {
     const resultado = await classificar(pedido.data.itens, {
       contexto: pedido.data.contexto,
-      permitirLocal: pedido.data.permitirLocal,
+      usarGemini: pedido.data.usarGemini,
     });
     return NextResponse.json(resultado);
   } catch (e) {

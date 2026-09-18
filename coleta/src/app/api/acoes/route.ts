@@ -19,7 +19,8 @@ const corpo = z.object({
     .min(1, 'Nenhum achado exige ação.')
     .max(100, 'São no máximo 100 achados por vez.'),
   contexto: z.string().max(4000).optional(),
-  permitirLocal: z.boolean().optional(),
+  /** Reservado para quando o Gemini sair da espera. */
+  usarGemini: z.boolean().optional(),
 });
 
 export async function POST(requisicao: Request) {
@@ -32,7 +33,7 @@ export async function POST(requisicao: Request) {
   try {
     const resultado = await proporAcoes(pedido.data.achados, {
       contexto: pedido.data.contexto,
-      permitirLocal: pedido.data.permitirLocal,
+      usarGemini: pedido.data.usarGemini,
     });
     return NextResponse.json(resultado);
   } catch (e) {

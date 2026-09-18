@@ -96,15 +96,15 @@ export default function PaginaColeta() {
     }
   }
 
-  async function classificar(permitirLocal = false) {
-    setCarregando('Associando os códigos ICAM…');
+  async function classificar() {
+    setCarregando('Comparando com os 101 códigos…');
     setErro(null);
 
     try {
       const r = await fetch('/api/classificar', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ itens, contexto, permitirLocal }),
+        body: JSON.stringify({ itens, contexto }),
       });
       const corpo = await r.json();
       if (!r.ok) {
@@ -139,7 +139,7 @@ export default function PaginaColeta() {
     }
   }
 
-  async function gerarAcoes(permitirLocal = false) {
+  async function gerarAcoes() {
     setCarregando('Propondo as ações…');
     setErro(null);
 
@@ -157,7 +157,7 @@ export default function PaginaColeta() {
       const r = await fetch('/api/acoes', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ achados, contexto, permitirLocal }),
+        body: JSON.stringify({ achados, contexto }),
       });
       const corpo = await r.json();
       if (!r.ok) {
@@ -241,24 +241,6 @@ export default function PaginaColeta() {
       {erro && (
         <div role="alert" className="rounded-md border-l-4 border-red-600 bg-red-50 p-4 text-sm">
           <p>{erro.mensagem}</p>
-          {(erro.codigo === 'SEM_CHAVE' || erro.codigo === 'FALHA_GEMINI') && erro.passo && (
-            <div className="mt-3 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                className="botao"
-                onClick={() =>
-                  void (erro.passo === 'codigos' ? classificar(true) : gerarAcoes(true))
-                }
-                disabled={carregando !== null}
-              >
-                Seguir sem IA, no modo local
-              </button>
-              <span className="text-xs text-sutil">
-                O modo local associa por semelhança de palavras. Serve para não travar o trabalho,
-                não para substituir a análise.
-              </span>
-            </div>
-          )}
         </div>
       )}
 
@@ -306,35 +288,29 @@ export default function PaginaColeta() {
         <section className="cartao">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-base font-semibold">2. Associar os códigos ICAM</h2>
+              <h2 className="text-base font-semibold">2. Identificar os códigos ICAM</h2>
               <p className="mt-1 max-w-prose text-sm text-sutil">
-                A IA propõe o código, se é fato constatado ou fator contribuinte, e se aquilo exige
-                ação. <strong>Causa raiz não é definida aqui</strong> — ela sai da análise causal,
-                depois, com a equipe.
+                Cada constatação é comparada com os 101 códigos do catálogo. Vem o melhor, as
+                alternativas próximas e a confiança da escolha.{' '}
+                <strong>Causa raiz não é definida aqui</strong> — ela sai da análise causal, depois,
+                com a equipe.
               </p>
             </div>
             <button
               type="button"
               className="botao-primario"
-              onClick={() => void classificar(false)}
+              onClick={() => void classificar()}
               disabled={carregando !== null}
             >
-              {carregando ?? (sugestoes.length > 0 ? 'Classificar de novo' : 'Associar códigos com IA')}
+              {carregando ?? (sugestoes.length > 0 ? 'Comparar de novo' : 'Comparar com o catálogo')}
             </button>
           </div>
-
-          {carregando !== null && (
-            <p className="mt-3 text-xs text-sutil">
-              Se o modelo estiver congestionado, o aplicativo espera e tenta de novo sozinho. Pode levar
-              até meio minuto.
-            </p>
-          )}
 
           {origem && (
             <p className="mt-3 text-xs text-sutil">
               {origem === 'gemini'
                 ? 'Sugestões vindas do Gemini. Confira o mecanismo de cada código antes de aceitar.'
-                : 'Sem chave do Gemini: as sugestões vieram da associação local por palavras, que é fraca. Trate cada linha como ponto de partida.'}
+                : 'Identificação local: comparação por termo, expressão e léxico do domínio, tudo neste servidor. Confiança alta significa vantagem folgada sobre o segundo colocado — não dispensa a sua conferência.'}
             </p>
           )}
         </section>
@@ -377,8 +353,16 @@ export default function PaginaColeta() {
                           {ROTULOS_PEEPO[item.categoria as CategoriaPeepo] ?? item.categoria}
                         </span>
                       )}
-                      <span className="selo border-borda bg-zinc-100 text-sutil">
-                        {s.origem === 'gemini' ? 'IA' : 'local'} · confiança {s.confianca}
+                      <span
+                        className={`selo ${
+                          s.confianca === 'alta'
+                            ? 'border-green-700 bg-green-50 text-green-800'
+                            : s.confianca === 'media'
+                              ? 'border-amber-600 bg-amber-50 text-amber-800'
+                              : 'border-borda bg-zinc-100 text-sutil'
+                        }`}
+                      >
+                        confiança {s.confianca}
                       </span>
                     </div>
                   </div>
@@ -487,19 +471,20 @@ export default function PaginaColeta() {
             <div>
               <h2 className="text-base font-semibold">4. Plano de ação</h2>
               <p className="mt-1 max-w-prose text-sm text-sutil">
-                Uma ação para cada um dos {paraTratar.length} achados que exigem tratamento. A IA
-                escreve o rascunho e escolhe a hierarquia de controle; você ajusta e define quem
+                Uma linha para cada um dos {paraTratar.length} achados que exigem tratamento, com o
+                ponto de partida da hierarquia de controle. Você escreve a ação e define quem
                 responde.
               </p>
             </div>
-            <button type="button" className="botao-primario" onClick={() => void gerarAcoes(false)} disabled={carregando !== null}>
-              {acoes.length > 0 ? 'Propor de novo' : 'Propor ações com IA'}
+            <button type="button" className="botao-primario" onClick={() => void gerarAcoes()} disabled={carregando !== null}>
+              {acoes.length > 0 ? 'Montar de novo' : 'Montar o plano'}
             </button>
           </div>
 
           {origemAcoes === 'local' && (
             <p className="mt-3 text-xs text-sutil">
-              Sem chave do Gemini, o que sai é a estrutura da ação, não a ação. Reescreva cada linha.
+              Com o Gemini em espera, o que sai aqui é o esqueleto da ação — o verbo e a hierarquia
+              vêm do tipo do achado, não de análise. <strong>Reescreva cada linha.</strong>
             </p>
           )}
 

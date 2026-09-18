@@ -17,6 +17,19 @@ export interface CodigoIcam {
   coluna: ColunaIcam;
   generico: boolean;
   definicao: string;
+  /**
+   * Termos relacionados, exemplos e regras de inclusão reunidos. É onde moram
+   * as palavras que uma constatação realmente usa — "interjornada", "faixa
+   * contínua" —, que quase nunca são as do título do código.
+   *
+   * Opcional no tipo para que um catálogo incompleto não quebre a aplicação em
+   * produção; mas `tests/localIcam.test.ts` exige os 101 preenchidos, porque
+   * sem eles a identificação cai de patamar sem dar sinal. Quem regenera é
+   * `scripts/enriquecer-catalogo.mjs`.
+   */
+  termos?: string;
+  /** Regras de exclusão: servem para AFASTAR o código, não para aproximar. */
+  exclusoes?: string;
 }
 
 export const CODIGOS = (catalogo as { codigos: CodigoIcam[] }).codigos;

@@ -89,12 +89,13 @@ services:
   # ---------------------------------------------------------------------------
   # Coleta de Dados ICAM — aplicativo separado, na subpasta `coleta`.
   #
-  # Importa o PowerPoint da investigação, associa os códigos ICAM com apoio do
-  # Gemini e gera o slide de classificação. Não tem banco nem login: o arquivo
-  # entra, é processado em memória e sai como .pptx.
+  # Importa o PowerPoint da investigação, identifica os códigos ICAM e gera o
+  # slide de classificação. Não tem banco nem login: o arquivo entra, é
+  # processado em memória e sai como .pptx.
   #
-  # Sem GEMINI_API_KEY o aplicativo continua funcionando, com associação local
-  # por palavras — mais fraca, e a interface avisa isso a quem usa.
+  # A identificação roda LOCALMENTE, no próprio servidor: nenhum conteúdo de
+  # investigação sai daqui e não há custo por uso. O Gemini está em espera —
+  # o código continua inteiro e volta com USAR_GEMINI=true.
   # ---------------------------------------------------------------------------
   - type: web
     name: icam-coleta
@@ -109,6 +110,10 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      # O Gemini está em espera. Para religá-lo, defina USAR_GEMINI=true e
+      # preencha a chave — o código da integração continua inteiro.
+      - key: USAR_GEMINI
+        value: "false"
       - key: GEMINI_API_KEY
         sync: false
       # Vazio usa o modelo padrão. Preencha se o Google recusar o padrão por

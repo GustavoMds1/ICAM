@@ -40,30 +40,29 @@ describe('catálogo', () => {
   });
 });
 
-describe('a IA é obrigatória', () => {
-  it('sem GEMINI_API_KEY, o passo para e diz o que fazer', async () => {
-    // Antes o aplicativo caía calado no modo local e devolvia algo com cara de
-    // análise. Slide de investigação montado assim é pior do que erro visível.
-    await expect(classificar([item('a', 'O trecho não dispõe de sinalização vertical')])).rejects.toThrow(
-      /GEMINI_API_KEY/,
-    );
-    await expect(
-      proporAcoes([{ itemId: 'a', codigo: 'HF21', titulo: 'x', constatacao: 'y' }]),
-    ).rejects.toThrow(/GEMINI_API_KEY/);
-  });
-
-  it('o modo local só roda quando pedido explicitamente', async () => {
-    const r = await classificar(
-      [
-        item('a', 'O trecho não dispõe de sinalização vertical regulamentadora'),
-        item('b', 'Telemetria do veículo', 'evidencia'),
-      ],
-      { permitirLocal: true },
-    );
+describe('Gemini em espera', () => {
+  it('o caminho padrão é a identificação local, sem exigir chave', async () => {
+    const r = await classificar([
+      item('a', 'O trecho não dispõe de sinalização vertical regulamentadora'),
+      item('b', 'Telemetria do veículo', 'evidencia'),
+    ]);
 
     expect(r.sugestoes.map((s) => s.itemId)).toEqual(['a']);
     expect(r.origem).toBe('local');
-    expect(r.avisos.join(' ')).toContain('a pedido');
+  });
+
+  it('o plano de ação também sai sem chave', async () => {
+    const r = await proporAcoes([{ itemId: 'a', codigo: 'HF21', titulo: 'x', constatacao: 'y' }]);
+    expect(r.origem).toBe('local');
+    expect(r.acoes).toHaveLength(1);
+  });
+
+  it('o Gemini volta pela variável de ambiente, sem mexer no código', async () => {
+    // Com ele ligado e sem chave, o erro reaparece — prova de que a
+    // integração continua inteira, apenas desligada.
+    await expect(
+      classificar([item('a', 'O trecho não dispõe de sinalização vertical')], { usarGemini: true }),
+    ).rejects.toThrow(/GEMINI_API_KEY/);
   });
 
   it('devolve sempre um código que existe no catálogo', () => {
@@ -73,10 +72,19 @@ describe('a IA é obrigatória', () => {
 
   it('não propõe fator contribuinte por conta própria, mas marca a caixa de ação', () => {
     const s = classificarLocalmente(item('a', 'Falha sistêmica de gestão de manutenção da frota'));
+    // Fator contribuinte é juízo causal e sai da análise humana.
     expect(s.nivel).toBe('constatado');
     // A caixa nasce marcada; quem tira é a pessoa.
     expect(s.exigeAcao).toBe(true);
-    expect(s.confianca).toBe('baixa');
+  });
+
+  it('a confiança acompanha a força do sinal, não é fixa', () => {
+    const forte = classificarLocalmente(
+      item('a', 'Não foi realizado simulado de ocorrência de emergência com o ônibus.'),
+    );
+    const fraco = classificarLocalmente(item('b', 'O céu estava azul e a banda tocou uma valsa.'));
+    expect(fraco.confianca).toBe('baixa');
+    expect(['media', 'alta']).toContain(forte.confianca);
   });
 
   it('lista vazia não quebra nem exige chave', async () => {

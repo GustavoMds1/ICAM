@@ -1,0 +1,94 @@
+{
+  "origem": "Códigos atribuídos pela equipe de investigação no slide de classificação de um evento real de transporte de pessoal. Serve de gabarito para medir o acerto da identificação local.",
+  "anonimizado": true,
+  "observacao": "Nomes de pessoas e identificadores de veículo foram removidos. Os dois últimos casos têm texto idêntico e códigos diferentes — foi assim que a equipe classificou, e são a prova de que parte da tarefa é ambígua por natureza.",
+  "casos": [
+    {
+      "texto": "O procedimento de condução de ônibus e vans existe, porém não foi apresentada a evidência de que o colaborador foi treinado.",
+      "categoria": "procedimentos",
+      "esperado": "DF03"
+    },
+    {
+      "texto": "No dia do evento o colaborador não realizou o etiloteste. O exame toxicológico está aguardando resultado.",
+      "categoria": "pessoas",
+      "esperado": "HF02"
+    },
+    {
+      "texto": "Identificado na folha de ponto que a interjornada durante este trajeto é menor do que a estabelecida na norma, com intervalo de 8 a 9 horas de descanso.",
+      "categoria": "pessoas",
+      "esperado": "HF21"
+    },
+    {
+      "texto": "O motorista realizou ultrapassagem em faixa contínua.",
+      "categoria": "pessoas",
+      "esperado": "IT11"
+    },
+    {
+      "texto": "Após a ocorrência do abalroamento, o motorista não interrompeu a viagem para avaliar os danos e as possíveis consequências do evento, prosseguindo o trajeto em desacordo com o procedimento.",
+      "categoria": "pessoas",
+      "esperado": "IT06"
+    },
+    {
+      "texto": "De acordo com o procedimento, item 7.2.3, é proibido o uso do banheiro durante o percurso, sendo necessário o acionamento do botão de emergência.",
+      "categoria": "procedimentos",
+      "esperado": "IT06"
+    },
+    {
+      "texto": "Não foi realizado simulado de ocorrência de emergência com o ônibus de viagens intermunicipais.",
+      "categoria": "procedimentos",
+      "esperado": "DF19"
+    },
+    {
+      "texto": "Diálogos diários de segurança e campanhas foram apresentados, há registro com o tema sobre condução e percepção de risco. Entretanto o condutor não participou da maioria deles.",
+      "categoria": "pessoas",
+      "esperado": "DF04"
+    },
+    {
+      "texto": "No check list, a avaria é informada apenas no dia em que foi identificada a existência dela.",
+      "categoria": "equipamento",
+      "esperado": "DF01"
+    },
+    {
+      "texto": "Não existe evidência de que esse motorista realiza ginástica laboral.",
+      "categoria": "organizacao",
+      "esperado": "MS"
+    },
+    {
+      "texto": "Na ficha de inspeção sensitiva não consta nenhum dano na carroceria do ônibus após o evento.",
+      "categoria": "equipamento",
+      "esperado": "MS"
+    },
+    {
+      "texto": "No check list do veículo consta que o motorista pegou o veículo às 05:30 e o entregou às 18:10, entretanto às 08:00 e às 09:30 o veículo estava na oficina.",
+      "categoria": "equipamento",
+      "esperado": "MS"
+    },
+    {
+      "texto": "Existe uma movimentação registrada entre dois dias seguidos, porém não existe no check list o dado de quem estava na condução.",
+      "categoria": "equipamento",
+      "esperado": "MS"
+    },
+    {
+      "texto": "Não foi descrito na parte diária as avarias ocorridas no veículo.",
+      "categoria": "equipamento",
+      "esperado": "CO"
+    },
+    {
+      "texto": "O trecho da via não possuía sinalização vertical de advertência ou regulamentação, apresentando apenas sinalização horizontal com faixa longitudinal contínua de proibição de ultrapassagem.",
+      "categoria": "ambiente",
+      "esperado": "TE24"
+    },
+    {
+      "texto": "Não tem placa no local determinando a velocidade.",
+      "categoria": "ambiente",
+      "esperado": "TE24",
+      "ambiguo": "A mesma constatação foi classificada pela equipe também como PR – Procedimentos, no mesmo slide."
+    },
+    {
+      "texto": "Não tem placa no local determinando a velocidade.",
+      "categoria": "procedimentos",
+      "esperado": "PR",
+      "ambiguo": "A mesma constatação foi classificada pela equipe também como TE24 – Outro fator, no mesmo slide."
+    }
+  ]
+}

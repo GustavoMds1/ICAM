@@ -5,3 +5,10 @@ next-env.d.ts
 coverage/
 .env
 .env.local
+
+# Cópias de segurança do catálogo, feitas antes de regerá-lo. São locais.
+*.bak
+
+# Resposta do agente do Copilot Studio durante os testes. Fica de fora porque
+# um dia alguém vai colar aí a resposta de uma investigação real, com nomes.
+copilot-studio/resposta-do-agente.txt
