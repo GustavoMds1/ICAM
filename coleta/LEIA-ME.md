@@ -171,11 +171,38 @@ Instruções de montagem: `copilot-studio/PASSO-A-PASSO.md`.
 
 ---
 
-## O Gemini está em espera
+## O botão "Ativar IA"
 
-A integração continua inteira no código, desligada. Para religar, no Render: serviço `icam-coleta`
-→ **Environment** → `USAR_GEMINI=true` e `GEMINI_API_KEY` preenchida
-(<https://aistudio.google.com/apikey>).
+No topo da tela há um botão que liga e desliga a IA assistida, valendo para os passos 2 e 4.
+
+**Na tela existe "IA assistida" e nada mais.** O nome do fornecedor não aparece em lugar nenhum da
+interface — nem em rótulo, nem em mensagem de erro, nem no corpo da requisição que o navegador
+envia. `tests/rotulos.test.ts` verifica isso a cada rodada, porque é uma regra fácil de cumprir uma
+vez e fácil de furar depois. A divisão é por extensão: **`.tsx` é tela e não pode citar o
+fornecedor; `.ts` é servidor e pode**, que é onde o nome ajuda quem administra.
+
+Três decisões por trás do botão:
+
+- **A escolha é da sessão, não do ambiente.** O navegador não muda variável de ambiente do
+  servidor. O botão manda `usarIa` junto com a requisição, e o servidor decide. A chave continua
+  onde sempre esteve.
+- **O botão só habilita se houver chave.** A rota `/api/estado` responde apenas "existe chave?" —
+  jamais qual é. Sem essa consulta, o botão prometeria algo que só falharia na hora de usar, no meio
+  de uma investigação.
+- **Trocar o botão não reescreve o que já está na tela.** A mudança vale da próxima comparação em
+  diante, e a tela diz isso. O rótulo de origem descreve o que produziu aquele resultado, não o que
+  está selecionado agora.
+
+Com a IA desativada — que é o padrão — roda a identificação local: sem rede, sem chave, sem custo
+por uso.
+
+---
+
+## Ligar a IA no servidor
+
+Para o botão ficar disponível, no Render: serviço `icam-coleta` → **Environment** →
+`GEMINI_API_KEY` preenchida (<https://aistudio.google.com/apikey>). `USAR_GEMINI=true` faz a tela
+já abrir com a IA ligada; sem ela, o botão aparece habilitado mas começa desligado.
 
 Com ele ligado, o aplicativo absorve sozinho a sobrecarga do Google (`HTTP 503 — high demand`):
 tenta de novo esperando 2 e 6 segundos, depois pergunta à API quais modelos existem na conta e tenta

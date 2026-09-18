@@ -30,7 +30,10 @@ export class ErroSemChave extends Error {
 export class ErroGemini extends Error {
   readonly codigo = 'FALHA_GEMINI';
   constructor(motivo: string) {
-    super(`A chamada ao Gemini falhou: ${motivo}`);
+    // O prefixo não nomeia o fornecedor de propósito: esta mensagem chega à
+    // tela, onde existe só "IA assistida". O detalhe que identifica o serviço
+    // continua no `motivo` e no log do servidor, que é onde ele ajuda.
+    super(`A chamada à IA falhou: ${motivo}`);
     this.name = 'ErroGemini';
   }
 }

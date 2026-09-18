@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   CODIGOS,
   HIERARQUIAS,
@@ -49,10 +49,41 @@ export default function PaginaColeta() {
   const [itens, setItens] = useState<ItemColetado[]>([]);
   const [evento, setEvento] = useState<DadosEvento | null>(null);
   const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
-  const [origem, setOrigem] = useState<'gemini' | 'local' | null>(null);
+  const [origem, setOrigem] = useState<'ia' | 'local' | null>(null);
   const [decisoes, setDecisoes] = useState<Record<string, Decisao>>({});
   const [acoes, setAcoes] = useState<AcaoProposta[]>([]);
-  const [origemAcoes, setOrigemAcoes] = useState<'gemini' | 'local' | null>(null);
+  const [origemAcoes, setOrigemAcoes] = useState<'ia' | 'local' | null>(null);
+
+  /**
+   * Estado da IA assistida.
+   *
+   * `iaDisponivel` vem do servidor e responde "existe chave configurada?" —
+   * nunca qual é. Sem essa consulta o botão prometeria algo que só falharia na
+   * hora de usar, no meio de uma investigação.
+   *
+   * `usarIa` é escolha desta sessão e viaja em cada requisição. Não é variável
+   * de ambiente: o navegador não muda o ambiente do servidor.
+   */
+  const [iaDisponivel, setIaDisponivel] = useState(false);
+  const [usarIa, setUsarIa] = useState(false);
+
+  useEffect(() => {
+    let ativo = true;
+    void fetch('/api/estado')
+      .then((r) => r.json())
+      .then((e: { iaDisponivel?: boolean; iaPadrao?: boolean }) => {
+        if (!ativo) return;
+        setIaDisponivel(Boolean(e.iaDisponivel));
+        setUsarIa(Boolean(e.iaPadrao));
+      })
+      // Falha ao consultar vira "indisponível": prometer menos e cumprir.
+      .catch(() => {
+        if (ativo) setIaDisponivel(false);
+      });
+    return () => {
+      ativo = false;
+    };
+  }, []);
 
   const constatacoes = useMemo(() => itens.filter((i) => i.tipo === 'constatacao'), [itens]);
   const evidencias = useMemo(() => itens.filter((i) => i.tipo === 'evidencia'), [itens]);
@@ -104,7 +135,7 @@ export default function PaginaColeta() {
       const r = await fetch('/api/classificar', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ itens, contexto }),
+        body: JSON.stringify({ itens, contexto, usarIa }),
       });
       const corpo = await r.json();
       if (!r.ok) {
@@ -157,7 +188,7 @@ export default function PaginaColeta() {
       const r = await fetch('/api/acoes', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ achados, contexto }),
+        body: JSON.stringify({ achados, contexto, usarIa }),
       });
       const corpo = await r.json();
       if (!r.ok) {
@@ -238,6 +269,49 @@ export default function PaginaColeta() {
 
   return (
     <div className="space-y-8">
+      {/*
+        Liga e desliga a IA assistida para os passos 2 e 4.
+
+        Fica no topo, fora dos passos, porque vale para o fluxo inteiro — e
+        porque quem entra na tela precisa saber o que produziu o que vai ler,
+        antes de ler. O botão só habilita quando o servidor confirma que há
+        chave configurada: botão que promete e falha depois é pior que botão
+        desabilitado com o motivo escrito ao lado.
+      */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-borda bg-white p-4">
+        <div className="max-w-prose">
+          <p className="text-sm font-semibold">
+            IA assistida:{' '}
+            <span className={usarIa ? 'text-green-700' : 'text-sutil'}>
+              {usarIa ? 'ativada' : 'desativada'}
+            </span>
+          </p>
+          <p className="mt-1 text-xs text-sutil">
+            {!iaDisponivel
+              ? 'Não está configurada neste servidor. A identificação local continua funcionando normalmente — ela é o modo padrão, não um plano B.'
+              : usarIa
+                ? 'Os códigos e os planos de ação são redigidos por IA. Nada vai para o slide sem a sua revisão.'
+                : 'Identificação local: comparação feita neste servidor, sem rede e sem custo por uso. O plano de ação sai como esqueleto para você escrever.'}
+          </p>
+          {iaDisponivel && sugestoes.length > 0 && (
+            <p className="mt-1 text-xs text-sutil">
+              A troca vale a partir da próxima comparação. O que já está na tela continua sendo o
+              que foi gerado antes.
+            </p>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="botao"
+          onClick={() => setUsarIa((valor) => !valor)}
+          disabled={!iaDisponivel || carregando !== null}
+          aria-pressed={usarIa}
+        >
+          {usarIa ? 'Desativar IA' : 'Ativar IA'}
+        </button>
+      </div>
+
       {erro && (
         <div role="alert" className="rounded-md border-l-4 border-red-600 bg-red-50 p-4 text-sm">
           <p>{erro.mensagem}</p>
@@ -308,8 +382,8 @@ export default function PaginaColeta() {
 
           {origem && (
             <p className="mt-3 text-xs text-sutil">
-              {origem === 'gemini'
-                ? 'Sugestões vindas do Gemini. Confira o mecanismo de cada código antes de aceitar.'
+              {origem === 'ia'
+                ? 'Sugestões redigidas pela IA assistida. Confira o mecanismo de cada código antes de aceitar.'
                 : 'Identificação local: comparação por termo, expressão e léxico do domínio, tudo neste servidor. Confiança alta significa vantagem folgada sobre o segundo colocado — não dispensa a sua conferência.'}
             </p>
           )}
@@ -483,7 +557,7 @@ export default function PaginaColeta() {
 
           {origemAcoes === 'local' && (
             <p className="mt-3 text-xs text-sutil">
-              Com o Gemini em espera, o que sai aqui é o esqueleto da ação — o verbo e a hierarquia
+              Com a IA desativada, o que sai aqui é o esqueleto da ação — o verbo e a hierarquia
               vêm do tipo do achado, não de análise. <strong>Reescreva cada linha.</strong>
             </p>
           )}

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { proporAcoes } from '@/lib/acoes';
 import { responderErro } from '@/lib/respostaErro';
+import { avisosSemFornecedor, semFornecedor } from '@/lib/rotulos';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
@@ -19,8 +20,8 @@ const corpo = z.object({
     .min(1, 'Nenhum achado exige ação.')
     .max(100, 'São no máximo 100 achados por vez.'),
   contexto: z.string().max(4000).optional(),
-  /** Reservado para quando o Gemini sair da espera. */
-  usarGemini: z.boolean().optional(),
+  /** Escolha do botão "Ativar IA" da tela. Nome neutro: viaja na rede. */
+  usarIa: z.boolean().optional(),
 });
 
 export async function POST(requisicao: Request) {
@@ -33,9 +34,16 @@ export async function POST(requisicao: Request) {
   try {
     const resultado = await proporAcoes(pedido.data.achados, {
       contexto: pedido.data.contexto,
-      usarGemini: pedido.data.usarGemini,
+      usarGemini: pedido.data.usarIa,
     });
-    return NextResponse.json(resultado);
+
+    // Mesma fronteira da rota de classificação: "ia" ou "local", nada além.
+    return NextResponse.json({
+      ...resultado,
+      origem: resultado.origem === 'gemini' ? 'ia' : 'local',
+      modelo: resultado.modelo === null ? null : semFornecedor(resultado.modelo),
+      avisos: avisosSemFornecedor(resultado.avisos),
+    });
   } catch (e) {
     return responderErro(e);
   }

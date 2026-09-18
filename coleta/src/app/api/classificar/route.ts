@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { classificar } from '@/lib/classificacao';
 import { responderErro } from '@/lib/respostaErro';
+import { avisosSemFornecedor, semFornecedor } from '@/lib/rotulos';
 import { CATEGORIAS_PEEPO } from '@/lib/pptxLeitura';
 
 export const dynamic = 'force-dynamic';
@@ -22,8 +23,14 @@ const corpo = z.object({
     .min(1, 'Nenhum item para classificar.')
     .max(300, 'São no máximo 300 itens por vez.'),
   contexto: z.string().max(4000).optional(),
-  /** Reservado para quando o Gemini sair da espera. */
-  usarGemini: z.boolean().optional(),
+  /**
+   * Escolha do botão "Ativar IA" da tela.
+   *
+   * O nome do campo é neutro de propósito: ele viaja na rede e aparece nas
+   * ferramentas do navegador. Quem opera o aplicativo vê "IA", e o fornecedor
+   * é assunto de quem administra o servidor.
+   */
+  usarIa: z.boolean().optional(),
 });
 
 export async function POST(requisicao: Request) {
@@ -36,9 +43,17 @@ export async function POST(requisicao: Request) {
   try {
     const resultado = await classificar(pedido.data.itens, {
       contexto: pedido.data.contexto,
-      usarGemini: pedido.data.usarGemini,
+      usarGemini: pedido.data.usarIa,
     });
-    return NextResponse.json(resultado);
+
+    // Fronteira: daqui para o navegador existe só "ia" ou "local". O nome do
+    // fornecedor e do modelo ficam do lado do servidor.
+    return NextResponse.json({
+      ...resultado,
+      origem: resultado.origem === 'gemini' ? 'ia' : 'local',
+      modelo: resultado.modelo === null ? null : semFornecedor(resultado.modelo),
+      avisos: avisosSemFornecedor(resultado.avisos),
+    });
   } catch (e) {
     return responderErro(e);
   }
