@@ -176,6 +176,57 @@ export function separarResponsavel(texto: string): { texto: string; responsavel:
   return { texto: corpo, responsavel: nome };
 }
 
+/**
+ * Verbos que abrem um pedido de coleta.
+ *
+ * É o sinal mais forte que a língua oferece, e a primeira versão o ignorava:
+ * "Pegar o diagrama elétrico do caminhão para analisar o travamento da báscula"
+ * era lido como achado só porque é uma frase comprida e sem responsável. Frase
+ * comprida no infinitivo continua sendo tarefa.
+ *
+ * Lista curada em vez de "toda palavra terminada em -ar/-er/-ir": "Falta de
+ * manutenção" e "Ausência de sinalização" abrem constatação de verdade, e uma
+ * regra genérica as derrubaria.
+ */
+const VERBOS_DE_COLETA = [
+  'pegar',
+  'buscar',
+  'obter',
+  'coletar',
+  'solicitar',
+  'requisitar',
+  'providenciar',
+  'levantar',
+  'consultar',
+  'verificar',
+  'conferir',
+  'checar',
+  'analisar',
+  'avaliar',
+  'apurar',
+  'investigar',
+  'entrevistar',
+  'ouvir',
+  'extrair',
+  'baixar',
+  'filmar',
+  'fotografar',
+  'gravar',
+  'medir',
+  'validar',
+  'revisar',
+  'anexar',
+  'juntar',
+  'enviar',
+  'encaminhar',
+];
+
+/** A linha começa pedindo que alguém vá atrás de alguma coisa? */
+export function pedeColeta(texto: string): boolean {
+  const primeira = normalizar(texto).split(/\s+/)[0] ?? '';
+  return VERBOS_DE_COLETA.includes(primeira);
+}
+
 const CAMPOS_EVENTO: { chave: keyof DadosEvento; rotulo: RegExp }[] = [
   { chave: 'oQueAconteceu', rotulo: /^o que aconteceu/ },
   { chave: 'quemEnvolvido', rotulo: /^quem estava envolvido/ },
@@ -266,8 +317,11 @@ export async function lerPptx(arquivo: ArrayBuffer | Uint8Array): Promise<Leitur
         // não achado: ninguém atribui um fato a alguém. Entre os itens sem
         // dono, vale o ponto que o modelo usa para marcar achado, ou o
         // tamanho — pedido de coleta é curto, constatação é frase.
+        // Verbo no infinitivo derruba qualquer outro sinal: "Pegar o diagrama
+        // elétrico para analisar o travamento" é tarefa, por mais comprida e
+        // sem dono que a linha seja.
         const tipo: TipoItem =
-          responsavel === null && (marcadoComoAchado || texto.length > 60)
+          !pedeColeta(texto) && responsavel === null && (marcadoComoAchado || texto.length > 60)
             ? 'constatacao'
             : 'evidencia';
 

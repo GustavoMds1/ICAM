@@ -7,7 +7,7 @@ import {
   type CodigoIcam,
   type NivelIcam,
 } from './codigos';
-import { extrairJson, gerarJson, obterChave } from './gemini';
+import { emLotes, explicarFormato, extrairJson, gerarJson, obterChave } from './gemini';
 import { identificarCodigo } from './localIcam';
 import type { ItemColetado } from './pptxLeitura';
 
@@ -150,34 +150,58 @@ export async function classificar(
   // Sem chave, lança. Quem chama transforma em mensagem com o que fazer.
   const chave = obterChave(opcoes.chaveApi);
 
-  const tarefa = [
-    opcoes.contexto ? `CONTEXTO DO EVENTO:\n${opcoes.contexto}\n` : '',
-    'CATÁLOGO (codigo|coluna|título):',
-    catalogoParaPrompt(),
-    '',
-    'CONSTATAÇÕES A CLASSIFICAR:',
-    ...alvos.map((i) => `${i.id} [${i.categoria}] ${i.texto}`),
-  ].join('\n');
+  const montarTarefa = (lote: ItemColetado[]) =>
+    [
+      opcoes.contexto ? `CONTEXTO DO EVENTO:\n${opcoes.contexto}\n` : '',
+      'CATÁLOGO (codigo|coluna|título):',
+      catalogoParaPrompt(),
+      '',
+      'CONSTATAÇÕES A CLASSIFICAR:',
+      ...lote.map((i) => `${i.id} [${i.categoria}] ${i.texto}`),
+    ].join('\n');
 
-  const resposta = await gerarJson({
-    chaveApi: chave,
-    instrucao: INSTRUCAO,
-    formato: FORMATO,
-    tarefa,
-    modelo: opcoes.modelo,
-    tempoLimiteMs: opcoes.tempoLimiteMs,
+  // Em lotes: o teto de saída do modelo é fixo e a quantidade de constatações
+  // não. Uma investigação com cinquenta achados voltava com o JSON cortado ao
+  // meio, e o erro aparecia como "formato errado".
+  const lotes = emLotes(alvos);
+
+  const respostas = await Promise.all(
+    lotes.map((lote) =>
+      gerarJson({
+        chaveApi: chave,
+        instrucao: INSTRUCAO,
+        formato: FORMATO,
+        tarefa: montarTarefa(lote),
+        modelo: opcoes.modelo,
+        tempoLimiteMs: opcoes.tempoLimiteMs,
+      }),
+    ),
+  );
+
+  const classificacoes: z.infer<typeof respostaGemini>['classificacoes'] = [];
+  const avisosBrutos: string[] = [];
+
+  respostas.forEach((resposta, indice) => {
+    const analise = respostaGemini.safeParse(extrairJson(resposta.texto));
+    if (!analise.success) {
+      throw new Error(
+        explicarFormato(analise.error.issues, resposta.texto, lotes[indice]?.length ?? 0),
+      );
+    }
+    classificacoes.push(...analise.data.classificacoes);
+    avisosBrutos.push(...resposta.avisos);
   });
 
-  const analise = respostaGemini.safeParse(extrairJson(resposta.texto));
-  if (!analise.success) {
-    throw new Error('O Gemini respondeu fora do formato combinado. Tente de novo.');
-  }
+  // O mesmo aviso chega de cada lote; repetido na tela vira ruído.
+  const avisos = [...new Set(avisosBrutos)];
 
-  const avisos = [...resposta.avisos];
+  // Lotes podem cair em modelos diferentes, se um deles precisou de
+  // alternativa por sobrecarga. Mostrar todos é mais honesto que escolher um.
+  const modeloUsado = [...new Set(respostas.map((r) => r.modelo))].join(', ');
   const sugestoes: Sugestao[] = [];
   const porId = new Map(alvos.map((i) => [i.id, i]));
 
-  for (const c of analise.data.classificacoes) {
+  for (const c of classificacoes) {
     const item = porId.get(c.id);
     if (!item) continue;
 
@@ -217,7 +241,7 @@ export async function classificar(
     }
   }
 
-  return { sugestoes, origem: 'gemini', modelo: resposta.modelo, avisos };
+  return { sugestoes, origem: 'gemini', modelo: modeloUsado, avisos };
 }
 
 function normalizarNivel(valor: string): NivelIcam {

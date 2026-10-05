@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { HIERARQUIAS, obterCodigo, type Hierarquia } from './codigos';
 import { geminiLigado } from './classificacao';
-import { extrairJson, gerarJson, obterChave } from './gemini';
+import { emLotes, explicarFormato, extrairJson, gerarJson, obterChave } from './gemini';
 
 /**
  * Proposta de ações para os achados que exigem tratamento.
@@ -116,31 +116,53 @@ export async function proporAcoes(
   // Sem chave, lança. Quem chama transforma em mensagem com o que fazer.
   const chave = obterChave(opcoes.chaveApi);
 
-  const tarefa = [
-    opcoes.contexto ? `CONTEXTO DO EVENTO:\n${opcoes.contexto}\n` : '',
-    'ACHADOS QUE EXIGEM AÇÃO:',
-    ...achados.map((a) => `${a.itemId} | ${a.codigo} – ${a.titulo} | ${a.constatacao}`),
-  ].join('\n');
+  const montarTarefa = (lote: typeof achados) =>
+    [
+      opcoes.contexto ? `CONTEXTO DO EVENTO:\n${opcoes.contexto}\n` : '',
+      'ACHADOS QUE EXIGEM AÇÃO:',
+      ...lote.map((a) => `${a.itemId} | ${a.codigo} – ${a.titulo} | ${a.constatacao}`),
+    ].join('\n');
 
-  const resposta = await gerarJson({
-    chaveApi: chave,
-    instrucao: INSTRUCAO,
-    formato: FORMATO,
-    tarefa,
-    modelo: opcoes.modelo,
-    tempoLimiteMs: opcoes.tempoLimiteMs,
+  // Mesmo motivo da classificação: ação redigida é texto longo, e cinquenta
+  // delas numa resposta só estouram o teto de saída do modelo.
+  const lotes = emLotes(achados);
+
+  const respostas = await Promise.all(
+    lotes.map((lote) =>
+      gerarJson({
+        chaveApi: chave,
+        instrucao: INSTRUCAO,
+        formato: FORMATO,
+        tarefa: montarTarefa(lote),
+        modelo: opcoes.modelo,
+        tempoLimiteMs: opcoes.tempoLimiteMs,
+      }),
+    ),
+  );
+
+  const propostas: z.infer<typeof respostaAcoes>['acoes'] = [];
+  const avisosBrutos: string[] = [];
+
+  respostas.forEach((resposta, indice) => {
+    const analise = respostaAcoes.safeParse(extrairJson(resposta.texto));
+    if (!analise.success) {
+      throw new Error(
+        explicarFormato(analise.error.issues, resposta.texto, lotes[indice]?.length ?? 0),
+      );
+    }
+    propostas.push(...analise.data.acoes);
+    avisosBrutos.push(...resposta.avisos);
   });
 
-  const analise = respostaAcoes.safeParse(extrairJson(resposta.texto));
-  if (!analise.success) {
-    throw new Error('O Gemini respondeu fora do formato combinado. Tente de novo.');
-  }
+  const avisos = [...new Set(avisosBrutos)];
 
-  const avisos = [...resposta.avisos];
+  // Lotes podem cair em modelos diferentes, se um deles precisou de
+  // alternativa por sobrecarga. Mostrar todos é mais honesto que escolher um.
+  const modeloUsado = [...new Set(respostas.map((r) => r.modelo))].join(', ');
   const porId = new Map(achados.map((a) => [a.itemId, a]));
   const acoes: AcaoProposta[] = [];
 
-  for (const proposta of analise.data.acoes) {
+  for (const proposta of propostas) {
     const achado = porId.get(proposta.id);
     if (!achado) continue;
     acoes.push({
@@ -163,7 +185,7 @@ export async function proporAcoes(
     }
   }
 
-  return { acoes, origem: 'gemini', modelo: resposta.modelo, avisos };
+  return { acoes, origem: 'gemini', modelo: modeloUsado, avisos };
 }
 
 function normalizarHierarquia(valor: string): Hierarquia {

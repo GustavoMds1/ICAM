@@ -36,7 +36,9 @@ const corpo = z.object({
         executante: z.string().default(''),
         matricula: z.string().default(''),
         prazo: z.string().default(''),
-        origem: z.enum(['gemini', 'local']).default('local'),
+        // "ia" é o que a tela conhece; "gemini" continua aceito para não
+        // quebrar uma aba aberta durante a atualização do servidor.
+        origem: z.enum(['ia', 'local', 'gemini']).default('local'),
       }),
     )
     .optional(),

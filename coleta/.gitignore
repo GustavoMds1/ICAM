@@ -12,3 +12,7 @@ coverage/
 # Resposta do agente do Copilot Studio durante os testes. Fica de fora porque
 # um dia alguém vai colar aí a resposta de uma investigação real, com nomes.
 copilot-studio/resposta-do-agente.txt
+
+# Gerado pelo GERAR-HTML.bat. É resultado de build, não código-fonte: fica de
+# fora para não versionar megabytes que mudam inteiros a cada geração.
+ICAM-Coleta.html

@@ -1,5 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ErroGemini, ErroSemChave, gerarJson, obterChave, type Buscador } from '@/lib/gemini';
+import {
+  emLotes,
+  ErroGemini,
+  ErroSemChave,
+  explicarFormato,
+  gerarJson,
+  ITENS_POR_LOTE,
+  obterChave,
+  type Buscador,
+} from '@/lib/gemini';
 
 /**
  * O que estes testes protegem é o comportamento diante de falha, que é onde a
@@ -103,6 +112,67 @@ describe('sobrecarga do modelo (o 503 do Google)', () => {
     await expect(gerarJson({ ...PEDIDO, buscar })).rejects.toThrow(
       /sobrecarregados|alguns minutos/,
     );
+  });
+});
+
+/**
+ * Esta é a falha que apareceu numa investigação real com cerca de cinquenta
+ * achados: a resposta vinha cortada no meio do JSON e o aplicativo dizia
+ * "respondeu fora do formato combinado" — mensagem que manda procurar no lugar
+ * errado, porque o formato estava certo até onde a resposta chegou.
+ */
+describe('resposta cortada por tamanho', () => {
+  const cortada = () =>
+    new Response(
+      JSON.stringify({
+        candidates: [
+          {
+            content: { parts: [{ text: '{"classificacoes":[{"id":"item-1","codigo":"DF' }] },
+            finishReason: 'MAX_TOKENS',
+          },
+        ],
+      }),
+      { status: 200, headers: { 'content-type': 'application/json' } },
+    );
+
+  it('é identificada como corte, não como formato inválido', async () => {
+    const buscar = buscadorFalso(Array.from({ length: 12 }, cortada));
+    await expect(gerarJson({ ...PEDIDO, buscar })).rejects.toThrow(/MAX_TOKENS|cortada/i);
+  });
+});
+
+describe('divisão em lotes', () => {
+  it('quebra a lista no tamanho pedido, sem perder o resto', () => {
+    expect(emLotes([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);
+  });
+
+  it('lista vazia não gera lote', () => {
+    expect(emLotes([], 3)).toEqual([]);
+  });
+
+  it('o lote padrão é pequeno o bastante para caber na resposta', () => {
+    expect(ITENS_POR_LOTE).toBeGreaterThan(0);
+    expect(ITENS_POR_LOTE).toBeLessThanOrEqual(15);
+  });
+});
+
+describe('diagnóstico de formato', () => {
+  it('diz o que o validador reclamou e mostra o começo da resposta', () => {
+    const mensagem = explicarFormato(
+      [{ path: ['classificacoes', 0, 'codigo'], message: 'Required' }],
+      '{"classificacoes": [ {"id": "item-1"} ] }',
+      12,
+    );
+
+    expect(mensagem).toContain('classificacoes.0.codigo');
+    expect(mensagem).toContain('Required');
+    expect(mensagem).toContain('12 itens');
+    expect(mensagem).toContain('item-1');
+  });
+
+  it('não nomeia o fornecedor, porque a mensagem vai para a tela', () => {
+    const mensagem = explicarFormato([], '{}', 3);
+    expect(mensagem).not.toMatch(/gemini/i);
   });
 });
 

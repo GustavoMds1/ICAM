@@ -54,12 +54,27 @@ Os slides de coleta misturam duas coisas com a mesma aparência:
 | **Evidência** | O que precisa ser buscado: "Telemetria — Arley" | Não. É tarefa, não achado |
 | **Constatação** | O que a evidência mostrou: "O trecho não dispõe de sinalização vertical" | Sim |
 
-A separação é automática: item com responsável no fim da linha é tarefa de coleta; item sem
-responsável, marcado com ponto ou escrito como frase, é constatação. O aplicativo mostra as duas
-listas separadas para você conferir.
+A separação automática usa três sinais, nesta ordem:
 
-Se uma constatação sua aparecer na lista errada, é porque no PowerPoint ela está escrita como um
-título curto com responsável. Escreva como frase e reimporte.
+1. **Verbo no infinitivo no começo derruba tudo.** "Pegar", "Solicitar", "Verificar" abrem pedido de
+   coleta, por mais comprida que seja a frase. Este sinal foi acrescentado depois de uma
+   investigação real em que *"Pegar o diagrama elétrico do caminhão para analisar o travamento da
+   báscula"* foi lido como achado — só por ser frase longa e sem responsável.
+2. **Ter responsável ao fim da linha** indica tarefa: ninguém atribui um fato a alguém.
+3. **Entre os que sobram**, vale o marcador de achado do modelo, ou o tamanho.
+
+**Mas a separação automática só pré-marca — a palavra final é sua.** Logo depois da importação vem
+a lista **inteira**, com uma caixa por item, já marcada conforme os três sinais acima. Você confere
+e corrige em segundos; "Marcar todos" e "Desmarcar todos" resolvem os casos extremos.
+
+Essa tela nasceu de um erro de desenho. Antes, a regra decidia sozinha e os itens descartados
+ficavam numa lista só de leitura no fim da página. Numa investigação real de 50 itens, **apenas um**
+passou pela regra — e o único que passou era, ele sim, uma tarefa de coleta. O achado lido como
+tarefa some do slide sem ninguém ver, que é o erro mais difícil de notar numa revisão; regra
+automática nenhuma deve ter essa palavra final.
+
+Ao marcar um item depois de já ter comparado, a tela avisa que falta código e pede para clicar em
+*Comparar de novo*. Na revisão, o botão **"Não é achado"** devolve o item para a triagem.
 
 ---
 
@@ -171,6 +186,54 @@ Instruções de montagem: `copilot-studio/PASSO-A-PASSO.md`.
 
 ---
 
+## Versão de arquivo único, sem instalar nada
+
+`GERAR-HTML.bat` produz **`ICAM-Coleta.html`**: um arquivo só, que abre com duplo clique no Edge.
+Sem servidor, sem instalação, sem rede. Para usar em outra máquina, copia-se o arquivo e pronto —
+**quem usa não precisa de Node, nem de Python, nem de direito de administrador.** Só quem *gera* o
+arquivo precisa do Node.
+
+Foi feita para máquina corporativa bloqueada, e resolve de quebra a questão de dados: o `.pptx`
+nunca sai do computador.
+
+### Como ela reaproveita o aplicativo inteiro
+
+`navegador/rotasLocais.ts` desvia o `fetch` e atende as chamadas `/api/...` ali mesmo, chamando as
+funções diretamente. **`page.tsx` não muda uma linha.** As duas versões compartilham cem por cento
+do código, inclusive a identificação dos códigos — que é onde mora o resultado medido.
+
+A alternativa seria uma segunda tela "parecida". Duas telas parecidas viram duas telas diferentes em
+três meses, e aí os 13/17 valem para uma só.
+
+`tests/navegador.test.ts` compara as rotas que a tela chama com as que a versão local atende. É a
+falha que aconteceria em silêncio: alguém acrescenta uma rota, o servidor continua bem, e o arquivo
+único quebra na mão de quem está investigando.
+
+### Arquivo único, e não uma pasta
+
+Aberta de `file://`, a página é impedida pelo navegador de carregar módulos vizinhos. Uma pasta com
+`.js` e `.css` separados funcionaria servida pela rede e falharia calada no duplo clique — que é
+exatamente o uso pretendido. Por isso o empacotamento embute tudo: programa, estilos e os 101
+códigos.
+
+### Por que o `zod` está preso numa versão exata
+
+`package.json` traz `"zod": "3.23.8"`, sem `^`. As versões 3.25.x reorganizaram o pacote em
+subpastas `v3/` e `v4/` cujos arquivos internos o empacotador não consegue seguir — e a falha
+aparece **só na geração do arquivo único**: o servidor funciona, os testes passam, e o `.html`
+simplesmente não é gerado.
+
+Só usamos o básico do zod (`object`, `array`, `string`, `boolean`, `number`), então não há nada a
+ganhar subindo a versão. `tests/navegador.test.ts` reprova se alguém trocar por `^`.
+
+### O que ela não faz
+
+**IA externa não funciona nesta versão, por construção.** Ela exige chave, e chave dentro de um
+arquivo que roda na máquina de quem usa é chave publicada. A tela recebe "IA indisponível", o botão
+nasce desabilitado e a identificação local — que é o padrão de qualquer forma — segue idêntica.
+
+---
+
 ## O botão "Ativar IA"
 
 No topo da tela há um botão que liga e desliga a IA assistida, valendo para os passos 2 e 4.
@@ -207,6 +270,26 @@ já abrir com a IA ligada; sem ela, o botão aparece habilitado mas começa desl
 Com ele ligado, o aplicativo absorve sozinho a sobrecarga do Google (`HTTP 503 — high demand`):
 tenta de novo esperando 2 e 6 segundos, depois pergunta à API quais modelos existem na conta e tenta
 outros dois, avisando qual usou. Só então devolve erro, dizendo que é temporário.
+
+### Por que a IA trabalha em lotes
+
+O teto de saída do modelo é fixo; a quantidade de constatações não. Numa investigação real com
+cerca de cinquenta achados, a resposta voltava **cortada no meio do JSON** — e o aplicativo
+chamava isso de "respondeu fora do formato combinado", mandando procurar no lugar errado: o formato
+estava certo até onde a resposta chegou.
+
+Agora os itens vão em lotes de 12, em paralelo, e os resultados são juntados. A divisão é
+determinística: não depende de qual modelo está atendendo nem de quanto ele aceita devolver.
+
+Duas consequências que vale conhecer:
+
+- **Corte agora tem nome.** `finishReason: MAX_TOKENS` vira erro próprio, dizendo que foi corte de
+  tamanho. Antes passava como texto válido e só falhava depois, sem pista.
+- **O catálogo vai em cada lote**, então cinco lotes gastam cinco vezes mais tokens de entrada.
+  É o preço de não cortar a resposta, e entrada é a parte barata.
+
+Quando o validador recusa, a mensagem traz o que ele reclamou e o começo da resposta. Diagnóstico
+descartado é rodada perdida — foi assim que esse erro durou mais do que precisava.
 
 ### O que nunca é decidido sozinho, com ou sem Gemini
 
@@ -261,11 +344,32 @@ Na pasta `coleta`, dois arquivos para duplo clique:
 | --- | --- |
 | **`MEDIR.bat`** | Confere se o código compila e mede o acerto contra o gabarito, listando cada erro com o motivo |
 | **`ABRIR-NO-NAVEGADOR.bat`** | Sobe o aplicativo em `http://localhost:3000` para você usar |
+| **`GERAR-HTML.bat`** | Monta o `ICAM-Coleta.html`: um arquivo só, que roda sem instalar nada |
+| **`REINSTALAR.bat`** | Conserta o erro `UNKNOWN: unknown error, read` com uma instalação limpa |
 | **`MATERIAL-COPILOT.bat`** | Gera os textos para montar a versão do classificador no Copilot Studio |
 | **`MEDIR-COPILOT.bat`** | Mede a versão do Copilot Studio contra os mesmos 17 casos |
 
 Os dois precisam do **Node.js** instalado (versão LTS, <https://nodejs.org>). Na primeira execução
 eles instalam as dependências sozinhos, o que leva alguns minutos.
+
+---
+
+## Quando aparece `UNKNOWN: unknown error, read`
+
+Não é erro do programa. É o Windows não conseguindo ler um arquivo de `node_modules`, e tem duas
+causas comuns, que costumam vir juntas:
+
+- **O projeto está dentro do OneDrive.** São dezenas de milhares de arquivos; o OneDrive deixa parte
+  deles só na nuvem e a leitura falha. Piora logo depois de um `npm install`, quando milhares de
+  arquivos mudam de uma vez.
+- **Os scripts de instalação não rodaram.** O `esbuild` depende do script dele; versões recentes do
+  npm passaram a bloquear scripts por padrão e avisam com `allow-scripts`.
+
+O conserto é o `REINSTALAR.bat`, que pausa nada sozinho — **pause o OneDrive antes**, pelo ícone da
+nuvem perto do relógio. Ele apaga `node_modules`, libera os scripts e instala de novo.
+
+Para não voltar: clique com o botão direito na pasta `ICAM` no Explorador e escolha **"Sempre manter
+neste dispositivo"**. Melhor ainda seria o projeto morar fora do OneDrive.
 
 ---
 

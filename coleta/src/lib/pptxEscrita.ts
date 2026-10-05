@@ -37,7 +37,12 @@ export interface EntradaSlide {
 }
 
 export interface ResultadoSlide {
-  arquivo: Buffer;
+  /**
+   * `Uint8Array` e não `Buffer` de propósito: `Buffer` só existe no Node, e
+   * este mesmo código roda também dentro do navegador, na versão de arquivo
+   * único. `Buffer` é um `Uint8Array`, então o servidor continua igual.
+   */
+  arquivo: Uint8Array;
   avisos: string[];
 }
 
@@ -138,7 +143,12 @@ export async function gerarSlide(entrada: EntradaSlide): Promise<ResultadoSlide>
     montarPlanoDeAcao(pptx, entrada.acoes, avisos);
   }
 
-  const dados = (await pptx.write({ outputType: 'nodebuffer' })) as Buffer;
+  // No navegador não existe `Buffer`, e pedir "nodebuffer" faria a geração
+  // falhar na última etapa — depois de todo o trabalho, que é o pior momento.
+  const formato: 'arraybuffer' | 'nodebuffer' =
+    typeof window === 'undefined' ? 'nodebuffer' : 'arraybuffer';
+  const bruto: unknown = await pptx.write({ outputType: formato });
+  const dados = bruto instanceof ArrayBuffer ? new Uint8Array(bruto) : (bruto as Uint8Array);
   return { arquivo: dados, avisos };
 }
 

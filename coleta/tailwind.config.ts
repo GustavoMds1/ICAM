@@ -1,7 +1,10 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: ['./src/**/*.{ts,tsx}'],
+  // `navegador/` entra aqui porque o modelo HTML da versão de arquivo único
+  // usa estas classes. Fora da varredura, o Tailwind não geraria o CSS delas e
+  // a página sairia sem formatação — sem erro nenhum, o que é pior.
+  content: ['./src/**/*.{ts,tsx}', './navegador/**/*.{ts,tsx,html}'],
   theme: {
     extend: {
       colors: {

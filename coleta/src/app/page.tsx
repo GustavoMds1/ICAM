@@ -10,7 +10,13 @@ import {
   ROTULOS_COLUNA,
   type NivelIcam,
 } from '@/lib/codigos';
-import { ROTULOS_PEEPO, type ItemColetado, type DadosEvento, type CategoriaPeepo } from '@/lib/pptxLeitura';
+import {
+  ROTULOS_PEEPO,
+  type ItemColetado,
+  type DadosEvento,
+  type CategoriaPeepo,
+  type TipoItem,
+} from '@/lib/pptxLeitura';
 import type { Sugestao } from '@/lib/classificacao';
 import type { AcaoProposta } from '@/lib/acoes';
 
@@ -41,6 +47,30 @@ const NIVEL_ESTILO: Record<NivelIcam, string> = {
   constatado: 'bg-white text-texto border-borda',
 };
 
+function semAcento(texto: string): string {
+  return texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+}
+
+/**
+ * Filtro da lista de códigos.
+ *
+ * O código já escolhido passa sempre, mesmo fora do filtro: se ele sumisse da
+ * lista, o campo perderia o valor e trocaria a escolha da pessoa sozinho.
+ */
+function casaFiltro(
+  codigo: (typeof CODIGOS)[number],
+  filtro: string,
+  selecionado: string,
+): boolean {
+  if (codigo.codigo === selecionado) return true;
+  const busca = semAcento(filtro).trim();
+  if (busca === '') return true;
+  return semAcento(`${codigo.codigo} ${codigo.titulo}`).includes(busca);
+}
+
 export default function PaginaColeta() {
   const [carregando, setCarregando] = useState<string | null>(null);
   const [erro, setErro] = useState<{ mensagem: string; codigo?: string; passo?: 'codigos' | 'acoes' } | null>(null);
@@ -67,6 +97,9 @@ export default function PaginaColeta() {
   const [iaDisponivel, setIaDisponivel] = useState(false);
   const [usarIa, setUsarIa] = useState(false);
 
+  /** Texto digitado para filtrar os 101 códigos, por item da revisão. */
+  const [filtroCodigo, setFiltroCodigo] = useState<Record<string, string>>({});
+
   useEffect(() => {
     let ativo = true;
     void fetch('/api/estado')
@@ -88,6 +121,16 @@ export default function PaginaColeta() {
   const constatacoes = useMemo(() => itens.filter((i) => i.tipo === 'constatacao'), [itens]);
   const evidencias = useMemo(() => itens.filter((i) => i.tipo === 'evidencia'), [itens]);
   const itemPorId = useMemo(() => new Map(itens.map((i) => [i.id, i])), [itens]);
+
+  /**
+   * Constatações que ainda não passaram pela comparação — em geral porque a
+   * pessoa acabou de promover uma evidência. Precisam de aviso: sem código,
+   * elas não aparecem no passo 3 e sumiriam do slide caladas.
+   */
+  const semCodigo = useMemo(
+    () => constatacoes.filter((c) => !sugestoes.some((s) => s.itemId === c.id)),
+    [constatacoes, sugestoes],
+  );
 
   const noSlide = useMemo(
     () => sugestoes.filter((s) => decisoes[s.itemId]?.incluir),
@@ -267,6 +310,42 @@ export default function PaginaColeta() {
     setAcoes((atual) => atual.map((a) => (a.itemId === itemId ? { ...a, ...mudanca } : a)));
   }
 
+  /**
+   * Promove uma evidência a constatação, ou devolve uma constatação à lista de
+   * tarefas de coleta.
+   *
+   * Existe porque nenhuma regra automática acerta sempre, e quem sabe qual é
+   * qual é quem investigou. Sem este botão, um achado lido como tarefa some do
+   * slide sem ninguém perceber — erro de omissão, o mais difícil de notar numa
+   * revisão. A separação automática é palpite; esta é a palavra final.
+   */
+  /** Marca ou desmarca a lista inteira de uma vez. Com 50 itens, faz diferença. */
+  function marcarTodos(tipo: TipoItem) {
+    setItens((atual) => atual.map((i) => ({ ...i, tipo })));
+    if (tipo === 'evidencia') {
+      setSugestoes([]);
+      setAcoes([]);
+      setDecisoes({});
+    }
+  }
+
+  function alternarTipo(id: string, novoTipo: TipoItem) {
+    setItens((atual) => atual.map((i) => (i.id === id ? { ...i, tipo: novoTipo } : i)));
+
+    // Virou tarefa de coleta: sai da revisão na hora, levando junto a sugestão,
+    // a decisão e a ação. Deixar rastro de um item que não é mais achado é
+    // como se monta slide com o que ninguém aprovou.
+    if (novoTipo === 'evidencia') {
+      setSugestoes((atual) => atual.filter((s) => s.itemId !== id));
+      setAcoes((atual) => atual.filter((a) => a.itemId !== id));
+      setDecisoes((atual) => {
+        const copia = { ...atual };
+        delete copia[id];
+        return copia;
+      });
+    }
+  }
+
   return (
     <div className="space-y-8">
       {/*
@@ -357,6 +436,75 @@ export default function PaginaColeta() {
         </div>
       </section>
 
+      {/*
+        Triagem: achado ou tarefa de coleta.
+
+        Estava escondida numa lista só de leitura no fim da página, e a
+        separação automática decidia sozinha. Com isso, um achado lido como
+        tarefa sumia do slide sem ninguém ver — e numa investigação real de 50
+        itens, apenas um passou.
+
+        Agora a leitura automática só **pré-marca**, e a lista inteira fica à
+        vista, entre importar e classificar, que é onde a decisão pertence.
+      */}
+      {itens.length > 0 && (
+        <section className="cartao">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="max-w-prose">
+              <h2 className="text-base font-semibold">O que vai receber código</h2>
+              <p className="mt-1 text-sm text-sutil">
+                Já marquei o que me pareceu <strong>achado</strong>; o resto eu li como tarefa de
+                coleta. Essa leitura erra, e errar aqui é grave — item desmarcado não recebe código
+                e não vai para o slide. <strong>Confira a lista inteira antes de seguir.</strong>
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <button type="button" className="botao" onClick={() => marcarTodos('constatacao')}>
+                Marcar todos
+              </button>
+              <button type="button" className="botao" onClick={() => marcarTodos('evidencia')}>
+                Desmarcar todos
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-3 text-sm font-medium">
+            {constatacoes.length} de {itens.length} marcados como achado
+          </p>
+
+          <ul className="mt-2 space-y-1">
+            {itens.map((i) => {
+              const marcado = i.tipo === 'constatacao';
+              return (
+                <li key={i.id}>
+                  <label
+                    className={`flex cursor-pointer items-start gap-2 rounded border p-2 text-sm ${
+                      marcado ? 'border-borda bg-white' : 'border-transparent text-sutil'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mt-1 shrink-0"
+                      checked={marcado}
+                      onChange={(e) =>
+                        alternarTipo(i.id, e.target.checked ? 'constatacao' : 'evidencia')
+                      }
+                    />
+                    <span>
+                      <span className="text-xs">
+                        [{ROTULOS_PEEPO[i.categoria as CategoriaPeepo] ?? i.categoria}]
+                      </span>{' '}
+                      {i.texto}
+                      {i.responsavel && <span className="text-xs"> — {i.responsavel}</span>}
+                    </span>
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {/* 2 — classificar */}
       {constatacoes.length > 0 && (
         <section className="cartao">
@@ -379,6 +527,13 @@ export default function PaginaColeta() {
               {carregando ?? (sugestoes.length > 0 ? 'Comparar de novo' : 'Comparar com o catálogo')}
             </button>
           </div>
+
+          {sugestoes.length > 0 && semCodigo.length > 0 && (
+            <p className="mt-3 rounded border-l-4 border-yellow-500 bg-yellow-50 p-3 text-sm">
+              {semCodigo.length} constatação(ões) ainda sem código — clique em{' '}
+              <strong>Comparar de novo</strong> para incluí-la(s) na revisão.
+            </p>
+          )}
 
           {origem && (
             <p className="mt-3 text-xs text-sutil">
@@ -453,21 +608,44 @@ export default function PaginaColeta() {
                       <label className="rotulo" htmlFor={`codigo-${s.itemId}`}>
                         Código ICAM
                       </label>
+                      {/*
+                        Buscar entre 101 códigos numa lista suspensa é o que
+                        mais custa tempo quando a sugestão erra. O filtro deixa
+                        a lista do tamanho da dúvida.
+                      */}
+                      <input
+                        type="search"
+                        className="campo mb-1"
+                        placeholder="Filtrar: sinalização, treinamento, DF19…"
+                        value={filtroCodigo[s.itemId] ?? ''}
+                        onChange={(e) =>
+                          setFiltroCodigo((atual) => ({ ...atual, [s.itemId]: e.target.value }))
+                        }
+                        aria-label="Filtrar a lista de códigos"
+                      />
                       <select
                         id={`codigo-${s.itemId}`}
                         value={decisao.codigo}
                         onChange={(e) => alterar(s.itemId, { codigo: e.target.value })}
                         className="campo"
                       >
-                        {ORDEM_COLUNAS.map((coluna) => (
-                          <optgroup key={coluna} label={ROTULOS_COLUNA[coluna]}>
-                            {CODIGOS.filter((c) => c.coluna === coluna).map((c) => (
-                              <option key={c.codigo} value={c.codigo}>
-                                {c.codigo} – {c.titulo}
-                              </option>
-                            ))}
-                          </optgroup>
-                        ))}
+                        {ORDEM_COLUNAS.map((coluna) => {
+                          const visiveis = CODIGOS.filter(
+                            (c) =>
+                              c.coluna === coluna &&
+                              casaFiltro(c, filtroCodigo[s.itemId] ?? '', decisao.codigo),
+                          );
+                          if (visiveis.length === 0) return null;
+                          return (
+                            <optgroup key={coluna} label={ROTULOS_COLUNA[coluna]}>
+                              {visiveis.map((c) => (
+                                <option key={c.codigo} value={c.codigo}>
+                                  {c.codigo} – {c.titulo}
+                                </option>
+                              ))}
+                            </optgroup>
+                          );
+                        })}
                       </select>
                       {codigo && (
                         <p className="mt-1 text-xs text-sutil">Coluna: {ROTULOS_COLUNA[codigo.coluna]}</p>
@@ -507,6 +685,14 @@ export default function PaginaColeta() {
                         onClick={() => alterar(s.itemId, { incluir: !decisao.incluir })}
                       >
                         {decisao.incluir ? 'Tirar do slide' : 'Pôr no slide'}
+                      </button>
+                      <button
+                        type="button"
+                        className="botao"
+                        onClick={() => alternarTipo(s.itemId, 'evidencia')}
+                        title="Não é achado: devolver para a lista de tarefas de coleta"
+                      >
+                        Não é achado
                       </button>
                     </div>
                   </div>
@@ -661,24 +847,6 @@ export default function PaginaColeta() {
         </section>
       )}
 
-      {/* Evidências de coleta */}
-      {evidencias.length > 0 && (
-        <section className="cartao">
-          <h2 className="text-base font-semibold">Evidências de coleta ({evidencias.length})</h2>
-          <p className="mt-1 max-w-prose text-sm text-sutil">
-            Itens lidos como tarefa de coleta, não como achado — por isso não recebem código.
-          </p>
-          <ul className="mt-3 grid gap-1 text-sm sm:grid-cols-2">
-            {evidencias.map((e) => (
-              <li key={e.id} className="text-sutil">
-                <span className="text-xs">[{ROTULOS_PEEPO[e.categoria as CategoriaPeepo] ?? e.categoria}]</span>{' '}
-                {e.texto}
-                {e.responsavel && <span className="text-xs"> — {e.responsavel}</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </div>
   );
 }

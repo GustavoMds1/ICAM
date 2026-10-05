@@ -231,10 +231,22 @@ async function extrairTexto(resposta: Response): Promise<{ texto: string }> {
   const partes = Array.isArray(conteudo.parts) ? (conteudo.parts as Record<string, unknown>[]) : [];
   const texto = partes.map((p) => (typeof p.text === 'string' ? p.text : '')).join('');
 
+  const motivo = typeof candidatos[0]?.finishReason === 'string' ? candidatos[0].finishReason : '';
+
   if (!texto.trim()) {
-    const motivo = typeof candidatos[0]?.finishReason === 'string' ? candidatos[0].finishReason : 'resposta vazia';
-    throw new ErroGemini(String(motivo));
+    throw new ErroGemini(motivo || 'resposta vazia');
   }
+
+  // Corte por tamanho devolve texto NÃO vazio, só que truncado no meio do
+  // JSON. Sem este teste, a falha chegava como "respondeu fora do formato" —
+  // mensagem que manda procurar no lugar errado, porque o formato estava
+  // certo até o ponto em que a resposta acabou.
+  if (motivo === 'MAX_TOKENS') {
+    throw new ErroGemini(
+      'a resposta foi cortada por tamanho (MAX_TOKENS): há itens demais para uma tentativa só.',
+    );
+  }
+
   return { texto };
 }
 
@@ -249,6 +261,52 @@ function chamar(modelo: string, pedido: PedidoGemini, sinal: AbortSignal, buscar
     }),
     signal: sinal,
   });
+}
+
+/**
+ * Quantos itens vão por chamada.
+ *
+ * O limite de saída do modelo é fixo; a quantidade de constatações não. Uma
+ * investigação com cinquenta achados estourava o limite e a resposta voltava
+ * cortada no meio do JSON. Dividir em lotes resolve de forma determinística,
+ * sem depender de qual modelo está atendendo nem de quanto ele aceita.
+ *
+ * Doze é folgado: cada classificação ocupa algo entre 100 e 200 tokens, então
+ * um lote fica perto de 2.500 — bem abaixo do teto, com margem para
+ * justificativas longas.
+ */
+export const ITENS_POR_LOTE = 12;
+
+export function emLotes<T>(itens: T[], tamanho = ITENS_POR_LOTE): T[][] {
+  const lotes: T[][] = [];
+  for (let i = 0; i < itens.length; i += tamanho) lotes.push(itens.slice(i, i + tamanho));
+  return lotes;
+}
+
+/**
+ * Transforma a recusa do validador em mensagem que permite consertar.
+ *
+ * A versão anterior dizia só "respondeu fora do formato combinado", jogando
+ * fora o que o modelo devolveu e o que o validador reclamou — as duas únicas
+ * informações que levam ao conserto. Diagnóstico descartado é rodada perdida.
+ */
+export function explicarFormato(
+  problemas: { path: (string | number)[]; message: string }[],
+  texto: string,
+  quantosItens: number,
+): string {
+  const detalhe = problemas
+    .slice(0, 3)
+    .map((p) => `${p.path.join('.') || '(raiz)'}: ${p.message}`)
+    .join('; ');
+  const amostra = texto.trim().slice(0, 200).replace(/\s+/g, ' ');
+
+  return (
+    `A IA respondeu fora do formato combinado num lote de ${quantosItens} itens. ` +
+    `O validador apontou: ${detalhe || 'estrutura inesperada'}. ` +
+    `Começo da resposta: "${amostra}". ` +
+    'Tente de novo; se repetir, me mande esta mensagem inteira.'
+  );
 }
 
 export function extrairJson(texto: string): unknown {

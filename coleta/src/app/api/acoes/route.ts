@@ -38,8 +38,12 @@ export async function POST(requisicao: Request) {
     });
 
     // Mesma fronteira da rota de classificação: "ia" ou "local", nada além.
+    // Cada ação carrega a própria origem, e ela viaja de volta na geração do
+    // slide — então precisa ser traduzida aqui também, senão o nome escapa
+    // pelo corpo da requisição.
     return NextResponse.json({
       ...resultado,
+      acoes: resultado.acoes.map((a) => ({ ...a, origem: a.origem === 'gemini' ? 'ia' : 'local' })),
       origem: resultado.origem === 'gemini' ? 'ia' : 'local',
       modelo: resultado.modelo === null ? null : semFornecedor(resultado.modelo),
       avisos: avisosSemFornecedor(resultado.avisos),

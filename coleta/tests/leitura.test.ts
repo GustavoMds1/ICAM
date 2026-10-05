@@ -1,12 +1,47 @@
 import PptxGenJS from 'pptxgenjs';
 import { describe, expect, it } from 'vitest';
-import { lerEvento, lerFormas, lerPptx, separarResponsavel } from '@/lib/pptxLeitura';
+import { lerEvento, lerFormas, lerPptx, pedeColeta, separarResponsavel } from '@/lib/pptxLeitura';
 
 /**
  * O teste monta um PowerPoint com a mesma estrutura do modelo de investigação
  * e o lê de volta. Assim a verificação não depende de nenhum arquivo real —
  * apresentação de investigação tem nome de pessoa e não entra no repositório.
  */
+
+/**
+ * Separar tarefa de achado é a decisão mais errada do leitor, e ela tem
+ * consequência assimétrica: achado lido como tarefa some do slide sem aviso.
+ *
+ * Este caso veio de uma investigação real, em que "Pegar o diagrama elétrico
+ * do caminhão para analisar o travamento da báscula" foi lido como achado só
+ * por ser frase comprida e sem responsável.
+ */
+describe('tarefa de coleta x achado', () => {
+  it('verbo no infinitivo é pedido de coleta, por mais comprida que seja a frase', () => {
+    expect(
+      pedeColeta(
+        'Pegar o diagrama elétrico do caminhão para analisar o travamento da báscula, de acordo com o inclinômetro.',
+      ),
+    ).toBe(true);
+    expect(pedeColeta('Solicitar as imagens das câmeras do pátio')).toBe(true);
+    expect(pedeColeta('Verificar o histórico de manutenção do veículo')).toBe(true);
+  });
+
+  it('constatação de verdade não é confundida com pedido', () => {
+    expect(pedeColeta('O trecho não dispõe de sinalização vertical.')).toBe(false);
+    expect(pedeColeta('Ausência de travamento da báscula no momento do evento.')).toBe(false);
+    expect(pedeColeta('Falta de manutenção preventiva no sistema elétrico.')).toBe(false);
+    expect(
+      pedeColeta('O motorista não realizou o etiloteste no dia do evento.'),
+    ).toBe(false);
+  });
+
+  it('não confunde substantivo com verbo por causa da terminação', () => {
+    // Uma regra genérica de "termina em -ar/-er/-ir" derrubaria estas.
+    expect(pedeColeta('Lugar de descanso inadequado para o motorista.')).toBe(false);
+    expect(pedeColeta('Poder de decisão do operador não estava definido.')).toBe(false);
+  });
+});
 
 async function pptxDeTeste(): Promise<Buffer> {
   const pptx = new PptxGenJS();
